@@ -1,7 +1,7 @@
 <?php
 
 // run only if called from deployer.phar context
-if (function_exists('\Deployer\set')) {
+if (PHP_SAPI === 'cli' && function_exists('\Deployer\set')) {
 
     \SourceBroker\DeployerExtended\Utility\FileUtility::requireFilesFromDirectoryReqursively(__DIR__ . '/../deployer/config/', '/^set_driver/');
     \SourceBroker\DeployerExtended\Utility\FileUtility::requireFilesFromDirectoryReqursively(__DIR__ . '/../deployer/task/');
