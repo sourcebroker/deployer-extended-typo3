@@ -2,6 +2,8 @@
 
 namespace Deployer;
 
+set('bin/typo3cms', './vendor/bin/typo3cms');
+
 set('shared_dirs', [
         'fileadmin',
         'uploads',
@@ -60,10 +62,7 @@ set('db_default', [
     ],
     'ignore_tables_in' => [],
     'post_sql_out' => '',
-    'post_sql_in' => 'UPDATE sys_domain SET hidden = 1;
-                          UPDATE sys_domain SET sorting = sorting + 10;
-                          UPDATE sys_domain SET sorting=1, hidden = 0 WHERE tx_local_context="local";
-        '
+    'post_sql_in' => ''
 ]);
 
 
