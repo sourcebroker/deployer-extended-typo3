@@ -3,6 +3,7 @@
 namespace Deployer;
 
 task('deploy', [
+
     'deploy:check_lock',
     'deploy:composer_install_check',
     'deploy:prepare',
@@ -23,6 +24,7 @@ task('deploy', [
     'cache:frontendreset',
     'lock:delete_lock_files', // Frontend access possbile again from now.
     'cleanup',
+
 ])->desc('Deploy your TYPO3');
 
 after('deploy', 'success');
