@@ -10,7 +10,6 @@ use Dotenv\Dotenv;
  */
 class Typo3EnvDriver
 {
-
     /**
      * @param null $params
      * @return array
@@ -29,13 +28,17 @@ class Typo3EnvDriver
             $dbConfig['user'] = getenv('TYPO3__DB__username');
             $dbConfig['password'] = getenv('TYPO3__DB__password');
 
+            $dbConfig['post_sql_in_driver'] = '
+                              UPDATE sys_domain SET hidden = 1;
+                              UPDATE sys_domain SET sorting = sorting + 10;
+                              UPDATE sys_domain SET sorting=1, hidden = 0 WHERE {{domains}};
+                              ';
+
             return [$params['database_code'] => $dbConfig];
 
         } else {
             throw new \Exception('Missing file "' . $params['configDir'] . '".env.');
         }
-
-
     }
 
     /**
@@ -60,10 +63,11 @@ class Typo3EnvDriver
 
     public function detectConfig($projectRootPath)
     {
-        if(is_file(rtrim($projectRootPath, '/') . '/.env') || is_file($projectRootPath . '/.env.dist')) {
+        if (is_file(rtrim($projectRootPath, '/') . '/.env') || is_file($projectRootPath . '/.env.dist')) {
             return true;
         } else {
             return false;
         }
     }
+
 }
