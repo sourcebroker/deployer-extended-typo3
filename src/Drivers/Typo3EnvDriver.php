@@ -28,10 +28,10 @@ class Typo3EnvDriver
             $dbConfig['user'] = getenv('TYPO3__DB__username');
             $dbConfig['password'] = getenv('TYPO3__DB__password');
 
-            $dbConfig['post_sql_in_driver'] = '
+            $dbConfig['post_sql_in_with_markers'] = '
                               UPDATE sys_domain SET hidden = 1;
                               UPDATE sys_domain SET sorting = sorting + 10;
-                              UPDATE sys_domain SET sorting=1, hidden = 0 WHERE {{domains}};
+                              UPDATE sys_domain SET sorting=1, hidden = 0 WHERE domainName IN ({{domainsSeparatedByComma}});
                               ';
 
             return [$params['database_code'] => $dbConfig];
