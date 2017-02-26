@@ -21,3 +21,7 @@ set(
     'instance',
     (new Typo3Driver)->getInstanceName(['file' => get('current_dir') . '/typo3conf/AdditionalConfiguration_custom.php'])
 );
+
+// Its used when you do not put any stage into task parameter.
+// Thanks to that you can do: "dep db:export" and not "dep db:export local"
+set('default_stage', get('instance'));
