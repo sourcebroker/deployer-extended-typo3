@@ -36,7 +36,7 @@ set('clear_paths', [
 set('clear_use_sudo', false);
 
 set('db_default', [
-    '`' => [
+    'caching_tables' => [
         'cf_.*'
     ],
     'ignore_tables_out' => [
