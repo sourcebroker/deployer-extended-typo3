@@ -20,13 +20,22 @@ class Typo3EnvDriver
         if (file_exists($params['configDir'])) {
             $dotenv = new Dotenv($params['configDir']);
             $dotenv->load();
-            //$dotenv->required(['TYPO3__DB__host', 'TYPO3__DB__database', 'TYPO3__DB__username', 'TYPO3__DB__password'])->notEmpty();
 
-            $dbConfig['host'] = getenv('TYPO3__DB__host');
-            $dbConfig['port'] = getenv('TYPO3__DB__port') ? getenv('TYPO3__DB__port') : 3306;
-            $dbConfig['dbname'] = getenv('TYPO3__DB__database');
-            $dbConfig['user'] = getenv('TYPO3__DB__username');
-            $dbConfig['password'] = getenv('TYPO3__DB__password');
+            // TYPO3 8.0
+            if (false !== getenv('TYPO3__DB__Connections__Default__dbname')) {
+                $dbConfig['host'] = getenv('TYPO3__DB__Connections__Default__host');
+                $dbConfig['port'] = getenv('TYPO3__DB__Connections__Default__port') ? getenv('TYPO3__DB__Connections__Default__port') : 3306;
+                $dbConfig['dbname'] = getenv('TYPO3__DB__Connections__Default__dbname');
+                $dbConfig['user'] = getenv('TYPO3__DB__Connections__Default__user');
+                $dbConfig['password'] = getenv('TYPO3__DB__Connections__Default__password');
+            } else {
+                // TYPO3 7.6 and TYPO3 6.2
+                $dbConfig['host'] = getenv('TYPO3__DB__host');
+                $dbConfig['port'] = getenv('TYPO3__DB__port') ? getenv('TYPO3__DB__port') : 3306;
+                $dbConfig['dbname'] = getenv('TYPO3__DB__database');
+                $dbConfig['user'] = getenv('TYPO3__DB__username');
+                $dbConfig['password'] = getenv('TYPO3__DB__password');
+            }
 
             $dbConfig['post_sql_in_with_markers'] = '
                               UPDATE sys_domain SET hidden = 1;
