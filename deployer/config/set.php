@@ -21,8 +21,6 @@ set('writable_dirs', [
     ]
 );
 
-set('writable_use_sudo', false);
-
 set('clear_paths', [
     '.git',
     '.gitignore',
@@ -32,8 +30,6 @@ set('clear_paths', [
     '.gitattributes',
     '.env.dist'
 ]);
-
-set('clear_use_sudo', false);
 
 set('db_default', [
     'caching_tables' => [
@@ -65,8 +61,6 @@ set('db_default', [
     'post_sql_out' => '',
     'post_sql_in' => ''
 ]);
-
-
 
 set('media',
     [
