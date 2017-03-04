@@ -7,6 +7,7 @@ task('deploy', [
     'deploy:check_lock',
     'deploy:composer_install_check',
     'deploy:prepare',
+    'deploy:lock',
     'deploy:release',
     'deploy:update_code',
     'deploy:shared',
@@ -25,6 +26,7 @@ task('deploy', [
     'cache:clearstatcache',
     'cache:frontendreset',
     'lock:delete_lock_files', // Frontend access possbile again from now.
+    'deploy:unlock',
     'cleanup',
 
 ])->desc('Deploy your TYPO3');
