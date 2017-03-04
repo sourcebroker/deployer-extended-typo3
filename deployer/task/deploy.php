@@ -12,6 +12,7 @@ task('deploy', [
     'deploy:shared',
     'deploy:writable',
     'deploy:vendors',
+    'typo3:regenerate_dotenv',
     'lock:overwrite_entry_point',
     'cache:clearstatcache',
     'lock:create_lock_files', // No frontend access possbile from now. Requests are buffered.
