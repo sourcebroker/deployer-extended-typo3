@@ -2,7 +2,9 @@
 
 namespace SourceBroker\DeployerExtendedTypo3\Drivers;
 
+use Deployer\Exception\ConfigurationException;
 use Dotenv\Dotenv;
+use SourceBroker\DeployerExtended\Utility\FileUtility;
 
 /**
  * Class Typo3EnvDriver
@@ -17,6 +19,8 @@ class Typo3EnvDriver
      */
     public function getDatabaseConfig($params = null)
     {
+        $this->createEnvFileIfDoesNotExist($params);
+
         if (file_exists($params['configDir'])) {
             $dotenv = new Dotenv($params['configDir']);
             $dotenv->load();
@@ -59,7 +63,9 @@ class Typo3EnvDriver
      */
     public function getInstanceName($params = null)
     {
-        if (file_exists($params['configDir'])) {
+        $this->createEnvFileIfDoesNotExist($params);
+
+        if (file_exists(FileUtility::normalizeFolder($params['configDir']) . '/.env')) {
             $dotenv = new Dotenv($params['configDir']);
             $dotenv->load();
             $dotenv->required(['INSTANCE'])->notEmpty();
@@ -79,4 +85,66 @@ class Typo3EnvDriver
         }
     }
 
+    public function createEnvFileIfDoesNotExist($params)
+    {
+        if (!file_exists(FileUtility::normalizeFolder($params['configDir']) . '/.env')) {
+
+            if (getenv('TYPO3_CONTEXT_ENV') == false
+                || getenv('INSTANCE') == false
+                || getenv('DATABASE_HOST') == false
+                || getenv('DATABASE_PASSWORD') == false
+                || getenv('DATABASE_USER') == false
+                || getenv('DATABASE_PORT') == false
+            ) {
+                throw new ConfigurationException('Create .env file yourself from .env.dist or it can be done automaticly for you. Read the docs. 
+                Just pass TYPO3_CONTEXT_ENV, INSTANCE, DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USER, DATABASE_PORT, TYPO3__GFX__im_path, TYPO3__GFX__im_path_lzw, TYPO3__GFX__colorspace as env.');
+            }
+
+            if (getenv('DATABASE_NAME') === false) {
+                exec('cd ' . $params['configDir'] . ' && basename `git rev-parse --show-toplevel`', $output);
+                if (isset($output[0]) && strlen($output[0]) == 0) {
+                    throw new ConfigurationException('Can not get git repo name from "basename `git rev-parse --show-toplevel`" command. Its needed to create database.');
+                }
+                $databaseBaseName = 'typo3_' . $output[0];
+            } else {
+                $databaseBaseName = getenv('DATABASE_NAME');
+            }
+            $host = getenv('DATABASE_HOST');
+            $username = getenv('DATABASE_USER');
+            $password = getenv('DATABASE_PASSWORD');
+            $port = getenv('DATABASE_PORT');
+            try {
+                $mysqli = new \mysqli($host, $username, $password);
+                $databaseCreated = false;
+                $i = 0;
+                while ($databaseCreated == false && $i < 3) {
+                    $databaseName = $databaseBaseName . ($i ? '_' . $i : '');
+                    $mysqli->query("CREATE DATABASE IF NOT EXISTS " . $databaseName);
+                    $result = $mysqli->query("SELECT COUNT(DISTINCT `table_name`) AS table_counter FROM `information_schema`.`columns` WHERE `table_schema` = '" . $databaseName . "'");
+                    if (intval($result->fetch_assoc()['table_counter']) === 0) {
+                        $databaseCreated = true;
+                    } else {
+                        $i++;
+                    }
+                }
+            } catch (\mysqli_sql_exception $e) {
+                throw $e;
+            }
+            $env = '
+TYPO3_CONTEXT="' . getenv('TYPO3_CONTEXT_ENV') . '"
+INSTANCE="' . getenv('INSTANCE') . '"
+
+TYPO3__DB__database="' . $databaseName . '"
+TYPO3__DB__host="' . $host . '"
+TYPO3__DB__password="' . $password . '"
+TYPO3__DB__port="' . $port . '"
+TYPO3__DB__username="' . $username . '"
+
+TYPO3__GFX__im_path="' . getenv('TYPO3__GFX__im_path') . '"
+TYPO3__GFX__im_path_lzw="' . getenv('TYPO3__GFX__im_path_lzw') . '"
+TYPO3__GFX__colorspace="' . getenv('TYPO3__GFX__colorspace') . '"
+';
+            file_put_contents(FileUtility::normalizeFolder($params['configDir']) . '/.env', $env);
+        }
+    }
 }
