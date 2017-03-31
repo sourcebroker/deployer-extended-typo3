@@ -25,20 +25,20 @@ class Typo3EnvDriver
             $dotenv = new Dotenv($params['configDir']);
             $dotenv->load();
 
-            // TYPO3 8.0
-            if (false !== getenv('TYPO3__DB__Connections__Default__dbname')) {
-                $dbConfig['host'] = getenv('TYPO3__DB__Connections__Default__host');
-                $dbConfig['port'] = getenv('TYPO3__DB__Connections__Default__port') ? getenv('TYPO3__DB__Connections__Default__port') : 3306;
-                $dbConfig['dbname'] = getenv('TYPO3__DB__Connections__Default__dbname');
-                $dbConfig['user'] = getenv('TYPO3__DB__Connections__Default__user');
-                $dbConfig['password'] = getenv('TYPO3__DB__Connections__Default__password');
-            } else {
-                // TYPO3 7.6 and TYPO3 6.2
+            // TYPO3 6.2.* || TYPO3 7.6.*
+            if (file_exists($params['configDir'] . 'typo3/browser.php')) {
                 $dbConfig['host'] = getenv('TYPO3__DB__host');
                 $dbConfig['port'] = getenv('TYPO3__DB__port') ? getenv('TYPO3__DB__port') : 3306;
                 $dbConfig['dbname'] = getenv('TYPO3__DB__database');
                 $dbConfig['user'] = getenv('TYPO3__DB__username');
                 $dbConfig['password'] = getenv('TYPO3__DB__password');
+            } else {
+                // TYPO3 8.7+
+                $dbConfig['host'] = getenv('TYPO3__DB__Connections__Default__host');
+                $dbConfig['port'] = getenv('TYPO3__DB__Connections__Default__port') ? getenv('TYPO3__DB__Connections__Default__port') : 3306;
+                $dbConfig['dbname'] = getenv('TYPO3__DB__Connections__Default__dbname');
+                $dbConfig['user'] = getenv('TYPO3__DB__Connections__Default__user');
+                $dbConfig['password'] = getenv('TYPO3__DB__Connections__Default__password');
             }
 
             $dbConfig['post_sql_in_with_markers'] = '
@@ -89,7 +89,7 @@ class Typo3EnvDriver
     {
         if (!file_exists(FileUtility::normalizeFolder($params['configDir']) . '/.env')) {
 
-            if (getenv('TYPO3_CONTEXT_ENV') == false
+            if (getenv('TYPO3_CONTEXT') == false
                 || getenv('INSTANCE') == false
                 || getenv('DATABASE_HOST') == false
                 || getenv('DATABASE_PASSWORD') == false
@@ -113,6 +113,7 @@ class Typo3EnvDriver
             $username = getenv('DATABASE_USER');
             $password = getenv('DATABASE_PASSWORD');
             $port = getenv('DATABASE_PORT');
+            $databaseName = '';
             try {
                 $mysqli = new \mysqli($host, $username, $password);
                 $databaseCreated = false;
@@ -130,21 +131,30 @@ class Typo3EnvDriver
             } catch (\mysqli_sql_exception $e) {
                 throw $e;
             }
-            $env = '
-TYPO3_CONTEXT="' . getenv('TYPO3_CONTEXT_ENV') . '"
-INSTANCE="' . getenv('INSTANCE') . '"
 
-TYPO3__DB__database="' . $databaseName . '"
-TYPO3__DB__host="' . $host . '"
-TYPO3__DB__password="' . $password . '"
-TYPO3__DB__port="' . $port . '"
-TYPO3__DB__username="' . $username . '"
+            $envDist = file_get_contents(FileUtility::normalizeFolder($params['configDir']) . '/.env.dist');
 
-TYPO3__GFX__im_path="' . getenv('TYPO3__GFX__im_path') . '"
-TYPO3__GFX__im_path_lzw="' . getenv('TYPO3__GFX__im_path_lzw') . '"
-TYPO3__GFX__colorspace="' . getenv('TYPO3__GFX__colorspace') . '"
-';
-            file_put_contents(FileUtility::normalizeFolder($params['configDir']) . '/.env', $env);
+            $replace = [
+                'TYPO3_CONTEXT' => getenv('TYPO3_CONTEXT'),
+                'INSTANCE' => getenv('INSTANCE'),
+                'DATABASE_NAME' => $databaseName,
+                'DATABASE_HOST' => $host,
+                'DATABASE_PASSWORD' => $password,
+                'DATABASE_PORT' => $port,
+                'DATABASE_USER' => $username,
+                'IMAGE_MAGICK_PATH' => getenv('IMAGE_MAGICK_PATH'),
+                'IMAGE_MAGICK_COLORSPACE' => getenv('IMAGE_MAGICK_COLORSPACE')
+            ];
+
+            $envDistMarkersReplaced = preg_replace_callback(
+                "/\\{([A-Za-z0-9_:]+)\\}/",
+                function ($match) use ($replace) {
+                    return $replace[$match[1]];
+                },
+                $envDist
+            );
+
+            file_put_contents(FileUtility::normalizeFolder($params['configDir']) . '/.env', $envDistMarkersReplaced);
         }
     }
 }
