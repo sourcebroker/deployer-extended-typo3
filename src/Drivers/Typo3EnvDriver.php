@@ -26,7 +26,7 @@ class Typo3EnvDriver
             $dotenv->load();
 
             // TYPO3 6.2.* || TYPO3 7.6.*
-            if (file_exists($params['configDir'] . 'typo3/browser.php')) {
+            if (file_exists(FileUtility::normalizeFolder($params['configDir']) . '/typo3/browser.php')) {
                 $dbConfig['host'] = getenv('TYPO3__DB__host');
                 $dbConfig['port'] = getenv('TYPO3__DB__port') ? getenv('TYPO3__DB__port') : 3306;
                 $dbConfig['dbname'] = getenv('TYPO3__DB__database');
