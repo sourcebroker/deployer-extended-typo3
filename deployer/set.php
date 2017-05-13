@@ -6,36 +6,14 @@ use SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver;
 
 set('bin/typo3cms', './vendor/bin/typo3cms');
 
-set('typo3_major_version', (new Typo3EnvDriver)->getTypo3MajorVersion('typo3_major_version'));
-
 set('shared_dirs', [
         'fileadmin',
         'uploads',
+        'typo3temp/assets/_processed_',
+        'typo3temp/assets/images',
+        'typo3temp/var/logs',
     ]
 );
-
-switch (get('typo3_major_version')) {
-
-    case 8:
-        add('shared_dirs', [
-                'typo3temp/var/logs',
-            ]
-        );
-        break;
-
-    case 7:
-        add('shared_dirs', [
-                'typo3temp/_processed_',
-                'typo3temp/pics',
-                'typo3temp/logs'
-            ]
-        );
-        break;
-
-    default:
-        throw new \Exception('Unsupported TYPO3 version: ' . get('typo3_major_version'));
-
-}
 
 set('shared_files', ['{{web_path}}.env']);
 
