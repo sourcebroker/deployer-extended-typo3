@@ -25,20 +25,27 @@ class Typo3EnvDriver
             $dotenv = new Dotenv($params['configDir']);
             $dotenv->load();
 
-            // TYPO3 6.2.* || TYPO3 7.6.*
-            if (file_exists(FileUtility::normalizeFolder($params['configDir']) . '/typo3/browser.php')) {
-                $dbConfig['host'] = getenv('TYPO3__DB__host');
-                $dbConfig['port'] = getenv('TYPO3__DB__port') ? getenv('TYPO3__DB__port') : 3306;
-                $dbConfig['dbname'] = getenv('TYPO3__DB__database');
-                $dbConfig['user'] = getenv('TYPO3__DB__username');
-                $dbConfig['password'] = getenv('TYPO3__DB__password');
-            } else {
-                // TYPO3 8.7+
-                $dbConfig['host'] = getenv('TYPO3__DB__Connections__Default__host');
-                $dbConfig['port'] = getenv('TYPO3__DB__Connections__Default__port') ? getenv('TYPO3__DB__Connections__Default__port') : 3306;
-                $dbConfig['dbname'] = getenv('TYPO3__DB__Connections__Default__dbname');
-                $dbConfig['user'] = getenv('TYPO3__DB__Connections__Default__user');
-                $dbConfig['password'] = getenv('TYPO3__DB__Connections__Default__password');
+            switch ($this->getTypo3MajorVersion($params)) {
+                case 6:
+                case 7:
+                    $dbConfig['host'] = getenv('TYPO3__DB__host');
+                    $dbConfig['port'] = getenv('TYPO3__DB__port') ? getenv('TYPO3__DB__port') : 3306;
+                    $dbConfig['dbname'] = getenv('TYPO3__DB__database');
+                    $dbConfig['user'] = getenv('TYPO3__DB__username');
+                    $dbConfig['password'] = getenv('TYPO3__DB__password');
+                    break;
+
+                case 8:
+                    $dbConfig['host'] = getenv('TYPO3__DB__Connections__Default__host');
+                    $dbConfig['port'] = getenv('TYPO3__DB__Connections__Default__port') ? getenv('TYPO3__DB__Connections__Default__port') : 3306;
+                    $dbConfig['dbname'] = getenv('TYPO3__DB__Connections__Default__dbname');
+                    $dbConfig['user'] = getenv('TYPO3__DB__Connections__Default__user');
+                    $dbConfig['password'] = getenv('TYPO3__DB__Connections__Default__password');
+                    break;
+
+                default:
+                    throw new \Exception('Not supported TYPO3 version: ' . $this->getTypo3MajorVersion($params));
+
             }
 
             $dbConfig['post_sql_in_with_markers'] = '
@@ -76,15 +83,10 @@ class Typo3EnvDriver
         }
     }
 
-    public function detectConfig($projectRootPath)
-    {
-        if (is_file(rtrim($projectRootPath, '/') . '/.env') || is_file($projectRootPath . '/.env.dist')) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
+    /**
+     * @param $params
+     */
     public function createEnvFileIfDoesNotExist($params)
     {
         if (!file_exists(FileUtility::normalizeFolder($params['configDir']) . '/.env')) {
@@ -156,5 +158,33 @@ class Typo3EnvDriver
 
             file_put_contents(FileUtility::normalizeFolder($params['configDir']) . '/.env', $envDistMarkersReplaced);
         }
+    }
+
+    /**
+     * @param $params
+     * @return int|null
+     * @throws \Exception
+     */
+    public function getTypo3MajorVersion($params)
+    {
+        $typo3MajorVersion = null;
+        if (file_exists(FileUtility::normalizeFolder($params['configDir']) . '/typo3/backend.php')) {
+            $typo3MajorVersion = 6;
+        }
+        if (file_exists(FileUtility::normalizeFolder($params['configDir']) . '/typo3/init.php')) {
+            $typo3MajorVersion = 7;
+        }
+        if (!file_exists(FileUtility::normalizeFolder($params['configDir']) . '/typo3/init.php')) {
+            $typo3MajorVersion = 8;
+        }
+        if (null == $typo3MajorVersion) {
+            throw new \Exception('Cannot figure out the TYPO3 major version.');
+        }
+        return $typo3MajorVersion;
+    }
+
+    public function load()
+    {
+        \SourceBroker\DeployerExtended\Utility\FileUtility::requireFilesFromDirectoryReqursively(__DIR__ . '/../deployer/');
     }
 }

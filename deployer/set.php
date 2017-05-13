@@ -2,16 +2,42 @@
 
 namespace Deployer;
 
+use SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver;
+
 set('bin/typo3cms', './vendor/bin/typo3cms');
+
+set('typo3_major_version', (new Typo3EnvDriver)->getTypo3MajorVersion('typo3_major_version'));
 
 set('shared_dirs', [
         'fileadmin',
         'uploads',
-        'typo3temp/_processed_',
-        'typo3temp/pics',
-        'typo3temp/logs'
     ]
 );
+
+switch (get('typo3_major_version')) {
+
+    case 8:
+        add('shared_dirs', [
+                'typo3temp/var/logs',
+            ]
+        );
+        break;
+
+    case 7:
+        add('shared_dirs', [
+                'typo3temp/_processed_',
+                'typo3temp/pics',
+                'typo3temp/logs'
+            ]
+        );
+        break;
+
+    default:
+        throw new \Exception('Unsupported TYPO3 version: ' . get('typo3_major_version'));
+
+}
+
+set('shared_files', ['{{web_path}}.env']);
 
 set('writable_dirs', [
         'typo3conf',
@@ -73,3 +99,20 @@ set('media',
             '- *'
         ]
     ]);
+
+set(
+    'db_databases',
+    [
+        (new Typo3EnvDriver)->getDatabaseConfig([
+            'configDir' => get('current_dir'),
+            'database_code' => 'database_default'
+        ]),
+        ['database_default' => get('db_default')],
+    ]
+);
+
+set('instance', (new Typo3EnvDriver)->getInstanceName(['configDir' => get('current_dir')]));
+
+// Its used when you do not put any stage into task parameter.
+// Thanks to that you can do: "dep db:export" and not "dep db:export local"
+set('default_stage', get('instance'));
