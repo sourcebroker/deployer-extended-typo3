@@ -9,9 +9,9 @@ set('bin/typo3cms', './vendor/bin/typo3cms');
 set('shared_dirs', [
         'fileadmin',
         'uploads',
-        'typo3temp/assets/_processed_',
-        'typo3temp/assets/images',
-        'typo3temp/var/logs',
+        'typo3temp/_processed_',
+        'typo3temp/pics',
+        'typo3temp/logs'
     ]
 );
 
