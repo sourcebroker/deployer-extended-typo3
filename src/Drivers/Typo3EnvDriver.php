@@ -25,11 +25,11 @@ class Typo3EnvDriver
             $dotenv = new Dotenv($params['configDir']);
             $dotenv->load();
 
-            $dbConfig['host'] = getenv('TYPO3__DB__Connections__Default__host');
-            $dbConfig['port'] = getenv('TYPO3__DB__Connections__Default__port') ? getenv('TYPO3__DB__Connections__Default__port') : 3306;
-            $dbConfig['dbname'] = getenv('TYPO3__DB__Connections__Default__dbname');
-            $dbConfig['user'] = getenv('TYPO3__DB__Connections__Default__user');
-            $dbConfig['password'] = getenv('TYPO3__DB__Connections__Default__password');
+            $dbConfig['host'] = getenv('TYPO3__DB__host');
+            $dbConfig['port'] = getenv('TYPO3__DB__port') ? getenv('TYPO3__DB__port') : 3306;
+            $dbConfig['dbname'] = getenv('TYPO3__DB__database');
+            $dbConfig['user'] = getenv('TYPO3__DB__username');
+            $dbConfig['password'] = getenv('TYPO3__DB__password');
 
             $dbConfig['post_sql_in_with_markers'] = '
                               UPDATE sys_domain SET hidden = 1;
