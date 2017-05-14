@@ -2,7 +2,7 @@
 
 namespace Deployer;
 
-task('typo3:cache:delete_typo3temp_cache', function() {
+task('typo3:cache:delete_typo3temp_cache', function () {
     // Cache dir to delete.
     set('delete_typo3temp_cache__cache_dir', 'typo3temp/var/Cache');
 
@@ -13,7 +13,7 @@ task('typo3:cache:delete_typo3temp_cache', function() {
         set('active_dir', get('deploy_path') . '/current');
     }
     // Rename is atomic - so first rename and then delete.
-    if (run('if [ -D {{active_dir}}{{delete_typo3temp_cache__cache_dir}} ] ; then echo true; fi')->toBool()) {
+    if (run('if [ -D {{active_dir}}/{{delete_typo3temp_cache__cache_dir}} ] ; then echo true; fi')->toBool()) {
         run('cd {{active_dir}} && mv {{delete_typo3temp_cache__cache_dir}} {{delete_typo3temp_cache__cache_dir}}{{random}}');
         run('cd {{active_dir}} && rm -rf {{delete_typo3temp_cache__cache_dir}}{{random}}');
     }
