@@ -15,7 +15,7 @@ set('shared_dirs', [
     ]
 );
 
-set('shared_files', ['{{web_path}}.env']);
+set('shared_files', ['.env']);
 
 set('writable_dirs', [
         'typo3conf',
