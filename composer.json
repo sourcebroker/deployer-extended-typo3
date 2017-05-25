@@ -17,7 +17,6 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
     "typo3/cms-core": ">=8.7.0,<9.0",
     "helhum/typo3-console": "~4.2",
     "vlucas/phpdotenv": "~2.2",
