@@ -17,11 +17,11 @@ task('deploy', [
     'deployer:download', // Download deployer if its not there yet becase its needed to clear database cache tables.
     'lock:overwrite_entry_point',
     'lock:create_lock_files', // No frontend access possbile from now. Requests are buffered.
-    'typo3:db:update_schema', // Update db schema for TYPO3.
+    'typo3console:database:updateschema:safe', // Update db schema for TYPO3.
     'cache:clearstatcache',
     'deploy:symlink', // Switch old php code with new version (./release/ dir is removed and all is now in ./current/ folder)
     'db:truncate', // Clear database cache tables.
-    'typo3:cache:delete_typo3temp_cache', // Delete all typo3temp cache files.
+    'file:remove_recursive_atomic', // Remove
     'cache:clearstatcache',
     'cache:frontendreset',
     'lock:delete_lock_files', // Frontend access possbile again from now.
