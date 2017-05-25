@@ -14,7 +14,6 @@ task('deploy', [
     'deploy:writable',
     'deploy:vendors',
     'deploy:clear_paths', // Remove files and folders which are not needed for webiste to work.
-    'typo3:cache:regenerate_env_cache',
     'deployer:download', // Download deployer if its not there yet becase its needed to clear database cache tables.
     'lock:overwrite_entry_point',
     'lock:create_lock_files', // No frontend access possbile from now. Requests are buffered.
