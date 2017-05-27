@@ -145,6 +145,6 @@ class Typo3EnvDriver
 
     public function load()
     {
-        \SourceBroker\DeployerExtended\Utility\FileUtility::requireFilesFromDirectoryReqursively(__DIR__ . '/../deployer/');
+        \SourceBroker\DeployerExtended\Utility\FileUtility::requireFilesFromDirectoryReqursively(__DIR__ . '/../../deployer/');
     }
 }
