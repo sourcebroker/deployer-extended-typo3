@@ -18,9 +18,10 @@
   ],
   "require": {
     "typo3/cms-core": ">=8.7.0,<9.0",
-    "helhum/typo3-console": "~4.2",
+    "helhum/typo3-console": "~4.4",
     "vlucas/phpdotenv": "~2.2",
-    "sourcebroker/deployer-extended": "~1.0"
+    "sourcebroker/deployer-extended": "~1.0",
+    "sourcebroker/deployer-extended-typo3-tasks": "~0.2"
   },
   "autoload": {
     "psr-4": {

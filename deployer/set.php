@@ -6,6 +6,12 @@ use SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver;
 
 set('bin/typo3cms', './vendor/bin/typo3cms');
 
+// for TYPO3 8.7 we need to have php7
+//set('bin/php', function () {
+//    return run('which php7.1')->toString();
+//});
+//set('composer_options', get('composer_options') . ' --ignore-platform-reqs');
+
 set('shared_dirs', [
         'fileadmin',
         'uploads',

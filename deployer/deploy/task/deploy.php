@@ -3,7 +3,6 @@
 namespace Deployer;
 
 task('deploy', [
-
     'deploy:check_lock',
     'deploy:composer_install_check',
     'deploy:prepare',
@@ -17,17 +16,18 @@ task('deploy', [
     'deployer:download', // Download deployer if its not there yet becase its needed to clear database cache tables.
     'lock:overwrite_entry_point',
     'lock:create_lock_files', // No frontend access possbile from now. Requests are buffered.
-    'typo3console:database:updateschema:safe', // Update db schema for TYPO3.
+    'db:truncate', // Clear database cache tables.
+    'file:remove_recursive_atomic', // Remove folders defined in "get('remove_recursive_atomic_directories')"
+    'typo3cms:database:updateschema', // Update db schema for TYPO3.
     'cache:clearstatcache',
     'deploy:symlink', // Switch old php code with new version (./release/ dir is removed and all is now in ./current/ folder)
-    'db:truncate', // Clear database cache tables.
-    'file:remove_recursive_atomic', // Remove
+    'file:remove_recursive_atomic', // Remove folders defined in "get('remove_recursive_atomic_directories')"
+    'typo3cms:database:updateschema', // Update db schema for TYPO3.
     'cache:clearstatcache',
     'cache:frontendreset',
     'lock:delete_lock_files', // Frontend access possbile again from now.
     'deploy:unlock',
     'cleanup',
-
 ])->desc('Deploy your TYPO3');
 
 after('deploy', 'success');
