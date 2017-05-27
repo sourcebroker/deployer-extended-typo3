@@ -40,7 +40,8 @@ set('clear_paths', [
     'composer.lock',
     'composer.phar',
     '.gitattributes',
-    '.env.dist'
+    '.env.dist',
+    'dynamicReturnTypeMeta.json'
 ]);
 
 set('db_default', [
