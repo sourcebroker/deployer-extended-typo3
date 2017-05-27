@@ -27,5 +27,8 @@
     "psr-4": {
       "SourceBroker\\DeployerExtendedTypo3\\": "src/"
     }
-  }
+  },
+  "files": [
+    "src/Autoload.php"
+  ]
 }
