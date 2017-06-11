@@ -21,7 +21,7 @@
     "typo3/cms-core": ">=7.6.0,<8.0",
     "helhum/typo3-console": "~4.2",
     "vlucas/phpdotenv": "~2.2",
-    "sourcebroker/deployer-extended": "~1.0",
+    "sourcebroker/deployer-extended": "~2.0",
     "sourcebroker/deployer-extended-typo3-tasks": "~0.2"
   },
   "autoload": {

@@ -15,7 +15,7 @@ set('shared_dirs', [
     ]
 );
 
-set('remove_recursive_atomic_directories', ['typo3temp/Cache']);
+set('file_remove2steps_items', ['typo3temp/Cache']);
 
 set('shared_files', ['.env']);
 
