@@ -1,11 +1,13 @@
 ## What does it do?
 
-This package provides additional deployer tasks to support TYPO3 CMS. It depends on 
-sourcebroker/deployer-extended package which provides some system independent tasks
+This package provides deploy task for deploying TYPO3 CMS with deployer (deployer.org).
+It depends on:
+- sourcebroker/deployer-extended package which provides some system independent tasks
 as database and media synchronistation and request bufferring during time of deploy
 to allow 100% zero time deployment.
 
-This package provides a working deploy task so you can use it to deploy TYPO3 projects.
+- sourcebroker/deployer-extended-typo3-tasks which is wrapper for ext:typo3_console 
+and TYPO3 commands
 
 ## Installation
 
@@ -17,7 +19,7 @@ Mind that there is no full semantic versioning because major version is for the 
 - For TYPO3 9.0 the tags starts with 4.\*.\*
 
 The features and bugfixes will increment the patch version and the change in minor version
-will mean breaking change (major.[breaking].[features/bugfixes])
+will mean breaking change ([TYPO3 version].[breaking].[features/bugfixes])
 
 Therefore you should use tilde-range constraints for choosing sourcebroker/deployer-extended-typo3
 
@@ -32,11 +34,8 @@ Therefore you should use tilde-range constraints for choosing sourcebroker/deplo
 
 ### Dot env
 
-This package requires that you use .env to manage your TYPO3 settings which 
-are instance dependent.
-
-For database synchronisation functionality you must set in .env file the INSTANCE which
-must be the same as server name in deploy.php file: 
+This package requires that you use .env to manage your TYPO3 settings which are instance dependent.
+For database synchronisation functionality you must set in .env file following settings: 
 
 For TYPO3 7.6
 
@@ -58,8 +57,8 @@ For TYPO3 8.7
 
 
 To implement the ".env" support for your project look for:
- https://github.com/helhum/dotenv-connector
- https://github.com/helhum/TYPO3-Distribution
+- https://github.com/helhum/dotenv-connector
+- https://github.com/helhum/TYPO3-Distribution
 
 
 ## Known problems
