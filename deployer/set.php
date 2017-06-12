@@ -12,6 +12,17 @@ set('bin/typo3cms', './vendor/bin/typo3cms');
 //});
 //set('composer_options', get('composer_options') . ' --ignore-platform-reqs');
 
+// Array keys for better unsetting if someone would like to change only part of configuration
+add('buffer_config', [
+        'typo3/index.php' => [
+            'entrypoint_filename' => 'typo3/index.php',
+        ],
+        'typo3/cli_dispatch.phpsh' => [
+            'entrypoint_filename' => 'typo3/cli_dispatch.phpsh',
+        ]
+    ]
+);
+
 set('shared_dirs', [
         'fileadmin',
         'uploads',
