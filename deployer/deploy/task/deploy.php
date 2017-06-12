@@ -38,7 +38,7 @@ task('deploy', [
     // Update database schema for TYPO3.
     'typo3cms:database:updateschema',
     // Clear php file info cache.
-    'cache:clearstatcache',
+    'php:clear_cache_cli',
     // Symlink release/x/ to current/
     'deploy:symlink',
     // Remove two steps. First just rename files and folders to be removed.
