@@ -6,6 +6,23 @@ use SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver;
 
 set('bin/typo3cms', './vendor/bin/typo3cms');
 
+// Array keys for better unsetting if someone would like to change only part of configuration
+add('buffer_config', [
+        'typo3/index.php' => [
+            'entrypoint_filename' => 'typo3/index.php',
+        ],
+        'typo3/cli_dispatch.phpsh' => [
+            'entrypoint_filename' => 'typo3/cli_dispatch.phpsh',
+        ],
+        'typo3/deprecated.php' => [
+            'entrypoint_filename' => 'typo3/deprecated.php',
+        ],
+        'typo3/install/index.php' => [
+            'entrypoint_filename' => 'typo3/install/index.php',
+        ],
+    ]
+);
+
 set('shared_dirs', [
         'fileadmin',
         'uploads',
