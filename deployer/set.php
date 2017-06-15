@@ -101,11 +101,10 @@ set('media',
 set(
     'db_databases',
     [
-        (new Typo3EnvDriver)->getDatabaseConfig([
-            'configDir' => get('current_dir'),
-            'database_code' => 'database_default'
-        ]),
-        ['database_default' => get('db_default')],
+        'database_default' => [
+            (new Typo3EnvDriver)->getDatabaseConfig(['configDir' => get('current_dir')]),
+            get('db_default'),
+        ]
     ]
 );
 

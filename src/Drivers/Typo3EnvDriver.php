@@ -37,7 +37,7 @@ class Typo3EnvDriver
                               UPDATE sys_domain SET sorting=1, hidden = 0 WHERE domainName IN ({{domainsSeparatedByComma}});
                               ';
 
-            return [$params['database_code'] => $dbConfig];
+            return $dbConfig;
 
         } else {
             throw new \Exception('Missing file "' . $params['configDir'] . '".env.');
