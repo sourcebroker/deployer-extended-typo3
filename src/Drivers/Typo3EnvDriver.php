@@ -2,7 +2,6 @@
 
 namespace SourceBroker\DeployerExtendedTypo3\Drivers;
 
-use Deployer\Exception\ConfigurationException;
 use Dotenv\Dotenv;
 use SourceBroker\DeployerExtended\Utility\FileUtility;
 
@@ -17,55 +16,21 @@ class Typo3EnvDriver
      * @return array
      * @throws \Exception
      */
-    public function getDatabaseConfig($params = null)
+    public function getDatabaseConfig($dbMappingFields = null, $absolutePathWithConfig = null)
     {
-        $this->createEnvFileIfDoesNotExist($params);
-
-        if (file_exists($params['configDir'])) {
-            $dotenv = new Dotenv($params['configDir']);
-            $dotenv->load();
-
-            $dbConfig['host'] = getenv('TYPO3__DB__Connections__Default__host');
-            $dbConfig['port'] = getenv('TYPO3__DB__Connections__Default__port') ? getenv('TYPO3__DB__Connections__Default__port') : 3306;
-            $dbConfig['dbname'] = getenv('TYPO3__DB__Connections__Default__dbname');
-            $dbConfig['user'] = getenv('TYPO3__DB__Connections__Default__user');
-            $dbConfig['password'] = getenv('TYPO3__DB__Connections__Default__password');
-
-            $dbConfig['post_sql_in_with_markers'] = '
-                              UPDATE sys_domain SET hidden = 1;
-                              UPDATE sys_domain SET sorting = sorting + 10;
-                              UPDATE sys_domain SET sorting=1, hidden = 0 WHERE domainName IN ({{domainsSeparatedByComma}});
-                              ';
-
-            return $dbConfig;
-
+        $absolutePathWithConfig = null === $absolutePathWithConfig ? getcwd() : $absolutePathWithConfig;
+        $absolutePathWithConfig = rtrim($absolutePathWithConfig, DIRECTORY_SEPARATOR);
+        $dbSettings = [];
+        if (file_exists($absolutePathWithConfig . '/.env')) {
+            (new Dotenv($absolutePathWithConfig))->load();
+            foreach ($dbMappingFields as $key => $dbMappingField) {
+                $dbSettings[$key] = getenv($dbMappingField);
+            }
         } else {
-            throw new \Exception('Missing file "' . $params['configDir'] . '".env.');
+            throw new \Exception('Missing file "' . $absolutePathWithConfig . '"/.env.');
         }
+        return $dbSettings;
     }
-
-    /**
-     * Return the instance name for project
-     *
-     * @param $params
-     * @return string
-     * @throws \Exception
-     */
-    public function getInstanceName($params = null)
-    {
-        $this->createEnvFileIfDoesNotExist($params);
-
-        if (file_exists(FileUtility::normalizeFolder($params['configDir']) . '/.env')) {
-            $dotenv = new Dotenv($params['configDir']);
-            $dotenv->load();
-            $dotenv->required(['INSTANCE'])->notEmpty();
-            return getenv('INSTANCE');
-
-        } else {
-            throw new \Exception('Missing file "' . $params['configDir'] . '".env.');
-        }
-    }
-
 
     /**
      * @param $params
@@ -141,10 +106,5 @@ class Typo3EnvDriver
 
             file_put_contents(FileUtility::normalizeFolder($params['configDir']) . '/.env', $envDistMarkersReplaced);
         }
-    }
-
-    public function load()
-    {
-        \SourceBroker\DeployerExtended\Utility\FileUtility::requireFilesFromDirectoryReqursively(__DIR__ . '/../../deployer/');
     }
 }

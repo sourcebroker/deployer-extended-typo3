@@ -6,6 +6,15 @@ use SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver;
 
 set('bin/typo3cms', './vendor/bin/typo3cms');
 
+set('current_dir', function () {
+    $current = getcwd();
+    if (is_dir($current) && file_exists($current . '/deploy.php')) {
+        return $current;
+    } else {
+        throw new \RuntimeException('Can not set "current_dir" var. Are you in folder with deploy.php file?');
+    }
+});
+
 // for TYPO3 8.7 we need to have php7
 //set('bin/php', function () {
 //    return run('which php7.1')->toString();
@@ -55,6 +64,18 @@ set('clear_paths', [
     'dynamicReturnTypeMeta.json'
 ]);
 
+set('media',
+    [
+        'filter' => [
+            '+ /fileadmin/',
+            '- /fileadmin/_processed_/*',
+            '+ /fileadmin/**',
+            '+ /uploads/',
+            '+ /uploads/**',
+            '- *'
+        ]
+    ]);
+
 set('db_default', [
     'caching_tables' => [
         'cf_.*'
@@ -86,30 +107,27 @@ set('db_default', [
     'post_sql_in' => ''
 ]);
 
-set('media',
-    [
-        'filter' => [
-            '+ /fileadmin/',
-            '- /fileadmin/_processed_/*',
-            '+ /fileadmin/**',
-            '+ /uploads/',
-            '+ /uploads/**',
-            '- *'
-        ]
-    ]);
-
-set(
-    'db_databases',
+set('db_databases',
     [
         'database_default' => [
-            (new Typo3EnvDriver)->getDatabaseConfig(['configDir' => get('current_dir')]),
             get('db_default'),
+            (new Typo3EnvDriver)->getDatabaseConfig(
+                [
+                    'host' => 'TYPO3__DB__Connections__Default__host',
+                    'port' => 'TYPO3__DB__Connections__Default__port',
+                    'dbname' => 'TYPO3__DB__Connections__Default__dbname',
+                    'user' => 'TYPO3__DB__Connections__Default__user',
+                    'password' => 'TYPO3__DB__Connections__Default__password',
+                ]
+            ),
+            [
+                'post_sql_in_markers' => '
+                              UPDATE sys_domain SET hidden = 1;
+                              UPDATE sys_domain SET sorting = sorting + 10;
+                              UPDATE sys_domain SET sorting=1, hidden = 0 WHERE domainName IN ({{domainsSeparatedByComma}});
+                              '
+            ]
         ]
     ]
 );
 
-set('instance', (new Typo3EnvDriver)->getInstanceName(['configDir' => get('current_dir')]));
-
-// Its used when you do not put any stage into task parameter.
-// Thanks to that you can do: "dep db:export" and not "dep db:export local"
-set('default_stage', get('instance'));
