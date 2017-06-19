@@ -2,27 +2,6 @@
 
 namespace Deployer;
 
-use SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver;
-
-set('bin/typo3cms', './vendor/bin/typo3cms');
-
-// for TYPO3 8.7 we need to have php7
-//set('bin/php', function () {
-//    return run('which php7.1')->toString();
-//});
-//set('composer_options', get('composer_options') . ' --ignore-platform-reqs');
-
-// Array keys for better unsetting if someone would like to change only part of configuration
-add('buffer_config', [
-        'typo3/index.php' => [
-            'entrypoint_filename' => 'typo3/index.php',
-        ],
-        'typo3/cli_dispatch.phpsh' => [
-            'entrypoint_filename' => 'typo3/cli_dispatch.phpsh',
-        ]
-    ]
-);
-
 set('shared_dirs', [
         'fileadmin',
         'uploads',
@@ -31,8 +10,6 @@ set('shared_dirs', [
         'typo3temp/var/logs',
     ]
 );
-
-set('file_remove2steps_items', ['typo3temp/Cache']);
 
 set('shared_files', ['.env']);
 
@@ -55,8 +32,38 @@ set('clear_paths', [
     'dynamicReturnTypeMeta.json'
 ]);
 
+set('bin/typo3cms', './vendor/bin/typo3cms');
+
+// Look on https://github.com/sourcebroker/deployer-extended#file-rm2steps-1 for docs
+set('file_remove2steps_items', ['typo3temp/Cache']);
+
+// Look on https://github.com/sourcebroker/deployer-extended#buffer-start for docs
+set('buffer_config', [
+        'typo3/index.php' => [
+            'entrypoint_filename' => 'typo3/index.php',
+        ],
+        'typo3/cli_dispatch.phpsh' => [
+            'entrypoint_filename' => 'typo3/cli_dispatch.phpsh',
+        ]
+    ]
+);
+
+// Look https://github.com/sourcebroker/deployer-extended-media for docs
+set('media',
+    [
+        'filter' => [
+            '+ /fileadmin/',
+            '- /fileadmin/_processed_/*',
+            '+ /fileadmin/**',
+            '+ /uploads/',
+            '+ /uploads/**',
+            '- *'
+        ]
+    ]);
+
+// Look https://github.com/sourcebroker/deployer-extended-database for docs
 set('db_default', [
-    'caching_tables' => [
+    'truncate_tables' => [
         'cf_.*'
     ],
     'ignore_tables_out' => [
@@ -81,36 +88,29 @@ set('db_default', [
         'tx_crawler_queue',
         'tx_crawler_process',
     ],
-    'ignore_tables_in' => [],
-    'post_sql_out' => '',
-    'post_sql_in' => ''
+    'post_sql_in' => '',
+    'post_sql_in_markers' => '
+                              UPDATE sys_domain SET hidden = 1;
+                              UPDATE sys_domain SET sorting = sorting + 10;
+                              UPDATE sys_domain SET sorting=1, hidden = 0 WHERE domainName IN ({{domainsSeparatedByComma}});
+                              '
 ]);
 
-set('media',
+// Look https://github.com/sourcebroker/deployer-extended-database for docs
+set('db_databases',
     [
-        'filter' => [
-            '+ /fileadmin/',
-            '- /fileadmin/_processed_/*',
-            '+ /fileadmin/**',
-            '+ /uploads/',
-            '+ /uploads/**',
-            '- *'
+        'database_default' => [
+            get('db_default'),
+            (new \SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver)->getDatabaseConfig(
+                [
+                    'host' => 'TYPO3__DB__Connections__Default__host',
+                    'port' => 'TYPO3__DB__Connections__Default__port',
+                    'dbname' => 'TYPO3__DB__Connections__Default__dbname',
+                    'user' => 'TYPO3__DB__Connections__Default__user',
+                    'password' => 'TYPO3__DB__Connections__Default__password',
+                ]
+            ),
         ]
-    ]);
-
-set(
-    'db_databases',
-    [
-        (new Typo3EnvDriver)->getDatabaseConfig([
-            'configDir' => get('current_dir'),
-            'database_code' => 'database_default'
-        ]),
-        ['database_default' => get('db_default')],
     ]
 );
 
-set('instance', (new Typo3EnvDriver)->getInstanceName(['configDir' => get('current_dir')]));
-
-// Its used when you do not put any stage into task parameter.
-// Thanks to that you can do: "dep db:export" and not "dep db:export local"
-set('default_stage', get('instance'));

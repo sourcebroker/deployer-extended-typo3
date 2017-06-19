@@ -20,15 +20,14 @@
     "typo3/cms-core": ">9.0",
     "helhum/typo3-console": "~4.4",
     "vlucas/phpdotenv": "~2.2",
-    "sourcebroker/deployer-extended": "~2.0",
-    "sourcebroker/deployer-extended-typo3-tasks": "~0.2"
+    "sourcebroker/deployer-extended": "^5.0.0",
+    "sourcebroker/deployer-extended-typo3-tasks": "~0.2",
+    "sourcebroker/deployer-extended-media": "^2.0.0",
+    "sourcebroker/deployer-extended-database": "^2.0.0"
   },
   "autoload": {
     "psr-4": {
       "SourceBroker\\DeployerExtendedTypo3\\": "src/"
-    },
-    "files": [
-      "src/Autoload.php"
-    ]
+    }
   }
 }
