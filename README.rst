@@ -2,9 +2,6 @@ deployer-extended-typo3
 =======================
 |
 
-.. image:: https://scrutinizer-ci.com/g/sourcebroker/deployer-extended-typo3/badges/quality-score.png?b=master
-   :target: https://scrutinizer-ci.com/g/sourcebroker/deployer-extended-typo3/?branch=master
-
 .. image:: http://img.shields.io/packagist/v/sourcebroker/deployer-extended-typo3.svg?style=flat
    :target: https://packagist.org/packages/sourcebroker/deployer-extended-typo3
 
