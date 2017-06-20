@@ -111,12 +111,11 @@ set('db_databases',
                 [
                     'host' => 'TYPO3__DB__host',
                     'port' => 'TYPO3__DB__port',
-                    'dbname' => 'TYPO3__DB__dbname',
-                    'user' => 'TYPO3__DB__user',
+                    'dbname' => 'TYPO3__DB__database',
+                    'user' => 'TYPO3__DB__username',
                     'password' => 'TYPO3__DB__password',
                 ]
             ),
         ]
     ]
 );
-
