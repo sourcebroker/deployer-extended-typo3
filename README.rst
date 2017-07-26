@@ -38,9 +38,10 @@ Installation
 
 Mind that there is no full semantic versioning because "major" version is taken for the TYPO3 version.
 
+- For TYPO3 6.2 the tags starts with 1.\*.\*
 - For TYPO3 7.6 the tags starts with 2.\*.\*
 - For TYPO3 8.7 the tags starts with 3.\*.\*
-- For TYPO3 9.0 the tags will start with 4.\*.\*
+- For TYPO3 dev-master the tags starts with 4.\*.\*
 
 The features and bugfixes will increment the patch version and the change in minor version
 will mean breaking change ([TYPO3 version].[breaking].[features/bugfixes])
@@ -49,15 +50,28 @@ Therefore you should use tilde-range constraints for choosing sourcebroker/deplo
 
 1) Install package with composer:
 
+   **For TYPO3 6.2**
+   ::
+
+      composer require sourcebroker/deployer-extended-typo3 ~1.2.0
+
+
    **For TYPO3 7.6**
    ::
 
-      composer require sourcebroker/deployer-extended-typo3 ~2.1.0
+      composer require sourcebroker/deployer-extended-typo3 ~2.5.0
+
 
    **For TYPO3 8.7**
    ::
 
-      composer require sourcebroker/deployer-extended-typo3 ~3.1.0
+      composer require sourcebroker/deployer-extended-typo3 ~3.8.0
+
+
+   **For TYPO3 dev-master**
+   ::
+
+      composer require sourcebroker/deployer-extended-typo3 ~4.1.0
 
 
 2) If you are using deployer as composer package then just put following line in your deploy.php:
