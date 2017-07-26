@@ -32,7 +32,8 @@ set('clear_paths', [
     'dynamicReturnTypeMeta.json'
 ]);
 
-set('bin/typo3cms', './vendor/bin/typo3cms');
+// For TYPO3 6.2 binarry of typo3cms must be in root (and pathed to load vendor/autoload.php to read .env file)
+set('bin/typo3cms', './typo3cms');
 
 // Look on https://github.com/sourcebroker/deployer-extended#file-rm2steps-1 for docs
 set('file_remove2steps_items', ['typo3temp/Cache']);
