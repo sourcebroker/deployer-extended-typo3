@@ -10,7 +10,6 @@ class Loader
 
         new \SourceBroker\DeployerExtendedDatabase\Loader();
         new \SourceBroker\DeployerExtendedMedia\Loader();
-        new \SourceBroker\DeployerExtendedTypo3Tasks\Loader();
         new \SourceBroker\DeployerExtended\Loader();
 
         \SourceBroker\DeployerExtended\Utility\FileUtility::requireFilesFromDirectoryReqursively(
