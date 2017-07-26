@@ -22,7 +22,7 @@
     "vlucas/phpdotenv": "^2.2",
     "deployer/dist": "~4.3.1",
     "sourcebroker/deployer-extended": "^6.0",
-    "sourcebroker/deployer-extended-typo3-tasks": "^0.2",
+    "sourcebroker/deployer-extended-typo3-tasks": "^1.0",
     "sourcebroker/deployer-extended-media": "^2.0",
     "sourcebroker/deployer-extended-database": "^4.0"
   },
