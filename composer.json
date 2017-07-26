@@ -17,7 +17,7 @@
     }
   ],
   "require": {
-    "typo3/cms-core": "~9.0.0",
+    "typo3/cms-core": "dev-master",
     "helhum/typo3-console": "^4.4",
     "vlucas/phpdotenv": "^2.2",
     "deployer/dist": "~4.3.1",
