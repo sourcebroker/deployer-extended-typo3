@@ -38,6 +38,7 @@ set('bin/typo3cms', './vendor/bin/typo3cms');
 set('file_remove2steps_items', ['typo3temp/Cache']);
 
 // Look on https://github.com/sourcebroker/deployer-extended#buffer-start for docs
+// For TYPO3 6.2 there is lot of entrypoints. We block only most important one.
 set('buffer_config', [
         'index.php' => [
             'entrypoint_filename' => 'index.php',
@@ -47,9 +48,6 @@ set('buffer_config', [
         ],
         'typo3/cli_dispatch.phpsh' => [
             'entrypoint_filename' => 'typo3/cli_dispatch.phpsh',
-        ],
-        'typo3/deprecated.php' => [
-            'entrypoint_filename' => 'typo3/deprecated.php',
         ],
         'typo3/install/index.php' => [
             'entrypoint_filename' => 'typo3/install/index.php',
