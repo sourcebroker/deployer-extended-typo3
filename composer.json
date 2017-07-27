@@ -20,7 +20,6 @@
     "typo3/cms-core": "^6.2.0",
     "helhum/typo3-console": "^1.1.9",
     "helhum/dotenv-connector": "^1.1.0",
-    "vlucas/phpdotenv": "^2.2",
     "deployer/dist": "~4.3.1",
     "sourcebroker/deployer-extended": "^6.0",
     "sourcebroker/deployer-extended-media": "^2.0",
