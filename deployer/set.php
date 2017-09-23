@@ -39,12 +39,12 @@ set('file_remove2steps_items', ['typo3temp/Cache']);
 
 // Look on https://github.com/sourcebroker/deployer-extended#buffer-start for docs
 set('buffer_config', [
+        'index.php' => [
+            'entrypoint_filename' => 'index.php',
+        ],
         'typo3/index.php' => [
             'entrypoint_filename' => 'typo3/index.php',
         ],
-        'typo3/cli_dispatch.phpsh' => [
-            'entrypoint_filename' => 'typo3/cli_dispatch.phpsh',
-        ]
     ]
 );
 
