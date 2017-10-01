@@ -82,7 +82,7 @@ Therefore you should use tilde-range constraints for choosing sourcebroker/deplo
 3) If you are using deployer as phar then put following lines in your deploy.php:
    ::
 
-      require __DIR__ . '/vendor/autoload.php';
+      require_once(__DIR__ . '/vendor/sourcebroker/deployer-loader/autoload.php');
       new \SourceBroker\DeployerExtendedTypo3\Loader();
 
 4) Remove task "deploy" from your deploy.php. Otherwise you will overwrite deploy task defined in
