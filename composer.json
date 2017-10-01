@@ -21,10 +21,10 @@
     "helhum/typo3-console": "^4.4",
     "helhum/dotenv-connector": "^1.1.0",
     "deployer/dist": "~4.3.1",
-    "sourcebroker/deployer-extended": "^6.0.0",
+    "sourcebroker/deployer-extended": "^7.0.0",
     "sourcebroker/deployer-extended-typo3-tasks": "^1.0.0",
-    "sourcebroker/deployer-extended-media": "^2.0.0",
-    "sourcebroker/deployer-extended-database": "^4.0.0",
+    "sourcebroker/deployer-extended-media": "^3.0.0",
+    "sourcebroker/deployer-extended-database": "^5.0.0",
     "sourcebroker/deployer-loader": "^1.0.0"
   },
   "autoload": {
