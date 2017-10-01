@@ -2,18 +2,24 @@
 
 namespace SourceBroker\DeployerExtendedTypo3;
 
+use SourceBroker\DeployerLoader\Load;
+
 class Loader
 {
     public function __construct()
     {
+        /** @noinspection PhpIncludeInspection */
         require_once 'recipe/common.php';
 
-        new \SourceBroker\DeployerExtendedDatabase\Loader();
-        new \SourceBroker\DeployerExtendedMedia\Loader();
-        new \SourceBroker\DeployerExtended\Loader();
+        new \SourceBroker\DeployerExtendedTypo3Tasks\Loader();
 
-        \SourceBroker\DeployerExtended\Utility\FileUtility::requireFilesFromDirectoryReqursively(
-            dirname((new \ReflectionClass('\SourceBroker\DeployerExtendedTypo3\Loader'))->getFileName()) . '/../deployer/'
+        new Load([
+                ['path' => 'vendor/sourcebroker/deployer-extended/deployer'],
+                ['path' => 'vendor/sourcebroker/deployer-extended-database/deployer'],
+                ['path' => 'vendor/sourcebroker/deployer-extended-media/deployer'],
+                ['path' => 'vendor/sourcebroker/deployer-extended-typo3-tasks/deployer'],
+                ['path' => 'vendor/sourcebroker/deployer-extended-typo3/deployer']
+            ]
         );
     }
 }
