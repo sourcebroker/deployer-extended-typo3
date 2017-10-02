@@ -21,7 +21,7 @@ This "deploy" task depends on:
 
 - `sourcebroker/deployer-extended`_ package which provides some deployer tasks that can be used for any framework or CMS
 
-- `sourcebroker/deployer-extended-typo3-tasks`_ which is wrapper for ext:typo3_console and TYPO3 commands
+- `sourcebroker/deployer-bulk-tasks`_ which is wrapper for typo3_console and TYPO3 native cli commands
 
 Additionally this package depends on two more packages that are not used directly for deploy but are useful
 to database and media synchronization:
@@ -41,7 +41,7 @@ Mind that there is no full semantic versioning because "major" version is taken 
 - For TYPO3 6.2 the tags starts with 1.\*.\*
 - For TYPO3 7.6 the tags starts with 2.\*.\*
 - For TYPO3 8.7 the tags starts with 3.\*.\*
-- For TYPO3 dev-master the tags starts with 4.\*.\*
+- For TYPO3 9.x the tags starts with 4.\*.\*
 
 The features and bugfixes will increment the patch version and the change in minor version
 will mean breaking change ([TYPO3 version].[breaking].[features/bugfixes])
@@ -53,25 +53,25 @@ Therefore you should use tilde-range constraints for choosing sourcebroker/deplo
    **For TYPO3 6.2**
    ::
 
-      composer require sourcebroker/deployer-extended-typo3 ~1.2.0
+      composer require sourcebroker/deployer-extended-typo3 ~1.5.0
 
 
    **For TYPO3 7.6**
    ::
 
-      composer require sourcebroker/deployer-extended-typo3 ~2.5.0
+      composer require sourcebroker/deployer-extended-typo3 ~2.9.0
 
 
    **For TYPO3 8.7**
    ::
 
-      composer require sourcebroker/deployer-extended-typo3 ~3.8.0
+      composer require sourcebroker/deployer-extended-typo3 ~3.13.0
 
 
    **For TYPO3 dev-master**
    ::
 
-      composer require sourcebroker/deployer-extended-typo3 ~4.1.0
+      composer require sourcebroker/deployer-extended-typo3 ~4.5.0
 
 
 2) If you are using deployer as composer package then just put following line in your deploy.php:
@@ -172,9 +172,9 @@ The deploy task consist of following subtasks:
        // Standard deployer cleanup.
        'cleanup',
 
-   ])->desc('Deploy your TYPO3 8.7');
+   ])->desc('Deploy your TYPO3 9');
 
-The shared dirs for TYPO3 8.7 are:
+The shared dirs for TYPO3 9 are:
 ::
 
    set('shared_dirs', [
@@ -186,7 +186,7 @@ The shared dirs for TYPO3 8.7 are:
        ]
    );
 
-The shared files for TYPO3 8.7 are:
+The shared files for TYPO3 9 are:
 ::
 
    set('shared_files', ['.env']);
@@ -227,7 +227,7 @@ Put the following in ``typo3conf/AdditionalConfiguration.php``
 
 This can be a simple start before more complex solutions.
 
-Taking the above facts the .env files should have database data in following format for TYPO3 8.7:
+Taking the above facts the .env files should have database data in following format for TYPO3 8.7 / 9:
 ::
 
    TYPO3__DB__Connections__Default__dbname="{DATABASE_NAME}"
@@ -335,4 +335,4 @@ The command for synchronizing local media folders with live media folders is:
 .. _sourcebroker/deployer-extended: https://github.com/sourcebroker/deployer-extended
 .. _sourcebroker/deployer-extended-media: https://github.com/sourcebroker/deployer-extended-media
 .. _sourcebroker/deployer-extended-database: https://github.com/sourcebroker/deployer-extended-database
-.. _sourcebroker/deployer-extended-typo3-tasks: https://github.com/sourcebroker/deployer-extended-typo3-tasks
+.. _sourcebroker/deployer-bulk-tasks: https://github.com/sourcebroker/deployer-bulk-tasks
