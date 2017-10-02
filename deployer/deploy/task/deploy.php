@@ -74,6 +74,6 @@ task('deploy', [
     // Standard deployer cleanup.
     'cleanup',
 
-])->desc('Deploy your TYPO3 8.7');
+])->desc('Deploy your TYPO3 9');
 
 after('deploy', 'success');
