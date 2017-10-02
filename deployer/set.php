@@ -11,7 +11,9 @@ set('shared_dirs', [
     ]
 );
 
-set('shared_files', ['.env']);
+set('shared_files', [
+    '.env'
+]);
 
 set('writable_dirs', [
         'typo3conf',
@@ -35,7 +37,9 @@ set('clear_paths', [
 set('bin/typo3cms', './vendor/bin/typo3cms');
 
 // Look on https://github.com/sourcebroker/deployer-extended#file-rm2steps-1 for docs
-set('file_remove2steps_items', ['typo3temp/Cache']);
+set('file_remove2steps_items', [
+    'typo3temp/var/Cache'
+]);
 
 // Look on https://github.com/sourcebroker/deployer-extended#buffer-start for docs
 set('buffer_config', [
