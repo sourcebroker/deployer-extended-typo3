@@ -72,7 +72,10 @@ set('media',
 // Look https://github.com/sourcebroker/deployer-extended-database for docs
 set('db_default', [
     'truncate_tables' => [
-        'cf_.*'
+        // Do not truncate caching tables "cache_imagesizes" as the image settings are not
+        // changed frequently and regenerating images is processor core extensive.
+        'cf_.*',
+        '(?!cache_imagesizes)cache_.*'
     ],
     'ignore_tables_out' => [
         'cf_.*',
