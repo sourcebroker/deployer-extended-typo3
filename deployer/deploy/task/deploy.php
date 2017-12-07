@@ -38,6 +38,10 @@ task('deploy', [
     // Read more on https://github.com/sourcebroker/deployer-extended#buffer-start
     'buffer:start',
 
+    // Create database backup, compress and copy to database store.
+    // Read more on https://github.com/sourcebroker/deployer-extended-database#db-backup
+    'db:backup',
+
     // Truncate caching tables, all cf_* tables
     // Read more on https://github.com/sourcebroker/deployer-extended-database#db-truncate
     'db:truncate',
