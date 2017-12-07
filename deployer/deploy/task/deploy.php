@@ -34,6 +34,10 @@ task('deploy', [
     // Standard deployer deploy:clear_paths
     'deploy:clear_paths',
 
+    // Create database backup, compress and copy to database store.
+    // Read more on https://github.com/sourcebroker/deployer-extended-database#db-backup
+    'db:backup',
+
     // Start buffering http requests. No frontend access possbile from now.
     // Read more on https://github.com/sourcebroker/deployer-extended#buffer-start
     'buffer:start',
