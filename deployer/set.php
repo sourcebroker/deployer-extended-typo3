@@ -119,3 +119,17 @@ set('db_databases',
     ]
 );
 
+// Look https://github.com/sourcebroker/deployer-bulk-tasks for docs
+set('bulk_tasks', [
+    'typo3cms' => [
+        'prefix' => 'typo3cms',
+        'binary' => './vendor/bin/typo3cms',
+        'binary_required' => true,
+        'command' => 'help --raw',
+        'command_filter' => '/.*database:updateschema.*/',
+        'command_required' => '
+                    database:updateschema Update database schema
+                ',
+    ]
+]);
+require('./vendor/sourcebroker/deployer-bulk-tasks/src/BulkTasks.php');
