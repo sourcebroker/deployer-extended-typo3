@@ -53,19 +53,19 @@ Therefore you should use tilde-range constraints for choosing sourcebroker/deplo
    **For TYPO3 6.2**
    ::
 
-      composer require sourcebroker/deployer-extended-typo3 ~1.5.0
+      composer require sourcebroker/deployer-extended-typo3 ~1.6.0
 
 
    **For TYPO3 7.6**
    ::
 
-      composer require sourcebroker/deployer-extended-typo3 ~2.9.0
+      composer require sourcebroker/deployer-extended-typo3 ~2.10.0
 
 
    **For TYPO3 8.7**
    ::
 
-      composer require sourcebroker/deployer-extended-typo3 ~3.13.0
+      composer require sourcebroker/deployer-extended-typo3 ~3.14.0
 
 
    **For TYPO3 dev-master**
@@ -131,6 +131,10 @@ The deploy task consist of following subtasks:
 
        // Standard deployer deploy:clear_paths
        'deploy:clear_paths',
+
+       // Create database backup, compress and copy to database store.
+       // Read more on https://github.com/sourcebroker/deployer-extended-database#db-backup
+       'db:backup',
 
        // Start buffering http requests. No frontend access possbile from now.
        // Read more on https://github.com/sourcebroker/deployer-extended#buffer-start
@@ -207,7 +211,7 @@ in typo3conf/LocalConfiguration.php or in typo3conf/AdditionalConfiguration.php
 
 Here however we do not set database creditentials in typo3conf/LocalConfiguration.php or
 in typo3conf/AdditionalConfiguration.php. We do it in .env file and use special way of writing
-env vars that are later automaticaly converted to $GLOBALS['TYPO3_CONF_VARS']['DB']*
+env vars that are later automatically converted to $GLOBALS['TYPO3_CONF_VARS']['DB']*
 
 To use .env fully in your TYPO3 instance install https://github.com/helhum/dotenv-connector
 Then you can make a simple .env to $GLOBALS converter:
@@ -236,50 +240,41 @@ Taking the above facts the .env files should have database data in following for
    TYPO3__DB__Connections__Default__port="{DATABASE_PORT}"
    TYPO3__DB__Connections__Default__user="{DATABASE_USER}"
 
-And following format for TYPO 7.6:
-::
-
-   TYPO3__DB__database="{DATABASE_NAME}"
-   TYPO3__DB__host="{DATABASE_HOST}"
-   TYPO3__DB__password="{DATABASE_PASSWORD}"
-   TYPO3__DB__port="{DATABASE_PORT}"
-   TYPO3__DB__username="{DATABASE_USER}"
-
 Database configuration:
 ::
 
    set('db_default', [
-    'truncate_tables' => [
-        'cf_.*'
-    ],
-    'ignore_tables_out' => [
-        'cf_.*',
-        'cache_.*',
-        'be_sessions',
-        'sys_history',
-        'sys_file_processedfile',
-        'sys_log',
-        'sys_refindex',
-        'tx_devlog',
-        'tx_extensionmanager_domain_model_extension',
-        'tx_realurl_chashcache',
-        'tx_realurl_errorlog',
-        'tx_realurl_pathcache',
-        'tx_realurl_uniqalias',
-        'tx_realurl_urldecodecache',
-        'tx_realurl_urlencodecache',
-        'tx_powermail_domain_model_mails',
-        'tx_powermail_domain_model_answers',
-        'tx_solr_.*',
-        'tx_crawler_queue',
-        'tx_crawler_process',
-    ],
-    'post_sql_in' => '',
-    'post_sql_in_markers' => '
-                              UPDATE sys_domain SET hidden = 1;
-                              UPDATE sys_domain SET sorting = sorting + 10;
-                              UPDATE sys_domain SET sorting=1, hidden = 0 WHERE domainName IN ({{domainsSeparatedByComma}});
-                              '
+       'truncate_tables' => [
+           // Do not truncate caching tables "cf_cache_imagesizes" and "cf_cache_pages_tags" as the image settings are not
+           // changed frequently and regenerating images is processor core extensive.
+           '(?!cf_cache_imagesizes)cf_.*',
+           'cache_.*'
+       ],
+       'ignore_tables_out' => [
+           'cf_.*',
+           'cache_.*',
+           'be_sessions',
+           'fe_sessions',
+           'fe_session_data',
+           'sys_file_processedfile',
+           'sys_history',
+           'sys_log',
+           'sys_refindex',
+           'tx_devlog',
+           'tx_extensionmanager_domain_model_extension',
+           'tx_realurl_.*',
+           'tx_powermail_domain_model_mail*',
+           'tx_powermail_domain_model_answer*',
+           'tx_solr_.*',
+           'tx_crawler_queue',
+           'tx_crawler_process',
+       ],
+       'post_sql_in' => '',
+       'post_sql_in_markers' => '
+                                 UPDATE sys_domain SET hidden = 1;
+                                 UPDATE sys_domain SET sorting = sorting + 10;
+                                 UPDATE sys_domain SET sorting=1, hidden = 0 WHERE domainName IN ({{domainsSeparatedByComma}});
+                                 '
    ]);
 
    set('db_databases',
