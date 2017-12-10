@@ -106,6 +106,12 @@ set('db_default', [
                               '
 ]);
 
+// Look https://github.com/sourcebroker/deployer-extended-database#db-dumpclean for docs
+set('db_dumpclean_keep', [
+    '*' => 5,
+    'live' => 10,
+]);
+
 // Look https://github.com/sourcebroker/deployer-extended-database for docs
 set('db_databases',
     [
