@@ -133,6 +133,7 @@ set('bulk_tasks', [
         'binary_required' => true,
         'command' => 'help --raw',
         'command_filter' => '/.*database:updateschema.*/',
+        'command_fallback' => '',
         'command_required' => '
                     database:updateschema Update database schema
                 ',
