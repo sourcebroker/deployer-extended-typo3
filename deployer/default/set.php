@@ -2,15 +2,6 @@
 
 namespace Deployer;
 
-set('shared_dirs', [
-        'fileadmin',
-        'uploads',
-        'typo3temp/assets/_processed_',
-        'typo3temp/assets/images',
-        'typo3temp/var/logs',
-    ]
-);
-
 set('shared_files', [
     '.env'
 ]);
@@ -38,19 +29,9 @@ set('bin/typo3cms', './vendor/bin/typo3cms');
 
 // Look on https://github.com/sourcebroker/deployer-extended#file-rm2steps-1 for docs
 set('file_remove2steps_items', [
+    'typo3temp/Cache',
     'typo3temp/var/Cache'
 ]);
-
-// Look on https://github.com/sourcebroker/deployer-extended#buffer-start for docs
-set('buffer_config', [
-        'index.php' => [
-            'entrypoint_filename' => 'index.php',
-        ],
-        'typo3/index.php' => [
-            'entrypoint_filename' => 'typo3/index.php',
-        ],
-    ]
-);
 
 // Look https://github.com/sourcebroker/deployer-extended-media for docs
 set('media',
@@ -134,7 +115,6 @@ set('bulk_tasks', [
         'binary_required' => true,
         'command' => 'help --raw',
         'command_filter' => '/.*database:updateschema.*/',
-        'command_fallback' => '',
         'command_required' => '
                     database:updateschema Update database schema
                 ',
