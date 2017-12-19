@@ -24,7 +24,7 @@ This "deploy" task depends on:
 - `sourcebroker/deployer-bulk-tasks`_ which is wrapper for typo3_console and TYPO3 native cli commands
 
 Additionally this package depends on two more packages that are not used directly for deploy but are useful
-to database and media synchronization:
+for database and media synchronization:
 
 - `sourcebroker/deployer-extended-database`_ package which provides some php framework independent tasks
   to synchronize database
@@ -36,43 +36,14 @@ to database and media synchronization:
 Installation
 ------------
 
-Mind that there is no full semantic versioning because "major" version is taken for the TYPO3 version.
-
-- For TYPO3 6.2 the tags starts with 1.\*.\*
-- For TYPO3 7.6 the tags starts with 2.\*.\*
-- For TYPO3 8.7 the tags starts with 3.\*.\*
-- For TYPO3 9.x the tags starts with 4.\*.\*
-
-The features and bugfixes will increment the patch version and the change in minor version
-will mean breaking change ([TYPO3 version].[breaking].[features/bugfixes])
-
-Therefore you should use tilde-range constraints for choosing sourcebroker/deployer-extended-typo3
-
 1) Install package with composer:
-
-   **For TYPO3 6.2**
    ::
 
-      composer require sourcebroker/deployer-extended-typo3 ~1.6.0
+      composer require sourcebroker/deployer-extended-typo3
 
-
-   **For TYPO3 7.6**
-   ::
-
-      composer require sourcebroker/deployer-extended-typo3 ~2.10.0
-
-
-   **For TYPO3 8.7**
-   ::
-
-      composer require sourcebroker/deployer-extended-typo3 ~3.14.0
-
-
-   **For TYPO3 dev-master**
-   ::
-
-      composer require sourcebroker/deployer-extended-typo3 ~4.5.0
-
+   Note! This command will install also deployer/dist package which will create ./vendor/bin/dep binary. You should use
+   this binary to run deploy. Its advisable thatt you put `alias typo3cms="php ./vendor/bin/typo3cms"` in your ~/.profile
+   to be able to run deployer with regular "dep" command.
 
 2) If you are using deployer as composer package then just put following line in your deploy.php:
    ::
@@ -200,45 +171,10 @@ Synchronizing database
 ----------------------
 
 Database synchronization is done with `sourcebroker/deployer-extended-database`.
-This package requires to store database data in .env files.
 
-You can read more on `sourcebroker/deployer-extended-database` how to store database data
-in .env file to be able to synchronize database.
+Read https://github.com/helhum/dotenv-connector to know how to reuse database data stored in .env file later in TYPO3.
+This way you are able to store database credentials in one place.
 
-`sourcebroker/deployer-extended-typo3` assume however that you are using .env file not only to
-synchronize database but also to give TYPO3 database creditentials. This is usually set in $GLOBALS
-in typo3conf/LocalConfiguration.php or in typo3conf/AdditionalConfiguration.php
-
-Here however we do not set database creditentials in typo3conf/LocalConfiguration.php or
-in typo3conf/AdditionalConfiguration.php. We do it in .env file and use special way of writing
-env vars that are later automatically converted to $GLOBALS['TYPO3_CONF_VARS']['DB']*
-
-To use .env fully in your TYPO3 instance install https://github.com/helhum/dotenv-connector
-Then you can make a simple .env to $GLOBALS converter:
-Put the following in ``typo3conf/AdditionalConfiguration.php``
-::
-
-   foreach ($_ENV as $name => $value) {
-            if (strpos($name, 'TYPO3__') !== 0) {
-                continue;
-            }
-            $GLOBALS['TYPO3_CONF_VARS'] = ArrayUtility::setValueByPath(
-                $GLOBALS['TYPO3_CONF_VARS'],
-                str_replace('__', '/', substr($name, 7)),
-                $value
-            );
-        }
-
-This can be a simple start before more complex solutions.
-
-Taking the above facts the .env files should have database data in following format for TYPO3 8.7 / 9:
-::
-
-   TYPO3__DB__Connections__Default__dbname="{DATABASE_NAME}"
-   TYPO3__DB__Connections__Default__host="{DATABASE_HOST}"
-   TYPO3__DB__Connections__Default__password="{DATABASE_PASSWORD}"
-   TYPO3__DB__Connections__Default__port="{DATABASE_PORT}"
-   TYPO3__DB__Connections__Default__user="{DATABASE_USER}"
 
 Database configuration:
 ::
@@ -250,6 +186,7 @@ Database configuration:
            '(?!cf_cache_imagesizes)cf_.*',
            'cache_.*'
        ],
+       // Do not get those tables when synchronising database between instances as they can be very huge and usually are not needed.
        'ignore_tables_out' => [
            'cf_.*',
            'cache_.*',
@@ -270,6 +207,7 @@ Database configuration:
            'tx_crawler_process',
        ],
        'post_sql_in' => '',
+        // SQL done after importing database from target instance. This one will activate sys_domains records for current instance.
        'post_sql_in_markers' => '
                                  UPDATE sys_domain SET hidden = 1;
                                  UPDATE sys_domain SET sorting = sorting + 10;
@@ -325,6 +263,12 @@ The command for synchronizing local media folders with live media folders is:
 ::
 
    dep media:pull live
+
+
+Changelog
+---------
+
+See https://github.com/sourcebroker/deployer-extended-typo3/blob/master/CHANGELOG.rst
 
 
 .. _sourcebroker/deployer-extended: https://github.com/sourcebroker/deployer-extended
