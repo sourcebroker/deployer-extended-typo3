@@ -1,5 +1,7 @@
 <?php
 
+namespace Deployer;
+
 set('shared_dirs', [
         'fileadmin',
         'uploads',
