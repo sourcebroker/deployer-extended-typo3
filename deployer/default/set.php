@@ -111,6 +111,7 @@ set('db_dumpclean_keep', [
 set('bulk_tasks', [
     'typo3cms' => [
         'prefix' => 'typo3cms',
+        'binary' => './vendor/bin/typo3cms',
         'command_fallback' => '
                     database:updateschema Update database schema
                 ',

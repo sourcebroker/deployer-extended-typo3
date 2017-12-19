@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+5.0.1
+~~~~~
+
+1) [BUGFIX] Add missing binary to bulk_tasks.
+
 5.0.0
 ~~~~~
 
