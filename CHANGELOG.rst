@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+5.1.0
+~~~~~
+
+1) [FEATURE] Add support for typo3_console 5.0.0
+
 5.0.1
 ~~~~~
 
