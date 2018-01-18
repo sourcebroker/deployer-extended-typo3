@@ -42,7 +42,7 @@ Installation
       composer require sourcebroker/deployer-extended-typo3
 
    Note! This command will install also deployer/dist package which will create ./vendor/bin/dep binary. You should use
-   this binary to run deploy. Its advisable thatt you put `alias typo3cms="php ./vendor/bin/typo3cms"` in your ~/.profile
+   this binary to run deploy. Its advisable that you put `alias dep="php ./vendor/bin/dep"` in your ~/.profile
    to be able to run deployer with regular "dep" command.
 
 2) If you are using deployer as composer package then just put following line in your deploy.php:
