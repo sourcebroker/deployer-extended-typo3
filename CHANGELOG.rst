@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+5.2.0
+~~~~~
+
+1) [FEATURE] CMS and vendors to to .Build.
+
 5.1.0
 ~~~~~
 
