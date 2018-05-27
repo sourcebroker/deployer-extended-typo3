@@ -45,6 +45,8 @@ class Typo3EnvDriver
     {
         $host = getenv('MYSQL_HOST');
         $port = getenv('MYSQL_HOST_PORT') ? getenv('MYSQL_HOST_PORT') : 3306;
+        $username = getenv('MYSQL_USER');
+        $password = getenv('MYSQL_PASSWORD');
         $databaseName = empty(getenv('MYSQL_DATABASE')) ? "" : getenv('MYSQL_DATABASE');
         if (empty($databaseName)) {
             exec('git config --get remote.origin.url', $output);
@@ -56,8 +58,6 @@ class Typo3EnvDriver
             if (!empty(getenv('MYSQL_USER')) && !empty(getenv('MYSQL_PASSWORD'))) {
                 $databaseName = $this->tryToCreateDatabaseIfNotExists($host, $port, getenv('MYSQL_USER'),
                     getenv('MYSQL_PASSWORD'), $databaseBaseName);
-                $username = getenv('MYSQL_USER');
-                $password = getenv('MYSQL_PASSWORD');
             }
             if (empty($databaseName) && !empty(getenv('MYSQL_ROOT_USER')) && !empty(getenv('MYSQL_ROOT_PASSWORD'))) {
                 $databaseName = $this->tryToCreateDatabaseIfNotExists($host, $port, getenv('MYSQL_ROOT_USER'),
