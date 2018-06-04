@@ -1,14 +1,11 @@
 deployer-extended-typo3
 =======================
-|
 
-.. image:: http://img.shields.io/packagist/v/sourcebroker/deployer-extended-typo3.svg?style=flat
-   :target: https://packagist.org/packages/sourcebroker/deployer-extended-typo3
+      .. image:: http://img.shields.io/packagist/v/sourcebroker/deployer-extended-typo3.svg?style=flat
+         :target: https://packagist.org/packages/sourcebroker/deployer-extended-typo3
 
-.. image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
-   :target: https://packagist.org/packages/sourcebroker/deployer-extended-typo3
-
-|
+      .. image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
+         :target: https://packagist.org/packages/sourcebroker/deployer-extended-typo3
 
 .. contents:: :local:
 

@@ -8,6 +8,7 @@ Changelog
 1) [TASK] Add ssh_type and ssh_multiplexing (It was removed from package "deployer-extended" to higher level package
    like this one).
 2) [FEATURE] .env file autocreate.
+3) [DOCS] Docs cleanup.
 
 5.2.0
 ~~~~~
