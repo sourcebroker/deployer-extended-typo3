@@ -1,6 +1,6 @@
 {
   "name": "sourcebroker/deployer-extended-typo3",
-  "description": "Deployment tool for PHP - additional commands for TYPO3.",
+  "description": "Deployment tool for TYPO3.",
   "license": "MIT",
   "keywords": [
     "TYPO3",
@@ -20,9 +20,9 @@
     "helhum/typo3-console": "~1.1.9 || ~4.9.0 || ~5.0.0",
     "helhum/dotenv-connector": "~1.1.0 || ~2.0.0",
     "deployer/dist": "~4.3.1",
-    "sourcebroker/deployer-extended": "^7.0.0",
+    "sourcebroker/deployer-extended": "^8.0.0",
     "sourcebroker/deployer-extended-media": "^3.0.0",
-    "sourcebroker/deployer-extended-database": "^6.1.0",
+    "sourcebroker/deployer-extended-database": "^6.2.0",
     "sourcebroker/deployer-loader": "^1.0.0",
     "sourcebroker/deployer-bulk-tasks":"^2.1.0"
   },
