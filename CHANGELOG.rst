@@ -2,6 +2,13 @@
 Changelog
 ---------
 
+6.0.0
+~~~~~
+
+1) [TASK] Add ssh_type and ssh_multiplexing (It was removed from package "deployer-extended" to higher level package
+   like this one).
+
+
 5.2.0
 ~~~~~
 

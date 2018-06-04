@@ -2,6 +2,9 @@
 
 namespace Deployer;
 
+set('ssh_type', 'native');
+set('ssh_multiplexing', true);
+
 set('shared_files', [
     '.env'
 ]);
