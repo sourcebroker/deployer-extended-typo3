@@ -23,9 +23,7 @@ class Typo3EnvDriver
         $absolutePathWithConfig = null === $absolutePathWithConfig ? getcwd() : $absolutePathWithConfig;
         $absolutePathWithConfig = rtrim($absolutePathWithConfig, DIRECTORY_SEPARATOR);
         $dbSettings = [];
-        if (!file_exists($absolutePathWithConfig . '/.env')) {
-            $this->createEnvFileIfDoesNotExist($absolutePathWithConfig . '/.env');
-        }
+        $this->createEnvFileIfDoesNotExist($absolutePathWithConfig . '/.env');
         if (file_exists($absolutePathWithConfig . '/.env')) {
             (new Dotenv($absolutePathWithConfig))->load();
             foreach ($dbMappingFields as $key => $dbMappingField) {
@@ -43,49 +41,51 @@ class Typo3EnvDriver
      */
     public function createEnvFileIfDoesNotExist($absolutePathWithConfig)
     {
-        $host = getenv('MYSQL_HOST');
-        $port = getenv('MYSQL_HOST_PORT') ? getenv('MYSQL_HOST_PORT') : 3306;
-        $username = getenv('MYSQL_USER');
-        $password = getenv('MYSQL_PASSWORD');
-        $databaseName = empty(getenv('MYSQL_DATABASE')) ? "" : getenv('MYSQL_DATABASE');
-        if (empty($databaseName)) {
-            exec('git config --get remote.origin.url', $output);
-            preg_match('/\/([a-zA-Z0-9-]+)\.git/', $output[0], $match);
-            if ((isset($output[0]) && strlen($output[0]) == 0) || empty($match[1])) {
-                throw new \Exception('Can not get git repo name from "git config --get remote.origin.url" command. Its needed to create database.');
+        if (!file_exists($absolutePathWithConfig)) {
+            $host = getenv('MYSQL_HOST');
+            $port = getenv('MYSQL_HOST_PORT') ? getenv('MYSQL_HOST_PORT') : 3306;
+            $username = getenv('MYSQL_USER');
+            $password = getenv('MYSQL_PASSWORD');
+            $databaseName = empty(getenv('MYSQL_DATABASE')) ? "" : getenv('MYSQL_DATABASE');
+            if (empty($databaseName)) {
+                exec('git config --get remote.origin.url', $output);
+                preg_match('/\/([a-zA-Z0-9-]+)\.git/', $output[0], $match);
+                if ((isset($output[0]) && strlen($output[0]) == 0) || empty($match[1])) {
+                    throw new \Exception('Can not get git repo name from "git config --get remote.origin.url" command. Its needed to create database.');
+                }
+                $databaseBaseName = 'typo3_' . $match[1];
+                if (!empty(getenv('MYSQL_USER')) && !empty(getenv('MYSQL_PASSWORD'))) {
+                    $databaseName = $this->tryToCreateDatabaseIfNotExists($host, $port, getenv('MYSQL_USER'),
+                        getenv('MYSQL_PASSWORD'), $databaseBaseName);
+                }
+                if (empty($databaseName) && !empty(getenv('MYSQL_ROOT_USER')) && !empty(getenv('MYSQL_ROOT_PASSWORD'))) {
+                    $databaseName = $this->tryToCreateDatabaseIfNotExists($host, $port, getenv('MYSQL_ROOT_USER'),
+                        getenv('MYSQL_ROOT_PASSWORD'), $databaseBaseName);
+                    $username = getenv('MYSQL_ROOT_USER');
+                    $password = getenv('MYSQL_ROOT_PASSWORD');
+                }
             }
-            $databaseBaseName = 'typo3_' . $match[1];
-            if (!empty(getenv('MYSQL_USER')) && !empty(getenv('MYSQL_PASSWORD'))) {
-                $databaseName = $this->tryToCreateDatabaseIfNotExists($host, $port, getenv('MYSQL_USER'),
-                    getenv('MYSQL_PASSWORD'), $databaseBaseName);
-            }
-            if (empty($databaseName) && !empty(getenv('MYSQL_ROOT_USER')) && !empty(getenv('MYSQL_ROOT_PASSWORD'))) {
-                $databaseName = $this->tryToCreateDatabaseIfNotExists($host, $port, getenv('MYSQL_ROOT_USER'),
-                    getenv('MYSQL_ROOT_PASSWORD'), $databaseBaseName);
-                $username = getenv('MYSQL_ROOT_USER');
-                $password = getenv('MYSQL_ROOT_PASSWORD');
-            }
+            $envDist = file_get_contents(dirname($absolutePathWithConfig) . '/.env.dist');
+            $replace = [
+                'TYPO3_CONTEXT' => getenv('TYPO3_CONTEXT'),
+                'INSTANCE' => getenv('INSTANCE'),
+                'MYSQL_DATABASE' => $databaseName,
+                'MYSQL_USER' => $username,
+                'MYSQL_PASSWORD' => $password,
+                'MYSQL_HOST' => $host,
+                'MYSQL_HOST_PORT' => $port,
+                'IMAGE_MAGICK_PATH' => getenv('IMAGE_MAGICK_PATH'),
+                'IMAGE_MAGICK_COLORSPACE' => getenv('IMAGE_MAGICK_COLORSPACE')
+            ];
+            $envDistMarkersReplaced = preg_replace_callback(
+                "/\\{([A-Za-z0-9_:]+)\\}/",
+                function ($match) use ($replace) {
+                    return $replace[$match[1]];
+                },
+                $envDist
+            );
+            file_put_contents(FileUtility::normalizeFolder($absolutePathWithConfig), $envDistMarkersReplaced);
         }
-        $envDist = file_get_contents(dirname($absolutePathWithConfig) . '/.env.dist');
-        $replace = [
-            'TYPO3_CONTEXT' => getenv('TYPO3_CONTEXT'),
-            'INSTANCE' => getenv('INSTANCE'),
-            'MYSQL_DATABASE' => $databaseName,
-            'MYSQL_USER' => $username,
-            'MYSQL_PASSWORD' => $password,
-            'MYSQL_HOST' => $host,
-            'MYSQL_HOST_PORT' => $port,
-            'IMAGE_MAGICK_PATH' => getenv('IMAGE_MAGICK_PATH'),
-            'IMAGE_MAGICK_COLORSPACE' => getenv('IMAGE_MAGICK_COLORSPACE')
-        ];
-        $envDistMarkersReplaced = preg_replace_callback(
-            "/\\{([A-Za-z0-9_:]+)\\}/",
-            function ($match) use ($replace) {
-                return $replace[$match[1]];
-            },
-            $envDist
-        );
-        file_put_contents(FileUtility::normalizeFolder($absolutePathWithConfig), $envDistMarkersReplaced);
     }
 
     private function tryToCreateDatabaseIfNotExists($host, $port, $user, $password, $databaseBaseName)
