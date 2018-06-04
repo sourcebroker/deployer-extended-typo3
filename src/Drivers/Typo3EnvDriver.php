@@ -3,7 +3,6 @@
 namespace SourceBroker\DeployerExtendedTypo3\Drivers;
 
 use Dotenv\Dotenv;
-use SourceBroker\DeployerExtended\Utility\FileUtility;
 
 /**
  * Class Typo3EnvDriver
@@ -84,7 +83,7 @@ class Typo3EnvDriver
                 },
                 $envDist
             );
-            file_put_contents(FileUtility::normalizeFolder($absolutePathWithConfig), $envDistMarkersReplaced);
+            file_put_contents($absolutePathWithConfig, $envDistMarkersReplaced);
         }
     }
 

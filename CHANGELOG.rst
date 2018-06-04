@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+6.0.1
+~~~~~
+
+1) [BUGFIX] Remove dependency from FileUtility.
+
 6.0.0
 ~~~~~
 
