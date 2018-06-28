@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+6.1.1
+~~~~~
+
+1) [TASK] Make dependency to helhum/dotenv-connector more open.
+
 6.0.1
 ~~~~~
 
