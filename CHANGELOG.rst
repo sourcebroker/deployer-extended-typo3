@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK] Increase helhum/typo3-console dependency to 5.5.0
+
+
 6.1.0
 ~~~~~
 
