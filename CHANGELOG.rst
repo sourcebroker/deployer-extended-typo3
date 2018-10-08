@@ -6,7 +6,7 @@ master
 ~~~~~~
 
 1) [TASK] Increase helhum/typo3-console dependency to 5.5.0
-1) [TASK] Set helhum/dotenv-connector to ~2.1.0 for better stability.
+2) [TASK] Set helhum/dotenv-connector to ~2.1.0 for better stability.
 
 
 6.1.0
