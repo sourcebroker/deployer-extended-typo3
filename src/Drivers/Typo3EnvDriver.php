@@ -97,7 +97,7 @@ class Typo3EnvDriver
                 $databaseName = $databaseBaseName . ($i ? '_' . $i : '');
                 $result = $mysqli->query("SELECT COUNT(DISTINCT `table_name`) AS table_counter FROM `information_schema`.`columns` WHERE `table_schema` = '" . $databaseName . "'");
                 if (!empty($result) && intval($result->fetch_assoc()['table_counter']) == 0) {
-                    $mysqli->query("CREATE DATABASE IF NOT EXISTS " . $databaseName);
+                    $mysqli->query("CREATE DATABASE IF NOT EXISTS `" . $databaseName . "`");
                     break;
                 } else {
                     $i++;

@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+6.2.1
+~~~~~
+
+1) [BUGFIX] Fix database creation statement to allow all chars.
+
 6.2.0
 ~~~~~
 
