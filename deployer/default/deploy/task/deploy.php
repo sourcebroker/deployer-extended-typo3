@@ -46,19 +46,15 @@ task('deploy', [
     // Read more on https://github.com/sourcebroker/deployer-extended-database#db-truncate
     'db:truncate',
 
-    // Remove two steps. We rename typo3temp/Cache/
-    // Read more on https://github.com/sourcebroker/deployer-extended#file-rm2steps-1
-    'file:rm2steps:1',
-
     // Update database schema for TYPO3. Task from typo3_console extension.
     'typo3cms:database:updateschema',
+
+    // Standard deployers symlink (symlink release/x/ to current/)
+    'deploy:symlink',
 
     // Clear php cli cache.
     // Read more on https://github.com/sourcebroker/deployer-extended#php-clear-cache-cli
     'php:clear_cache_cli',
-
-    // Standard deployers symlink (symlink release/x/ to current/)
-    'deploy:symlink',
 
     // Clear frontend http cache.
     // Read more on https://github.com/sourcebroker/deployer-extended#php-clear-cache-http
@@ -67,10 +63,6 @@ task('deploy', [
     // Frontend access possbile again from now
     // Read more on https://github.com/sourcebroker/deployer-extended#buffer-stop
     'buffer:stop',
-
-    // Remove two steps. Real remove files and folders.
-    // Read more on https://github.com/sourcebroker/deployer-extended#file-rm2steps-2
-    'file:rm2steps:2',
 
     // Standard deployer deploy:unlock
     'deploy:unlock',

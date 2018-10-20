@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK][BREAKING] Modify default deploy task.
+
 6.2.1
 ~~~~~
 
