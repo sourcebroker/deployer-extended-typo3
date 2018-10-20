@@ -7,6 +7,8 @@ master
 
 1) [TASK][BREAKING] Modify default deploy task.
 2) [TASK] Add "deploy-fast" task without database and buffer protections - good to deploy to staging instances.
+3) [TASK][BREAKING] Increase verisons of sourcebroker/deployer-extended, sourcebroker/deployer-extended-media,
+   sourcebroker/deployer-extended-database.
 
 6.2.1
 ~~~~~
