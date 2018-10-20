@@ -2,8 +2,8 @@
 Changelog
 ---------
 
-master
-~~~~~~
+7.0.0
+~~~~~
 
 1) [TASK][BREAKING] Modify default deploy task.
 2) [TASK] Add "deploy-fast" task without database and buffer protections - good to deploy to staging instances.
