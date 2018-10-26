@@ -2,6 +2,13 @@
 Changelog
 ---------
 
+7.0.1
+~~~~~
+
+1) [BUGFIX] The "typo3cms database:updateschema" without additional parameters in not available in typo3_console
+   that can be installed in TYPO3 6.2. Therefore separate task is needed for TYPO3 6.2.
+
+
 7.0.0
 ~~~~~
 
