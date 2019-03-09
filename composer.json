@@ -24,7 +24,8 @@
     "sourcebroker/deployer-extended-media": "^4.0.0",
     "sourcebroker/deployer-extended-database": "^7.0.0",
     "sourcebroker/deployer-loader": "^1.0.0",
-    "sourcebroker/deployer-bulk-tasks":"^2.1.0"
+    "sourcebroker/deployer-bulk-tasks":"^2.1.0",
+    "sourcebroker/deployer-instance": "^0.1.0"
   },
   "autoload": {
     "psr-4": {
