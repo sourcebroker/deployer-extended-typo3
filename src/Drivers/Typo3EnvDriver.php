@@ -2,7 +2,7 @@
 
 namespace SourceBroker\DeployerExtendedTypo3\Drivers;
 
-use Dotenv\Dotenv;
+use Symfony\Component\Dotenv\Dotenv;
 
 /**
  * Class Typo3EnvDriver
@@ -24,7 +24,7 @@ class Typo3EnvDriver
         $dbSettings = [];
         $this->createEnvFileIfDoesNotExist($absolutePathWithConfig . '/.env');
         if (file_exists($absolutePathWithConfig . '/.env')) {
-            (new Dotenv($absolutePathWithConfig))->load();
+            (new Dotenv())->load($absolutePathWithConfig . '/.env');
             foreach ($dbMappingFields as $key => $dbMappingField) {
                 $dbSettings[$key] = getenv($dbMappingField);
             }
@@ -108,5 +108,3 @@ class Typo3EnvDriver
         return $databaseName;
     }
 }
-
-
