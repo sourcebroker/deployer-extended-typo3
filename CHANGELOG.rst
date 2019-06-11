@@ -6,6 +6,7 @@ Changelog
 ~~~~~
 
 1) [BUGFIX] If repo name has dots the database can not be auto created.
+2) [TASK] Replace dots and dashes in database name to underscores to have more safe database name.
 
 7.0.1
 ~~~~~

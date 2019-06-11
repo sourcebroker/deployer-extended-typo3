@@ -53,6 +53,7 @@ class Typo3EnvDriver
                     throw new \Exception('Can not get git repo name from "git config --get remote.origin.url" command. Its needed to create database.');
                 }
                 $databaseBaseName = 'typo3_' . $match[1];
+                $databaseBaseName = str_replace(['.', '-'], ['_', '_'], $databaseBaseName);
                 if (!empty(getenv('MYSQL_USER')) && !empty(getenv('MYSQL_PASSWORD'))) {
                     $databaseName = $this->tryToCreateDatabaseIfNotExists($host, $port, getenv('MYSQL_USER'),
                         getenv('MYSQL_PASSWORD'), $databaseBaseName);
