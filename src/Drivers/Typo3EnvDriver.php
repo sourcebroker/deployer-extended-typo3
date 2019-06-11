@@ -45,11 +45,11 @@ class Typo3EnvDriver
             $port = getenv('MYSQL_HOST_PORT') ? getenv('MYSQL_HOST_PORT') : 3306;
             $username = getenv('MYSQL_USER');
             $password = getenv('MYSQL_PASSWORD');
-            $databaseName = empty(getenv('MYSQL_DATABASE')) ? "" : getenv('MYSQL_DATABASE');
+            $databaseName = empty(getenv('MYSQL_DATABASE')) ? '' : getenv('MYSQL_DATABASE');
             if (empty($databaseName)) {
                 exec('git config --get remote.origin.url', $output);
-                preg_match('/\/([a-zA-Z0-9-]+)\.git/', $output[0], $match);
-                if ((isset($output[0]) && strlen($output[0]) == 0) || empty($match[1])) {
+                preg_match('/\/([a-zA-Z0-9-_\.]+)\.git/', $output[0], $match);
+                if ((isset($output[0]) && strlen($output[0]) === 0) || empty($match[1])) {
                     throw new \Exception('Can not get git repo name from "git config --get remote.origin.url" command. Its needed to create database.');
                 }
                 $databaseBaseName = 'typo3_' . $match[1];
@@ -90,7 +90,7 @@ class Typo3EnvDriver
     private function tryToCreateDatabaseIfNotExists($host, $port, $user, $password, $databaseBaseName)
     {
         $databaseName = null;
-        $mysqli = new \mysqli($host, $user, $password, "", $port);
+        $mysqli = new \mysqli($host, $user, $password, '', $port);
         if (!$mysqli->connect_errno) {
             $i = 0;
             while ($i < 20) {

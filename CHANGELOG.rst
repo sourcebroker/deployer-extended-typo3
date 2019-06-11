@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+7.1.0
+~~~~~
+
+1) [BUGFIX] If repo name has dots the database can not be auto created.
+
 7.0.1
 ~~~~~
 
