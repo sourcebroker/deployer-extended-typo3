@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+8.0.0
+~~~~~
+
+1) [TASK][BREAKING] Make typo3_console sem versioning more open.
+
 7.1.0
 ~~~~~
 
