@@ -2,6 +2,17 @@
 Changelog
 ---------
 
+8.0.0
+~~~~~
+
+1) [TASK][BREAKING] Make typo3_console sem versioning more open.
+
+7.1.0
+~~~~~
+
+1) [BUGFIX] If repo name has dots the database can not be auto created.
+2) [TASK] Replace dots and dashes in database name to underscores to have more safe database name.
+
 7.0.1
 ~~~~~
 
