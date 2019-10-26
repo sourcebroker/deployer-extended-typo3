@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK][BREAKING] Add sourcebroker/deployer-instance for instance vars management.
+2) [FEATURE] Add task "config:createadmin" for creating TYPO3 admin user.
+
 8.0.0
 ~~~~~
 
