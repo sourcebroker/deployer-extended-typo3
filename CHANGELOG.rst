@@ -2,15 +2,14 @@
 Changelog
 ---------
 
-master
-~~~~~~
+9.0.0
+~~~~~
 
 1) [TASK][BREAKING] Add sourcebroker/deployer-instance for instance vars management.
 2) [FEATURE] Add task "config:createadmin" for creating TYPO3 admin user.
 3) [BUGFIX] Remove colon from file names because if Windows compatibility.
 4) [TASK] Remove not direct dependency.
 5) [TASK] Normalize use of dots at the end of task description.
-
 
 8.0.0
 ~~~~~
