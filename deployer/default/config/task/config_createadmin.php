@@ -41,4 +41,4 @@ task('config:createadmin', function () {
             throw $e;
         }
     }
-})->desc('Create TYPO3 admin user on target instance.');
+})->desc('Create TYPO3 admin user on target instance');
