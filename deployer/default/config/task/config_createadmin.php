@@ -7,23 +7,19 @@ use SourceBroker\DeployerExtendedDatabase\Utility\ConsoleUtility;
 
 task('config:createadmin', function () {
 
-    $username = input()->getOption('username');
+    $username = getenv('DET_CONFIG_CREATEADMIN_USERNAME');
     if (!$username) {
-        $username = getenv('DEP_ADMIN_USERNAME');
+        $username = ask('Give new admin username');
     }
     if (!$username) {
-        throw new Exception('Username has to be defined (env DEP_ADMIN_USERNAME or --username argument).',
+        throw new Exception('Username has to be defined (env DEP_ADMIN_USERNAME or answer a question).',
             1560175164001);
     }
-
-    $password = input()->getOption('password');
-    if (!$password) {
-        $password = substr(
-            str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcefghijklmnopqrstuvwxyz'),
-            0,
-            16);
-        output()->writeln('<comment>Generated password: "' . $password . '"</comment>');
-    }
+    $password = substr(
+        str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcefghijklmnopqrstuvwxyz'),
+        0,
+        20);
+    output()->writeln('<comment>Generated password: "' . $password . '"</comment>');
 
     if (get('current_stage') == get('target_stage')) {
         try {
@@ -45,4 +41,4 @@ task('config:createadmin', function () {
             throw $e;
         }
     }
-})->desc('Create TYPO3 admin user (--username, --password options)');
+})->desc('Create TYPO3 admin user on target instance.');
