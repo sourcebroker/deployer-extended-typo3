@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK] Add branch check tasks to deploy.
+
 9.0.0
 ~~~~~
 

@@ -10,6 +10,9 @@ task('deploy', [
     // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-composer-install
     'deploy:check_composer_install',
 
+    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-branch
+    'deploy:check_branch',
+
     // Standard deployer deploy:prepare
     'deploy:prepare',
 
@@ -70,6 +73,10 @@ task('deploy', [
     // Standard deployer cleanup.
     'cleanup',
 
-])->desc('Deploy your TYPO3');
+    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-extend-log
+    'deploy:extend_log',
 
-after('deploy', 'success');
+    // Standard deployer success.
+    'success',
+
+])->desc('Deploy your TYPO3');
