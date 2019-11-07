@@ -4,6 +4,9 @@ namespace Deployer;
 
 task('deploy-fast', [
 
+    // Standard deployer deploy:info
+    'deploy:info',
+
     // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-lock
     'deploy:check_lock',
 
