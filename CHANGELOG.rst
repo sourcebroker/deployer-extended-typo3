@@ -6,6 +6,7 @@ master
 ~~~~~~
 
 1) [TASK] Add branch check tasks to deploy.
+2) [TASK][BREAKING] Remove deployer-bulk-tasks dependency. Add database:updateschema task.
 
 9.0.0
 ~~~~~

@@ -109,15 +109,3 @@ set('db_dumpclean_keep', [
     '*' => 5,
     'live' => 10,
 ]);
-
-// Look https://github.com/sourcebroker/deployer-bulk-tasks for docs
-set('bulk_tasks', [
-    'typo3cms' => [
-        'prefix' => 'typo3cms',
-        'binary' => './vendor/bin/typo3cms',
-        'command_fallback' => '
-                    database:updateschema Update database schema
-                ',
-    ]
-]);
-require('./vendor/sourcebroker/deployer-bulk-tasks/src/BulkTasks.php');

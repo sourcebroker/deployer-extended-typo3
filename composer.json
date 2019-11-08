@@ -24,8 +24,7 @@
     "sourcebroker/deployer-extended": "dev-compatibility_6.4",
     "sourcebroker/deployer-extended-media": "dev-compatibility_6.4",
     "sourcebroker/deployer-extended-database": "dev-compatibility_6.4",
-    "sourcebroker/deployer-loader": "dev-compatibility_6.4",
-    "sourcebroker/deployer-bulk-tasks":"^2.1.0"
+    "sourcebroker/deployer-loader": "dev-compatibility_6.4"
   },
   "autoload": {
     "psr-4": {
