@@ -16,9 +16,7 @@ This package provides deploy task for deploying TYPO3 CMS with deployer (deploye
 
 This "deploy" task depends on:
 
-- `sourcebroker/deployer-extended`_ package which provides some deployer tasks that can be used for any framework or CMS
-
-- `sourcebroker/deployer-bulk-tasks`_ which is wrapper for typo3_console and TYPO3 native cli commands
+- `sourcebroker/deployer-extended`_ package which provides some deployer tasks that can be used for any CMS
 
 Additionally this package depends on two more packages that are not used directly for deploy but are useful
 for database and media synchronization:
@@ -70,79 +68,83 @@ The deploy task consist of following subtasks:
 ::
 
    task('deploy', [
-       // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-lock
-       'deploy:check_lock',
+    // Standard deployer deploy:info
+    'deploy:info',
 
-       // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-composer-install
-       'deploy:check_composer_install',
+    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-lock
+    'deploy:check_lock',
 
-       // Standard deployer deploy:prepare
-       'deploy:prepare',
+    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-composer-install
+    'deploy:check_composer_install',
 
-       // Standard deployer deploy:lock
-       'deploy:lock',
+    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-branch
+    'deploy:check_branch',
 
-       // Standard deployer deploy:release
-       'deploy:release',
+    // Standard deployer deploy:prepare
+    'deploy:prepare',
 
-       // Standard deployer deploy:update_code
-       'deploy:update_code',
+    // Standard deployer deploy:lock
+    'deploy:lock',
 
-       // Standard deployer deploy:shared
-       'deploy:shared',
+    // Standard deployer deploy:release
+    'deploy:release',
 
-       // Standard deployer deploy:writable
-       'deploy:writable',
+    // Standard deployer deploy:update_code
+    'deploy:update_code',
 
-       // Standard deployer deploy:vendors
-       'deploy:vendors',
+    // Standard deployer deploy:shared
+    'deploy:shared',
 
-       // Standard deployer deploy:clear_paths
-       'deploy:clear_paths',
+    // Standard deployer deploy:writable
+    'deploy:writable',
 
-       // Create database backup, compress and copy to database store.
-       // Read more on https://github.com/sourcebroker/deployer-extended-database#db-backup
-       'db:backup',
+    // Standard deployer deploy:vendors
+    'deploy:vendors',
 
-       // Start buffering http requests. No frontend access possbile from now.
-       // Read more on https://github.com/sourcebroker/deployer-extended#buffer-start
-       'buffer:start',
+    // Standard deployer deploy:clear_paths
+    'deploy:clear_paths',
 
-       // Truncate caching tables, all cf_* tables
-       // Read more on https://github.com/sourcebroker/deployer-extended-database#db-truncate
-       'db:truncate',
+    // Create database backup, compress and copy to database store.
+    // Read more on https://github.com/sourcebroker/deployer-extended-database#db-backup
+    'db:backup',
 
-       // Remove two steps. We rename typo3temp/Cache/
-       // Read more on https://github.com/sourcebroker/deployer-extended#file-rm2steps-1
-       'file:rm2steps:1',
+    // Start buffering http requests. No frontend access possbile from now.
+    // Read more on https://github.com/sourcebroker/deployer-extended#buffer-start
+    'buffer:start',
 
-       // Update database schema for TYPO3. Task from typo3_console extension.
-       'typo3cms:database:updateschema',
+    // Truncate caching tables, all cf_* tables
+    // Read more on https://github.com/sourcebroker/deployer-extended-database#db-truncate
+    'db:truncate',
 
-       // Clear php cli cache.
-       // Read more on https://github.com/sourcebroker/deployer-extended#php-clear-cache-cli
-       'php:clear_cache_cli',
+    // Update database schema for TYPO3. Task from typo3_console extension.
+    'typo3cms:database:updateschema',
 
-       // Standard deployers symlink (symlink release/x/ to current/)
-       'deploy:symlink',
+    // Standard deployers symlink (symlink release/x/ to current/)
+    'deploy:symlink',
 
-       // Clear frontend http cache.
-       // Read more on https://github.com/sourcebroker/deployer-extended#php-clear-cache-http
-       'php:clear_cache_http',
+    // Clear php cli cache.
+    // Read more on https://github.com/sourcebroker/deployer-extended#php-clear-cache-cli
+    'php:clear_cache_cli',
 
-       // Frontend access possbile again from now
-       // Read more on https://github.com/sourcebroker/deployer-extended#buffer-stop
-       'buffer:stop',
+    // Clear frontend http cache.
+    // Read more on https://github.com/sourcebroker/deployer-extended#php-clear-cache-http
+    'php:clear_cache_http',
 
-       // Remove two steps. Real remove files and folders.
-       // Read more on https://github.com/sourcebroker/deployer-extended#file-rm2steps-2
-       'file:rm2steps:2',
+    // Frontend access possbile again from now
+    // Read more on https://github.com/sourcebroker/deployer-extended#buffer-stop
+    'buffer:stop',
 
-       // Standard deployer deploy:unlock
-       'deploy:unlock',
+    // Standard deployer deploy:unlock
+    'deploy:unlock',
 
-       // Standard deployer cleanup.
-       'cleanup',
+    // Standard deployer cleanup.
+    'cleanup',
+
+    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-extend-log
+    'deploy:extend_log',
+
+    // Standard deployer success.
+    'success',
 
    ])->desc('Deploy your TYPO3 9');
 
@@ -173,7 +175,7 @@ Read https://github.com/helhum/dotenv-connector to know how to reuse database da
 This way you are able to store database credentials in one place.
 
 
-Database configuration:
+Database configuration for TYPO3 9:
 ::
 
    set('db_default', [
@@ -196,7 +198,6 @@ Database configuration:
            'sys_refindex',
            'tx_devlog',
            'tx_extensionmanager_domain_model_extension',
-           'tx_realurl_.*',
            'tx_powermail_domain_model_mail*',
            'tx_powermail_domain_model_answer*',
            'tx_solr_.*',
@@ -204,12 +205,7 @@ Database configuration:
            'tx_crawler_process',
        ],
        'post_sql_in' => '',
-        // SQL done after importing database from target instance. This one will activate sys_domains records for current instance.
-       'post_sql_in_markers' => '
-                                 UPDATE sys_domain SET hidden = 1;
-                                 UPDATE sys_domain SET sorting = sorting + 10;
-                                 UPDATE sys_domain SET sorting=1, hidden = 0 WHERE domainName IN ({{domainsSeparatedByComma}});
-                                 '
+       'post_sql_in_markers' => ''
    ]);
 
    set('db_databases',
@@ -271,4 +267,3 @@ See https://github.com/sourcebroker/deployer-extended-typo3/blob/master/CHANGELO
 .. _sourcebroker/deployer-extended: https://github.com/sourcebroker/deployer-extended
 .. _sourcebroker/deployer-extended-media: https://github.com/sourcebroker/deployer-extended-media
 .. _sourcebroker/deployer-extended-database: https://github.com/sourcebroker/deployer-extended-database
-.. _sourcebroker/deployer-bulk-tasks: https://github.com/sourcebroker/deployer-bulk-tasks
