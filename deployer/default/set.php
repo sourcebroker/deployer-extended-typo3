@@ -30,12 +30,6 @@ set('clear_paths', [
 set('bin/typo3cms', './vendor/bin/typo3cms');
 set('local/bin/typo3cms', './vendor/bin/typo3cms');
 
-// Look on https://github.com/sourcebroker/deployer-extended#file-rm2steps-1 for docs
-set('file_remove2steps_items', [
-    'typo3temp/Cache',
-    'typo3temp/var/Cache'
-]);
-
 // Look https://github.com/sourcebroker/deployer-extended-media for docs
 set('media',
     [
