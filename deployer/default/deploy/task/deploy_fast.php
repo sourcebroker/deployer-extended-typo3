@@ -51,12 +51,12 @@ task('deploy-fast', [
     'deploy:symlink',
 
     // Clear php cli cache.
-    // Read more on https://github.com/sourcebroker/deployer-extended#php-clear-cache-cli
-    'php:clear_cache_cli',
+    // Read more on https://github.com/sourcebroker/deployer-extended#cache-clear-php-cli
+    'cache:clear_php_cli',
 
     // Clear frontend http cache.
-    // Read more on https://github.com/sourcebroker/deployer-extended#php-clear-cache-http
-    'php:clear_cache_http',
+    // Read more on https://github.com/sourcebroker/deployer-extended#cache-clear-php-http
+    'cache:clear_php_http',
 
     // Standard deployer deploy:unlock
     'deploy:unlock',
