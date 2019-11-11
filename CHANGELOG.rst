@@ -2,6 +2,13 @@
 Changelog
 ---------
 
+11.0.0
+~~~~~~
+
+1) [BUGFIX] Fix use of SourceBroker\DeployerExtendedDatabase\Utility\ConsoleUtility in task config:createadmin.
+2) [FEATURE][BREAKING] Extend set of not needed root files to cleanup on deploy.
+3) [BUGFIX][BREAKING] Fix typo in env name - DET_CONFIG_CREATEADMIN_USERNAME to DEP_CONFIG_CREATEADMIN_USERNAME.
+
 10.0.0
 ~~~~~~
 

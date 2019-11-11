@@ -17,14 +17,18 @@ set('writable_dirs', [
 );
 
 set('clear_paths', [
+    '.envrc',
     '.git',
+    '.githooks',
     '.gitignore',
+    '.gitattributes',
+    '.env.dist',
+    '.php_cs',
+    'dynamicReturnTypeMeta.json',
     'composer.json',
     'composer.lock',
     'composer.phar',
-    '.gitattributes',
-    '.env.dist',
-    'dynamicReturnTypeMeta.json'
+    'phpstan.neon'
 ]);
 
 set('bin/typo3cms', './vendor/bin/typo3cms');
