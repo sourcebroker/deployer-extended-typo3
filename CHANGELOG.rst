@@ -2,10 +2,10 @@
 Changelog
 ---------
 
-master
+10.0.0
 ~~~~~~
 
-1) [TASK] Add branch check tasks to deploy.
+1) [TASK] Add deploy:check_branch, deploy:info, deploy:log_extend tasks to deploy.
 2) [TASK][BREAKING] Remove deployer-bulk-tasks dependency. Add database:updateschema task.
 3) [TASK][BREAKING] Update database synchro config for TYPO3 9.
 
