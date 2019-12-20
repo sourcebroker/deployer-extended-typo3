@@ -13,6 +13,9 @@ task('deploy', [
     // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-composer-install
     'deploy:check_composer_install',
 
+    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-branch-local
+    'deploy:check_branch_local',
+
     // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-branch
     'deploy:check_branch',
 

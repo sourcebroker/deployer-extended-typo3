@@ -6,6 +6,7 @@ master
 ~~~~~~
 
 1) [TASK][BREAKING] Add auto unlock after deploy:failed
+2) [TASK][BREAKING] Add task deploy:check_branch_local to deploy path.
 
 
 11.0.0

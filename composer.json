@@ -21,7 +21,7 @@
     "helhum/dotenv-connector": "~1.1.0 || ~2.1.0",
     "symfony/dotenv": "^3.3.0 || ^4.0",
     "deployer/dist": "~6.6.0",
-    "sourcebroker/deployer-extended": "^11.0.0",
+    "sourcebroker/deployer-extended": "dev-master",
     "sourcebroker/deployer-extended-media": "^6.0.0",
     "sourcebroker/deployer-extended-database": "^9.0.0",
     "sourcebroker/deployer-loader": "^2.0.0"
