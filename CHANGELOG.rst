@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK][BREAKING] Add auto unlock after deploy:failed
+
+
 11.0.0
 ~~~~~~
 

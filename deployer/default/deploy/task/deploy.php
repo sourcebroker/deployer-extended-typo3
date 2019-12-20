@@ -83,3 +83,5 @@ task('deploy', [
     'success',
 
 ])->desc('Deploy your TYPO3');
+
+after('deploy:failed', 'deploy:unlock');
