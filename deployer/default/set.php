@@ -16,6 +16,8 @@ set('writable_dirs', [
     ]
 );
 
+set('default_timeout', 900);
+
 set('clear_paths', [
     '.envrc',
     '.git',
