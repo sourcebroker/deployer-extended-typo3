@@ -56,6 +56,7 @@ set('media',
 // Look https://github.com/sourcebroker/deployer-extended-database for docs
 set('db_allow_push_live', false);
 set('db_allow_pull_live', false);
+set('db_allow_copy_live', false);
 set('db_default', [
     'truncate_tables' => [
         // Do not truncate caching tables "cf_cache_imagesizes" and "cf_cache_pages_tags" as the image settings are not
