@@ -24,7 +24,7 @@
     "sourcebroker/deployer-extended": "dev-master",
     "sourcebroker/deployer-extended-media": "dev-master",
     "sourcebroker/deployer-extended-database": "dev-master",
-    "sourcebroker/deployer-loader": "^2.0.0"
+    "sourcebroker/deployer-loader": "dev-master"
   },
   "autoload": {
     "psr-4": {

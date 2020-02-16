@@ -40,6 +40,7 @@ set('local/bin/typo3cms', './vendor/bin/typo3cms');
 set('media_allow_push_live', false);
 set('media_allow_copy_live', false);
 set('media_allow_link_live', false);
+set('media_allow_pull_live', false);
 set('media',
     [
         'filter' => [
