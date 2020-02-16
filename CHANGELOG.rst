@@ -9,6 +9,7 @@ master
 2) [TASK][BREAKING] Add task deploy:check_branch_local to deploy path.
 3) [TASK] Increase default_timeout from 300s to 900s.
 4) [TASK] Refactor config:createadmin to support new var naming from deployer-instance
+5) [TASK] Deny pushing, copying, pulling media and database to top instance live.
 
 11.0.0
 ~~~~~~

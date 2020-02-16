@@ -37,6 +37,9 @@ set('bin/typo3cms', './vendor/bin/typo3cms');
 set('local/bin/typo3cms', './vendor/bin/typo3cms');
 
 // Look https://github.com/sourcebroker/deployer-extended-media for docs
+set('media_allow_push_live', false);
+set('media_allow_copy_live', false);
+set('media_allow_link_live', false);
 set('media',
     [
         'filter' => [
@@ -50,6 +53,8 @@ set('media',
     ]);
 
 // Look https://github.com/sourcebroker/deployer-extended-database for docs
+set('db_allow_push_live', false);
+set('db_allow_pull_live', false);
 set('db_default', [
     'truncate_tables' => [
         // Do not truncate caching tables "cf_cache_imagesizes" and "cf_cache_pages_tags" as the image settings are not
