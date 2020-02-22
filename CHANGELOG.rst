@@ -11,6 +11,8 @@ master
 4) [TASK] Refactor config:createadmin to support new var naming from deployer-instance
 5) [TASK] Deny pushing, copying, pulling media and database to top instance live.
 6) [TASK] Update deployer-extended-media, deployer-extended-database, deployer-instance, deployer-extended.
+7) [TASK][BREAKING] By setting ``set('branch_detect_to_deploy', false);`` change the default unsafe bahaviour of deployer to
+    deploy the currently checked out up branch. The branch must be set explicitly in host configuration.
 
 11.0.0
 ~~~~~~

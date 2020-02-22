@@ -2,6 +2,8 @@
 
 namespace Deployer;
 
+set('branch_detect_to_deploy', false);
+
 set('allow_anonymous_stats', false);
 
 set('shared_files', [
