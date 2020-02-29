@@ -2,15 +2,15 @@
 Changelog
 ---------
 
-master
+12.0.0
 ~~~~~~
 
 1) [TASK][BREAKING] Add auto unlock after deploy:failed
 2) [TASK][BREAKING] Add task deploy:check_branch_local to deploy path.
 3) [TASK] Increase default_timeout from 300s to 900s.
-4) [TASK] Refactor config:createadmin to support new var naming from deployer-instance
-5) [TASK] Deny pushing, copying, pulling media and database to top instance live.
-6) [TASK] Update deployer-extended-media, deployer-extended-database, deployer-instance, deployer-extended.
+4) [TASK][BREAKING] Refactor config:createadmin to support new var naming from deployer-instance
+5) [TASK][BREAKING] Deny pushing, copying, pulling media and database to top instance live.
+6) [TASK][BREAKING] Update deployer-extended-media, deployer-extended-database, deployer-instance, deployer-extended.
 7) [TASK][BREAKING] By setting ``set('branch_detect_to_deploy', false);`` change the default unsafe bahaviour of deployer to
     deploy the currently checked out up branch. The branch must be set explicitly in host configuration.
 
