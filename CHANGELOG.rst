@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK] Add ``web_path`` support to allow DocumentRoot in different folder.
+
+
 12.0.0
 ~~~~~~
 

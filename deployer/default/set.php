@@ -11,10 +11,10 @@ set('shared_files', [
 ]);
 
 set('writable_dirs', [
-        'typo3conf',
-        'typo3temp',
-        'uploads',
-        'fileadmin'
+        get('web_path') . 'typo3conf',
+        get('web_path') . 'typo3temp',
+        get('web_path') . 'uploads',
+        get('web_path') . 'fileadmin'
     ]
 );
 
@@ -46,11 +46,12 @@ set('media_allow_pull_live', false);
 set('media',
     [
         'filter' => [
-            '+ /fileadmin/',
-            '- /fileadmin/_processed_/*',
-            '+ /fileadmin/**',
-            '+ /uploads/',
-            '+ /uploads/**',
+            '+ /' . get('web_path') . '',
+            '+ /' . get('web_path') . 'fileadmin/',
+            '- /' . get('web_path') . 'fileadmin/_processed_/*',
+            '+ /' . get('web_path') . 'fileadmin/**',
+            '+ /' . get('web_path') . 'uploads/',
+            '+ /' . get('web_path') . 'uploads/**',
             '- *'
         ]
     ]);
