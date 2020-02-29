@@ -67,7 +67,8 @@ Its very advisable that you test deploy on some beta instance first :)
 The deploy task consist of following subtasks:
 ::
 
-   task('deploy', [
+  task('deploy', [
+
     // Standard deployer deploy:info
     'deploy:info',
 
@@ -76,6 +77,9 @@ The deploy task consist of following subtasks:
 
     // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-composer-install
     'deploy:check_composer_install',
+
+    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-branch-local
+    'deploy:check_branch_local',
 
     // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-branch
     'deploy:check_branch',
@@ -123,12 +127,12 @@ The deploy task consist of following subtasks:
     'deploy:symlink',
 
     // Clear php cli cache.
-    // Read more on https://github.com/sourcebroker/deployer-extended#php-clear-cache-cli
-    'php:clear_cache_cli',
+    // Read more on https://github.com/sourcebroker/deployer-extended#cache-clear-php-cli
+    'cache:clear_php_cli',
 
     // Clear frontend http cache.
-    // Read more on https://github.com/sourcebroker/deployer-extended#php-clear-cache-http
-    'php:clear_cache_http',
+    // Read more on https://github.com/sourcebroker/deployer-extended#cache-clear-php-http
+    'cache:clear_php_http',
 
     // Frontend access possbile again from now
     // Read more on https://github.com/sourcebroker/deployer-extended#buffer-stop
@@ -146,7 +150,7 @@ The deploy task consist of following subtasks:
     // Standard deployer success.
     'success',
 
-   ])->desc('Deploy your TYPO3 9');
+  ])->desc('Deploy your TYPO3');
 
 The shared dirs for TYPO3 9 are:
 ::
@@ -171,65 +175,15 @@ Synchronizing database
 
 Database synchronization is done with `sourcebroker/deployer-extended-database`.
 
-Read https://github.com/helhum/dotenv-connector to know how to reuse database data stored in .env file later in TYPO3.
-This way you are able to store database credentials in one place.
-
-
-Database configuration for TYPO3 9:
-::
-
-   set('db_default', [
-       'truncate_tables' => [
-           // Do not truncate caching tables "cf_cache_imagesizes" and "cf_cache_pages_tags" as the image settings are not
-           // changed frequently and regenerating images is processor core extensive.
-           '(?!cf_cache_imagesizes)cf_.*',
-           'cache_.*'
-       ],
-       // Do not get those tables when synchronising database between instances as they can be very huge and usually are not needed.
-       'ignore_tables_out' => [
-           'cf_.*',
-           'cache_.*',
-           'be_sessions',
-           'fe_sessions',
-           'fe_session_data',
-           'sys_file_processedfile',
-           'sys_history',
-           'sys_log',
-           'sys_refindex',
-           'tx_devlog',
-           'tx_extensionmanager_domain_model_extension',
-           'tx_powermail_domain_model_mail*',
-           'tx_powermail_domain_model_answer*',
-           'tx_solr_.*',
-           'tx_crawler_queue',
-           'tx_crawler_process',
-       ],
-       'post_sql_in' => '',
-       'post_sql_in_markers' => ''
-   ]);
-
-   set('db_databases',
-       [
-           'database_default' => [
-               get('db_default'),
-               (new \SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver)->getDatabaseConfig(
-                   [
-                       'host' => 'TYPO3__DB__Connections__Default__host',
-                       'port' => 'TYPO3__DB__Connections__Default__port',
-                       'dbname' => 'TYPO3__DB__Connections__Default__dbname',
-                       'user' => 'TYPO3__DB__Connections__Default__user',
-                       'password' => 'TYPO3__DB__Connections__Default__password',
-                   ]
-               ),
-           ]
-       ]
-   );
-
 The command for synchronizing database from live media to local instance is:
 ::
 
    dep db:pull live
 
+You can also synchronise database on remote instances with following command:
+::
+
+   dep db:copy live --options=target:beta
 
 
 Synchronizing media
@@ -237,26 +191,24 @@ Synchronizing media
 
 Media synchronization is done with `sourcebroker/deployer-extended-media`.
 Folders which are synchronized are ``fileadmin`` (except ``_proccessed_``) and ``uploads``.
-The config for that is:
-::
-
-   set('media',
-       [
-           'filter' => [
-               '+ /fileadmin/',
-               '- /fileadmin/_processed_/*',
-               '+ /fileadmin/**',
-               '+ /uploads/',
-               '+ /uploads/**',
-               '- *'
-           ]
-       ]);
 
 The command for synchronizing local media folders with live media folders is:
 ::
 
    dep media:pull live
 
+You can also synchronise remote instances with following command:
+::
+
+   dep media:copy live --options=target:beta
+
+If the instances are on the same host you can use symlink for each file
+(equivalent of ``cp -rs source destination``). This way you can safe space for media
+on staging instances with no risk that they will be accidentally deleted.
+
+::
+
+   dep media:link live --options=target:beta
 
 Changelog
 ---------
