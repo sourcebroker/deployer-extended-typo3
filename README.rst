@@ -173,7 +173,7 @@ The shared files for TYPO3 9 are:
 Synchronizing database
 ----------------------
 
-Database synchronization is done with `sourcebroker/deployer-extended-database`.
+Database synchronization is done with `sourcebroker/deployer-extended-database`_.
 
 The command for synchronizing database from live media to local instance is:
 ::
@@ -189,8 +189,8 @@ You can also synchronise database on remote instances with following command:
 Synchronizing media
 -------------------
 
-Media synchronization is done with `sourcebroker/deployer-extended-media`.
-Folders which are synchronized are ``fileadmin`` (except ``_proccessed_``) and ``uploads``.
+Media synchronization is done with `sourcebroker/deployer-extended-media`_.
+Folders which are synchronized are ``fileadmin`` (except ``fileadmin/_proccessed_``) and ``uploads``.
 
 The command for synchronizing local media folders with live media folders is:
 ::
@@ -203,7 +203,7 @@ You can also synchronise remote instances with following command:
    dep media:copy live --options=target:beta
 
 If the instances are on the same host you can use symlink for each file
-(equivalent of ``cp -rs source destination``). This way you can safe space for media
+(equivalent of ``cp -rs source destination``). This way you can save space for media
 on staging instances with no risk that they will be accidentally deleted.
 
 ::
