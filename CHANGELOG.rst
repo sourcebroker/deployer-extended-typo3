@@ -6,7 +6,7 @@ master
 ~~~~~~
 
 1) [TASK] Add ``web_path`` support to allow DocumentRoot in different folder.
-
+2) [TASK] Anonymous function for ``web_path`` parts to allow to set ``web_path`` later.
 
 12.0.0
 ~~~~~~

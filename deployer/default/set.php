@@ -10,13 +10,14 @@ set('shared_files', [
     '.env'
 ]);
 
-set('writable_dirs', [
+set('writable_dirs', function () {
+    return [
         get('web_path') . 'typo3conf',
         get('web_path') . 'typo3temp',
         get('web_path') . 'uploads',
         get('web_path') . 'fileadmin'
-    ]
-);
+    ];
+});
 
 set('default_timeout', 900);
 
@@ -43,8 +44,8 @@ set('media_allow_push_live', false);
 set('media_allow_copy_live', false);
 set('media_allow_link_live', false);
 set('media_allow_pull_live', false);
-set('media',
-    [
+set('media', function () {
+    return [
         'filter' => [
             '+ /' . get('web_path') . '',
             '+ /' . get('web_path') . 'fileadmin/',
@@ -54,7 +55,8 @@ set('media',
             '+ /' . get('web_path') . 'uploads/**',
             '- *'
         ]
-    ]);
+    ];
+});
 
 // Look https://github.com/sourcebroker/deployer-extended-database for docs
 set('db_allow_push_live', false);
