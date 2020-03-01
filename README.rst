@@ -169,6 +169,11 @@ The shared files for TYPO3 9 are:
 
    set('shared_files', ['.env']);
 
+For TYPO3 9 if you use composer installation with public/ folder (default) you need to set in your deploy.php:
+::
+
+   set('web_path', 'public/');
+
 
 Synchronizing database
 ----------------------
