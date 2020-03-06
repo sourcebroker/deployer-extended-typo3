@@ -36,8 +36,8 @@ Installation
 
       composer require sourcebroker/deployer-extended-typo3
 
-   Note! This command will install also deployer/dist package which will create ./vendor/bin/dep binary. You should use
-   this binary to run deploy. Its advisable that you put `alias dep="php ./vendor/bin/dep"` in your ~/.profile
+   Note! This command will install also `deployer/dist`_ package which will create ``./vendor/bin/dep`` binary. You should use
+   this binary to run deploy. Its advisable that you put ``alias dep="php ./vendor/bin/dep"`` in your ``~/.profile``
    to be able to run deployer with regular "dep" command.
 
 2) If you are using deployer as composer package then just put following line in your deploy.php:
@@ -52,7 +52,7 @@ Installation
       new \SourceBroker\DeployerExtendedTypo3\Loader();
 
 4) Remove task "deploy" from your deploy.php. Otherwise you will overwrite deploy task defined in
-   deployer/deploy/task/deploy.php
+   ``deployer/deploy/task/deploy.php``
 
 
 Deployment
@@ -224,3 +224,4 @@ See https://github.com/sourcebroker/deployer-extended-typo3/blob/master/CHANGELO
 .. _sourcebroker/deployer-extended: https://github.com/sourcebroker/deployer-extended
 .. _sourcebroker/deployer-extended-media: https://github.com/sourcebroker/deployer-extended-media
 .. _sourcebroker/deployer-extended-database: https://github.com/sourcebroker/deployer-extended-database
+.. _deployer/dist: https://github.com/deployphp/distribution
