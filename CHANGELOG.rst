@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK] Increase dependency for TYPO3 10.
+
 12.1.0
 ~~~~~~
 
