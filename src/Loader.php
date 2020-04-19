@@ -36,15 +36,16 @@ class Loader
         $rootDir = rtrim($rootDir, '/');
         if (file_exists($rootDir . '/typo3/backend.php')) {
             $typo3MajorVersion = 6;
-        } elseif (file_exists($rootDir . '/typo3/init.php')) {
+        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-7.rst')) {
             $typo3MajorVersion = 7;
-        } elseif (file_exists($rootDir . '/typo3/cli_dispatch.phpsh')
-            && !file_exists($rootDir . '/typo3/init.php')) {
+        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-8.rst')) {
             $typo3MajorVersion = 8;
-        } elseif (!file_exists($rootDir . '/typo3/cli_dispatch.phpsh')) {
+        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-9.rst')) {
             $typo3MajorVersion = 9;
+        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-10.rst')) {
+            $typo3MajorVersion = 10;
         }
-        if (null == $typo3MajorVersion) {
+        if (null === $typo3MajorVersion) {
             throw new \Exception('Cannot figure out the TYPO3 major version.');
         }
         return $typo3MajorVersion;
