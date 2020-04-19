@@ -34,16 +34,19 @@ class Loader
     {
         $typo3MajorVersion = null;
         $rootDir = rtrim($rootDir, '/');
+        if(!file_exists($rootDir . '/typo3')) {
+            $rootDir = $rootDir . '/public';
+        }
         if (file_exists($rootDir . '/typo3/backend.php')) {
             $typo3MajorVersion = 6;
-        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-7.rst')) {
-            $typo3MajorVersion = 7;
-        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-8.rst')) {
-            $typo3MajorVersion = 8;
-        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-9.rst')) {
-            $typo3MajorVersion = 9;
         } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-10.rst')) {
             $typo3MajorVersion = 10;
+        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-9.rst')) {
+            $typo3MajorVersion = 9;
+        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-8.rst')) {
+            $typo3MajorVersion = 8;
+        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-7.rst')) {
+            $typo3MajorVersion = 7;
         }
         if (null === $typo3MajorVersion) {
             throw new \Exception('Cannot figure out the TYPO3 major version.');
@@ -58,6 +61,6 @@ class Loader
      */
     protected function projectRootAbsolutePath()
     {
-        return realpath(__DIR__ . '/../../../../');
+        return realpath(__DIR__ . '/../../../..');
     }
 }
