@@ -17,7 +17,7 @@
     }
   ],
   "require": {
-    "helhum/typo3-console": "^1.1.9 || ^4.9.0 || ^5.5.0 || ^6.0.0@beta1",
+    "helhum/typo3-console": "^1.1.9 || ^4.9.0 || ^5.5.0 || ^6.0.0-beta1",
     "helhum/dotenv-connector": "^1.1.0 || ^2.3.0",
     "symfony/dotenv": "^3.3.0 || ^4.0 || ^5.0",
     "deployer/dist": "~6.6.0",
