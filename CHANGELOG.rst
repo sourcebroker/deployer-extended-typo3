@@ -7,6 +7,7 @@ master
 
 1) [TASK] Increase dependency for TYPO3 10.
 2) [TASK] Refactor TYPO3 version detection.
+3) [TASK] Refactor placement of configuration per TYPO3 version and add ``var/transient`` to shared dirs.
 
 12.1.0
 ~~~~~~

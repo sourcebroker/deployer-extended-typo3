@@ -31,10 +31,8 @@ set('buffer_config', function () {
 // Look https://github.com/sourcebroker/deployer-extended-database for docs
 set('db_default', [
     'truncate_tables' => [
-        // Do not truncate caching tables "cf_cache_imagesizes" and "cf_cache_pages_tags" as the image settings are not
-        // changed frequently and regenerating images is processor core extensive.
-        '(?!cf_cache_imagesizes)cf_.*',
-        'cache_.*'
+        // Do not truncate caching tables "cache_imagesizes" as the image settings are not changed frequently and regenerating images is processor extensive.
+        '(?!cache_imagesizes)cache_.*',
     ],
     'ignore_tables_out' => [
         'cf_.*',
@@ -75,3 +73,4 @@ set('db_databases',
         ]
     ]
 );
+
