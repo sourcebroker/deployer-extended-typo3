@@ -234,8 +234,8 @@ on staging instances with no risk that they will be accidentally deleted!
 Example of working configuration
 --------------------------------
 
-This is example of working configuration for TYPO3 10. The aim of `sourcebroker/deployer-extended-typo3`_ is to have very slim
-``deploy.php`` file in order to have nice possibility to upgrade to future versions of `sourcebroker/deployer-extended-typo3`.
+This is example of working configuration for TYPO3 10. The aim of ``sourcebroker/deployer-extended-typo3`` is to have very slim
+``deploy.php`` file in order to have nice possibility to upgrade to future versions of ``sourcebroker/deployer-extended-typo3``.
 
 ::
 
