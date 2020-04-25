@@ -48,7 +48,7 @@ Installation
    and symlink it in ``./vendor/bin/dep``. You should use ``./vendor/bin/dep`` binary to run deployer.
 
    Its advisable that you put ``alias dep="php ./vendor/bin/dep"`` in your ``~/.profile`` to be able to run deployer
-   with regular ``dep`` command. Otherwise you will need to run deployer like this ``vendor/bin/dep deploy live``
+   with regular ``dep`` command. Otherwise you will need to run deployer like this ``./vendor/bin/dep deploy live``
 
 2) Put following lines on the beginning of your deploy.php:
    ::
@@ -190,12 +190,14 @@ Synchronizing database
 
 Database synchronization is done with `sourcebroker/deployer-extended-database`_.
 
-The command for synchronizing database from live media to local instance is:
+The command for synchronizing database from live database to local instance is:
 ::
 
    dep db:pull live
 
-You can also synchronise database on remote instances with following command:
+If you are logged to ssh of beta instance you can also run ``dep media:pull live`` to get database from ``live``
+to ``beta``. But you can also synchronise ``live`` to ``beta`` from you local instance with following command:
+
 ::
 
    dep db:copy live --options=target:beta
@@ -207,12 +209,15 @@ Synchronizing media
 Media synchronization is done with `sourcebroker/deployer-extended-media`_.
 Folders which are synchronized are ``fileadmin`` (except ``fileadmin/_proccessed_``) and ``uploads``.
 
-The command for synchronizing local media folders with live media folders is:
+The command for synchronizing media from live to local instance:
+
 ::
 
    dep media:pull live
 
-You can also synchronise remote instances with following command:
+If you are logged to ssh of beta instance you can also run ``dep media:pull live`` to get database from ``live``
+to ``beta``. But you can also synchronise ``live`` to ``beta`` from you local instance with following command:
+
 ::
 
    dep media:copy live --options=target:beta
@@ -224,6 +229,47 @@ on staging instances with no risk that they will be accidentally deleted!
 ::
 
    dep media:link live --options=target:beta
+
+
+Example of working configuration
+--------------------------------
+
+This is example of working configuration. The aim of
+
+::
+
+  <?php
+
+  namespace Deployer;
+
+  require_once(__DIR__ . '/vendor/sourcebroker/deployer-loader/autoload.php');
+  new \SourceBroker\DeployerExtendedTypo3\Loader();
+
+  set('repository', 'git@github.com:sourcebrokergit/t3base10.git');
+  set('bin/php', '/home/www/t3base10-public/.bin/php');
+  set('web_path', 'public/');
+
+  host('live')
+      ->hostname('vm-dev.inscript-projects.com')->port(24)
+      ->user('www-data')
+      ->set('branch', 'master')
+      ->set('public_urls', ['https://live-t3base10.inscript-projects.com'])
+      ->set('deploy_path', '/home/www/t3base10-public/live');
+
+  host('beta')
+      ->hostname('vm-dev.inscript-projects.com')->port(24)
+      ->user('www-data')
+      ->set('branch', 'master')
+      ->set('public_urls', ['https://beta-t3base10.inscript-projects.com'])
+      ->set('deploy_path', '/home/www/t3base10-public/beta');
+
+  host('local')
+      ->hostname('local')
+      ->set('deploy_path', getcwd())
+      ->set('vhost_nocurrent', true)
+      ->set('public_urls', ['https://t3base10.devloc.site']);
+
+
 
 Changelog
 ---------
