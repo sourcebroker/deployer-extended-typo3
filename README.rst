@@ -176,8 +176,8 @@ The shared file for TYPO3 10 is:
 
    set('shared_files', ['.env']);
 
-Use this file to store database credentials and use them as env vars for example in typo3onf/AdditionalConfiguration.php
-to set up database. This way you can have typo3onf/LocalConfiguration.php in git.
+Use this file to store database credentials and use them as env vars for example in ``typo3onf/AdditionalConfiguration.php``
+to set up database. This way you can have ``typo3onf/LocalConfiguration.php`` in git.
 
 For TYPO3 10 if you use composer installation with public/ folder (default) you need to set in your deploy.php:
 ::
@@ -254,14 +254,14 @@ This is example of working configuration for TYPO3 10. The aim of `sourcebroker/
       ->hostname('vm-dev.example.com')
       ->user('deploy')
       ->set('branch', 'master')
-      ->set('public_urls', ['https://live-t3base10.sourcebroker-projects.com'])
+      ->set('public_urls', ['https://live-t3base10.example.com'])
       ->set('deploy_path', '/home/www/t3base10-public/live');
 
   host('beta')
       ->hostname('vm-dev.example.com')
       ->user('deploy')
       ->set('branch', 'master')
-      ->set('public_urls', ['https://beta-t3base10.sourcebroker-projects.com'])
+      ->set('public_urls', ['https://beta-t3base10.example.com'])
       ->set('deploy_path', '/home/www/t3base10-public/beta');
 
   host('local')
