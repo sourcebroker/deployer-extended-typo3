@@ -250,24 +250,24 @@ This is example of working configuration. The aim of
   set('web_path', 'public/');
 
   host('live')
-      ->hostname('vm-dev.inscript-projects.com')->port(24)
-      ->user('www-data')
+      ->hostname('vm-dev.example.com')
+      ->user('deploy')
       ->set('branch', 'master')
-      ->set('public_urls', ['https://live-t3base10.inscript-projects.com'])
+      ->set('public_urls', ['https://live-t3base10.sourcebroker-projects.com'])
       ->set('deploy_path', '/home/www/t3base10-public/live');
 
   host('beta')
-      ->hostname('vm-dev.inscript-projects.com')->port(24)
-      ->user('www-data')
+      ->hostname('vm-dev.example.com')
+      ->user('deploy')
       ->set('branch', 'master')
-      ->set('public_urls', ['https://beta-t3base10.inscript-projects.com'])
+      ->set('public_urls', ['https://beta-t3base10.sourcebroker-projects.com'])
       ->set('deploy_path', '/home/www/t3base10-public/beta');
 
   host('local')
       ->hostname('local')
       ->set('deploy_path', getcwd())
       ->set('vhost_nocurrent', true)
-      ->set('public_urls', ['https://t3base10.devloc.site']);
+      ->set('public_urls', ['https://t3base10.local.site']);
 
 
 
