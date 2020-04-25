@@ -7,7 +7,8 @@ master
 
 1) [TASK] Increase dependency for TYPO3 10.
 2) [TASK] Refactor TYPO3 version detection.
-3) [TASK] Refactor placement of configuration per TYPO3 version and add ``var/transient`` to shared dirs.
+3) [TASK][BREAKING] Refactor placement of configuration per TYPO3 version and add ``var/transient`` to shared dirs.
+4) [TASK][BREAKING] Increase Deployer version, increase typo3_console version.
 
 12.1.0
 ~~~~~~
