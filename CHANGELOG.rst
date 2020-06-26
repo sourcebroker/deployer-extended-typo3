@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+13.1.0
+~~~~~~
+
+1) [TASK] Support for ddev database settings.
+
 13.0.0
 ~~~~~~
 

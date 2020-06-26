@@ -73,6 +73,7 @@ set('db_databases',
     [
         'database_default' => [
             get('db_default'),
+            getenv('IS_DDEV_PROJECT') ? get('db_ddev_database_config') :s
             (new \SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver)->getDatabaseConfig(
                 [
                     'host' => 'TYPO3__DB__host',

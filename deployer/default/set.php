@@ -62,9 +62,18 @@ set('media', function () {
 set('db_allow_push_live', false);
 set('db_allow_pull_live', false);
 set('db_allow_copy_live', false);
+set('db_ddev_database_config', [
+    'host' => 'db',
+    'port' => getenv('DDEV_HOST_DB_PORT'),
+    'dbname' => 'db',
+    'user' => 'db',
+    'password' => 'db',
+]);
 
 // Look https://github.com/sourcebroker/deployer-extended-database#db-dumpclean for docs
 set('db_dumpclean_keep', [
     '*' => 5,
     'live' => 10,
 ]);
+
+
