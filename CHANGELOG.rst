@@ -6,7 +6,9 @@ Changelog
 14.0.0
 ~~~~~~
 
-1) [TASK] Add `.ddev` to `clear_paths`.
+1) [TASK] Add ``.ddev`` to ``clear_paths``.
+2) [TASK] Increase ``deployer/dist`` version.
+3) [BREAKING] Increase dependency to breaking version of ``sourcebroker/deployer-extended-database``
 
 13.1.0
 ~~~~~~
