@@ -22,6 +22,7 @@ set('writable_dirs', function () {
 set('default_timeout', 900);
 
 set('clear_paths', [
+    '.ddev',
     '.envrc',
     '.git',
     '.githooks',

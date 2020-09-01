@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+
+14.0.0
+~~~~~~
+
+1) [TASK] Add `.ddev` to `clear_paths`.
+
 13.1.0
 ~~~~~~
 
