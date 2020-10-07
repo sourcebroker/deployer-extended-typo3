@@ -2,6 +2,10 @@
 Changelog
 ---------
 
+14.1.0
+~~~~~~
+
+1) [TASK] Increase ``helhum/dotenv-connector`` version.
 
 14.0.0
 ~~~~~~
