@@ -6,7 +6,7 @@ use Deployer\Exception\Exception;
 use SourceBroker\DeployerExtendedTypo3\Utility\ConsoleUtility;
 
 task('config:createadmin', function () {
-    $username = getenv('DEP_CONFIG_CREATEADMIN_USERNAME');
+    $username = $_ENV['DEP_CONFIG_CREATEADMIN_USERNAME'] ?? null;
     if (empty($username)) {
         $username = ask('Give new admin username');
     }

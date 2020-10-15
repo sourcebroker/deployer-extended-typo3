@@ -65,7 +65,7 @@ set('db_allow_pull_live', false);
 set('db_allow_copy_live', false);
 set('db_ddev_database_config', [
     'host' => 'db',
-    'port' => getenv('DDEV_HOST_DB_PORT'),
+    'port' => $_ENV['DDEV_HOST_DB_PORT'] ?? null,
     'dbname' => 'db',
     'user' => 'db',
     'password' => 'db',
