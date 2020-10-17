@@ -2,7 +2,7 @@
 
 namespace SourceBroker\DeployerExtendedTypo3\Drivers;
 
-use Symfony\Component\Dotenv\Dotenv;
+use SourceBroker\DeployerInstance\Env;
 
 /**
  * Class Typo3EnvDriver
@@ -19,22 +19,12 @@ class Typo3EnvDriver
      */
     public function getDatabaseConfig($dbMappingFields = null, $absolutePathWithConfig = null): array
     {
-        $absolutePathWithConfig = $absolutePathWithConfig ?? getcwd();
-        $absolutePathWithConfig = rtrim($absolutePathWithConfig, DIRECTORY_SEPARATOR);
+        $env = new Env();
+        $env->load($absolutePathWithConfig);
         $dbSettings = [];
-        if (file_exists($absolutePathWithConfig . '/.env')) {
-            (new Dotenv())->load($absolutePathWithConfig . '/.env');
-            foreach ($dbMappingFields as $key => $dbMappingField) {
-                $dbSettings[$key] = $this->getenv($dbMappingField);
-            }
-        } else {
-            throw new \Exception('Missing file "' . $absolutePathWithConfig . '"/.env.');
+        foreach ($dbMappingFields as $key => $dbMappingField) {
+            $dbSettings[$key] = $env->get($dbMappingField);
         }
         return $dbSettings;
-    }
-
-    private function getenv($env)
-    {
-        return $_ENV[$env] ?? null;
     }
 }

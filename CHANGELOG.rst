@@ -9,6 +9,8 @@ master
 2) [TASK] Add ddev config.
 3) [TASK][BREAKING] Remove auto creation of .env and database. Use ``https://ddev.readthedocs.io/en/stable/`` or similar
     tool instead.
+4) [TASK][BREAKING] Change public method getDatabaseConfig() in class Typo3EnvDriver. The second parameter
+   ``$absolutePathWithConfig`` was directory folder with .env file. Now the second parameter is path to file itself.
 
 14.1.0
 ~~~~~~
