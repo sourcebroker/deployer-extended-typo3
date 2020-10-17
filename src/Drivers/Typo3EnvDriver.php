@@ -22,7 +22,6 @@ class Typo3EnvDriver
         $absolutePathWithConfig = $absolutePathWithConfig ?? getcwd();
         $absolutePathWithConfig = rtrim($absolutePathWithConfig, DIRECTORY_SEPARATOR);
         $dbSettings = [];
-        $this->createEnvFileIfDoesNotExist($absolutePathWithConfig . '/.env');
         if (file_exists($absolutePathWithConfig . '/.env')) {
             (new Dotenv())->load($absolutePathWithConfig . '/.env');
             foreach ($dbMappingFields as $key => $dbMappingField) {
@@ -32,80 +31,6 @@ class Typo3EnvDriver
             throw new \Exception('Missing file "' . $absolutePathWithConfig . '"/.env.');
         }
         return $dbSettings;
-    }
-
-    /**
-     * @param $absolutePathWithConfig
-     * @throws \Exception
-     */
-    public function createEnvFileIfDoesNotExist($absolutePathWithConfig)
-    {
-        if (!file_exists($absolutePathWithConfig)) {
-            $host = $this->getenv('MYSQL_HOST');
-            $port = $this->getenv('MYSQL_HOST_PORT') ?: 3306;
-            $username = $this->getenv('MYSQL_USER');
-            $password = $this->getenv('MYSQL_PASSWORD');
-            $databaseName = empty($this->getenv('MYSQL_DATABASE')) ? '' : $this->getenv('MYSQL_DATABASE');
-            if (empty($databaseName)) {
-                exec('git config --get remote.origin.url', $output);
-                preg_match('/\/([a-zA-Z0-9-_\.]+)\.git/', $output[0], $match);
-                if ((isset($output[0]) && strlen($output[0]) === 0) || empty($match[1])) {
-                    throw new \Exception('Can not get git repo name from "git config --get remote.origin.url" command. Its needed to create database.');
-                }
-                $databaseBaseName = 'typo3_' . $match[1];
-                $databaseBaseName = str_replace(['.', '-'], ['_', '_'], $databaseBaseName);
-                if (!empty($this->getenv('MYSQL_USER')) && !empty($this->getenv('MYSQL_PASSWORD'))) {
-                    $databaseName = $this->tryToCreateDatabaseIfNotExists($host, $port, $this->getenv('MYSQL_USER'),
-                        $this->getenv('MYSQL_PASSWORD'), $databaseBaseName);
-                }
-                if (empty($databaseName) && !empty($this->getenv('MYSQL_ROOT_USER')) && !empty($this->getenv('MYSQL_ROOT_PASSWORD'))) {
-                    $databaseName = $this->tryToCreateDatabaseIfNotExists($host, $port, $this->getenv('MYSQL_ROOT_USER'),
-                        $this->getenv('MYSQL_ROOT_PASSWORD'), $databaseBaseName);
-                    $username = $this->getenv('MYSQL_ROOT_USER');
-                    $password = $this->getenv('MYSQL_ROOT_PASSWORD');
-                }
-            }
-            $envDist = file_get_contents(dirname($absolutePathWithConfig) . '/.env.dist');
-            $replace = [
-                'TYPO3_CONTEXT' => $this->getenv('TYPO3_CONTEXT'),
-                'INSTANCE' => $this->getenv('INSTANCE'),
-                'MYSQL_DATABASE' => $databaseName,
-                'MYSQL_USER' => $username,
-                'MYSQL_PASSWORD' => $password,
-                'MYSQL_HOST' => $host,
-                'MYSQL_HOST_PORT' => $port,
-                'IMAGE_MAGICK_PATH' => $this->getenv('IMAGE_MAGICK_PATH'),
-                'IMAGE_MAGICK_COLORSPACE' => $this->getenv('IMAGE_MAGICK_COLORSPACE')
-            ];
-            $envDistMarkersReplaced = preg_replace_callback(
-                "/\\{([A-Za-z0-9_:]+)\\}/",
-                function ($match) use ($replace) {
-                    return $replace[$match[1]];
-                },
-                $envDist
-            );
-            file_put_contents($absolutePathWithConfig, $envDistMarkersReplaced);
-        }
-    }
-
-    private function tryToCreateDatabaseIfNotExists($host, $port, $user, $password, $databaseBaseName): string
-    {
-        $databaseName = null;
-        $mysqli = new \mysqli($host, $user, $password, '', $port);
-        if (!$mysqli->connect_errno) {
-            $i = 0;
-            while ($i < 20) {
-                $databaseName = $databaseBaseName . ($i ? '_' . $i : '');
-                $result = $mysqli->query("SELECT COUNT(DISTINCT `table_name`) AS table_counter FROM `information_schema`.`columns` WHERE `table_schema` = '" . $databaseName . "'");
-                if (!empty($result) && intval($result->fetch_assoc()['table_counter']) == 0) {
-                    $mysqli->query("CREATE DATABASE IF NOT EXISTS `" . $databaseName . "`");
-                    break;
-                } else {
-                    $i++;
-                }
-            }
-        }
-        return $databaseName;
     }
 
     private function getenv($env)

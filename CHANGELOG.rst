@@ -7,6 +7,8 @@ master
 
 1) [BUGFIX] Fix compatibility with symfony/dotenv 5.0 which do not use getenv() by default.
 2) [TASK] Add ddev config.
+3) [TASK][BREAKING] Remove auto creation of .env and database. Use ``https://ddev.readthedocs.io/en/stable/`` or similar
+    tool instead.
 
 14.1.0
 ~~~~~~
