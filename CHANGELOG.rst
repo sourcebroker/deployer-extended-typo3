@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-master
+15.0.0
 ~~~~~~
 
 1) [BUGFIX] Fix compatibility with symfony/dotenv 5.0 which do not use getenv() by default.
