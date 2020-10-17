@@ -11,6 +11,8 @@ master
     tool instead.
 4) [TASK][BREAKING] Change public method getDatabaseConfig() in class Typo3EnvDriver. The second parameter
    ``$absolutePathWithConfig`` was directory folder with .env file. Now the second parameter is path to file itself.
+5) [TASK][BREAKING] Update ``sourcebroker/deployer-extended``, ``sourcebroker/deployer-extended-media``,
+   ``sourcebroker/deployer-extended-database``.
 
 14.1.0
 ~~~~~~
