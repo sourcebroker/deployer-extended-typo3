@@ -60,6 +60,28 @@ Installation
    ``vendor/sourcebroker/deployer-extended-typo3/deployer/default/deploy/task/deploy.php``. Look at
    `Example of working configuration`_ to see how simple can be working ``deploy.php`` file.
 
+4) On each instance create ``.env`` file which should be out of git and have at least ``INSTANCE`` with the same name as
+   defined for ``host()`` in ``deploy.php`` file. You can use this file also to store database credentials and all other
+   settings that are different per instance. Because ``deployer-extended-typo3`` use ``helhum/dotenv-connector`` the values
+   form ``.env`` file will be available in TYPO3 and you can use them for example in ``typo3onf/AdditionalConfiguration.php``
+   to set up database connections. This way you can have ``typo3onf/LocalConfiguration.php`` in git. Example for ``.env`` file:
+
+   ::
+
+      TYPO3_CONTEXT='Development/Staging/Live'
+      INSTANCE='live'
+
+      TYPO3__DB__Connections__Default__dbname='t3base10_live'
+      TYPO3__DB__Connections__Default__host='127.0.0.1'
+      TYPO3__DB__Connections__Default__password='password'
+      TYPO3__DB__Connections__Default__port='3306'
+      TYPO3__DB__Connections__Default__user='t3base10_live'
+
+
+   If you use composer installation with ``public/`` folder (default) you need to set in your deploy.php:
+   ::
+
+      set('web_path', 'public/');
 
 Deployment
 ----------
@@ -95,45 +117,19 @@ The shared file for TYPO3 10 is:
 
    set('shared_files', ['.env']);
 
-Use this file to store database credentials and info about instance. The obligatory env variable is ``INSTANCE``. It must
-have the same name as ``host()`` in ``deploy.php``. Its advisable that you store there also all settings that are different
-per instance. For example database data.
-
-Example:
-
-::
-
-    TYPO3_CONTEXT='Development/Staging/Live'
-    INSTANCE='live'
-
-    TYPO3__DB__Connections__Default__dbname='t3base10_live'
-    TYPO3__DB__Connections__Default__host='127.0.0.1'
-    TYPO3__DB__Connections__Default__password='password'
-    TYPO3__DB__Connections__Default__port='3306'
-    TYPO3__DB__Connections__Default__user='t3base10_live'
-
-
-Because ``deployer-extended-typo3`` use ``helhum/dotenv-connector`` the values form ``.env`` file will be available in
-TYPO3 and you can use them for example in ``typo3onf/AdditionalConfiguration.php`` to set up database connections.
-This way you can have ``typo3onf/LocalConfiguration.php`` in git.
-
-If you use composer installation with ``public/`` folder (default) you need to set in your deploy.php:
-
-::
-
-   set('web_path', 'public/');
 
 Composer
 ++++++++
 
 You can set proper version of composer with ``composer_channel`` (values: 1, 2, stable, prelive, snapshot) or with
 ``composer_version`` which takes exact tags as arguments (https://github.com/composer/composer/tags). For stability and
-security  its advised that you set ``composer_channel`` with value ``1`` or ``2`` so is tiwll be automatically updated
-but will nto install version ``3`` in future so your deploy will remain stable.
+security  its advised that you set ``composer_channel`` with value ``1`` or ``2`` so it will be automatically updated
+but will not install any new major version in future so your deploy will remain fairly stable.
 
 ::
 
    set('composer_channel', 2);
+
 
 Synchronizing database
 ----------------------
