@@ -2,10 +2,11 @@
 Changelog
 ---------
 
-master
+16.0.0
 ~~~~~~
 
-1) [TASK][BREAKING] Update to ``sourcebroker/deployer-extended`` which overwrites ``bin/composer``.
+1) [TASK][BREAKING] Update to ``sourcebroker/deployer-extended`` which overwrites ``bin/composer``. It allows to set
+   ``composer_channel`` or ``composer_version``.
 
 15.0.0
 ~~~~~~
