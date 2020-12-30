@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK][BREAKING] Update to ``sourcebroker/deployer-extended`` which overwrites ``bin/composer``.
+
 15.0.0
 ~~~~~~
 
