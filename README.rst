@@ -39,7 +39,7 @@ Installation
    Note! Generally its not advisable to install deployer globally because each of your project can use
    different version of deployer so the best is to have version of deployer dependent on project.
 
-   Its not also advisable to install deployer as direct dependency of your project as it can interfere dependencies
+   Its also not advisable to install deployer as direct dependency of your project as it can interfere dependencies
    of your project.
 
    The best is to install phar binary of deployer using composer - with `deployer/dist`_ package.
@@ -57,107 +57,23 @@ Installation
       new \SourceBroker\DeployerExtendedTypo3\Loader();
 
 3) Remove task "deploy" from your deploy.php. Otherwise you will overwrite deploy task defined in
-   ``vendor/sourcebroker/deployer-extended-typo3/deployer/default/deploy/task/deploy.php``
+   ``vendor/sourcebroker/deployer-extended-typo3/deployer/default/deploy/task/deploy.php``. Look at
+   `Example of working configuration`_ to see how simple can be working ``deploy.php`` file.
 
 
 Deployment
 ----------
 
-Its very advisable that you test deploy on some beta instance first :)
+Run:
 ::
 
-   dep deploy beta
+   dep deploy [host or stage]
 
 
-The deploy task consist of following subtasks:
-::
+Shared dirs
++++++++++++
 
-  task('deploy', [
-
-    // Standard deployer task.
-    'deploy:info',
-
-    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-lock
-    'deploy:check_lock',
-
-    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-composer-install
-    'deploy:check_composer_install',
-
-    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-branch-local
-    'deploy:check_branch_local',
-
-    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-check-branch
-    'deploy:check_branch',
-
-    // Standard deployer task.
-    'deploy:prepare',
-
-    // Standard deployer task.
-    'deploy:lock',
-
-    // Standard deployer task.
-    'deploy:release',
-
-    // Standard deployer task.
-    'deploy:update_code',
-
-    // Standard deployer task.
-    'deploy:shared',
-
-    // Standard deployer task.
-    'deploy:writable',
-
-    // Standard deployer task.
-    'deploy:vendors',
-
-    // Standard deployer task.
-    'deploy:clear_paths',
-
-    // Create database backup, compress and copy to database store.
-    // Read more on https://github.com/sourcebroker/deployer-extended-database#db-backup
-    'db:backup',
-
-    // Start buffering http requests. No frontend access possible from now.
-    // Read more on https://github.com/sourcebroker/deployer-extended#buffer-start
-    'buffer:start',
-
-    // Truncate caching tables, all cf_* tables
-    // Read more on https://github.com/sourcebroker/deployer-extended-database#db-truncate
-    'db:truncate',
-
-    // Update database schema for TYPO3. Task from typo3_console extension.
-    'typo3cms:database:updateschema',
-
-    // Standard deployer task.
-    'deploy:symlink',
-
-    // Clear php cli cache.
-    // Read more on https://github.com/sourcebroker/deployer-extended#cache-clear-php-cli
-    'cache:clear_php_cli',
-
-    // Clear frontend http cache.
-    // Read more on https://github.com/sourcebroker/deployer-extended#cache-clear-php-http
-    'cache:clear_php_http',
-
-    // Frontend access possible again from now
-    // Read more on https://github.com/sourcebroker/deployer-extended#buffer-stop
-    'buffer:stop',
-
-    // Standard deployer task.
-    'deploy:unlock',
-
-    // Standard deployer task.
-    'cleanup',
-
-    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-extend-log
-    'deploy:extend_log',
-
-    // Standard deployer task.
-    'success',
-
-  ])->desc('Deploy your TYPO3');
-
-The shared dirs for TYPO3 10 are:
+For TYPO3 10 the shared dirs are:
 ::
 
   set('shared_dirs', function () {
@@ -171,19 +87,53 @@ The shared dirs for TYPO3 10 are:
       ];
   });
 
+Shared files
+++++++++++++
+
 The shared file for TYPO3 10 is:
 ::
 
    set('shared_files', ['.env']);
 
-Use this file to store database credentials and use them as env vars for example in ``typo3onf/AdditionalConfiguration.php``
-to set up database. This way you can have ``typo3onf/LocalConfiguration.php`` in git.
+Use this file to store database credentials and info about instance. The obligatory env variable is ``INSTANCE``. It must
+have the same name as ``host()`` in ``deploy.php``. Its advisable that you store there also all settings that are different
+per instance. For example database data.
 
-For TYPO3 10 if you use composer installation with public/ folder (default) you need to set in your deploy.php:
+Example:
+
+::
+
+    TYPO3_CONTEXT='Development/Staging/Live'
+    INSTANCE='live'
+
+    TYPO3__DB__Connections__Default__dbname='t3base10_live'
+    TYPO3__DB__Connections__Default__host='127.0.0.1'
+    TYPO3__DB__Connections__Default__password='password'
+    TYPO3__DB__Connections__Default__port='3306'
+    TYPO3__DB__Connections__Default__user='t3base10_live'
+
+
+Because ``deployer-extended-typo3`` use ``helhum/dotenv-connector`` the values form ``.env`` file will be available in
+TYPO3 and you can use them for example in ``typo3onf/AdditionalConfiguration.php`` to set up database connections.
+This way you can have ``typo3onf/LocalConfiguration.php`` in git.
+
+If you use composer installation with ``public/`` folder (default) you need to set in your deploy.php:
+
 ::
 
    set('web_path', 'public/');
 
+Composer
+++++++++
+
+You can set proper version of composer with ``composer_channel`` (values: 1, 2, stable, prelive, snapshot) or with
+``composer_version`` which takes exact tags as arguments (https://github.com/composer/composer/tags). For stability and
+security  its advised that you set ``composer_channel`` with value ``1`` or ``2`` so is tiwll be automatically updated
+but will nto install version ``3`` in future so your deploy will remain stable.
+
+::
+
+   set('composer_channel', 2);
 
 Synchronizing database
 ----------------------
@@ -249,6 +199,7 @@ This is example of working configuration for TYPO3 10. The aim of ``sourcebroker
   set('repository', 'git@github.com:sourcebrokergit/t3base10.git');
   set('bin/php', '/home/www/t3base10-public/.bin/php');
   set('web_path', 'public/');
+  set('composer_channel', 2);
 
   host('live')
       ->hostname('vm-dev.example.com')
@@ -267,7 +218,6 @@ This is example of working configuration for TYPO3 10. The aim of ``sourcebroker
   host('local')
       ->hostname('local')
       ->set('deploy_path', getcwd())
-      ->set('vhost_nocurrent', true)
       ->set('public_urls', ['https://t3base10.local.site']);
 
 
