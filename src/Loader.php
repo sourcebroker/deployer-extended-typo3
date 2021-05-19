@@ -39,6 +39,8 @@ class Loader
         }
         if (file_exists($rootDir . '/typo3/backend.php')) {
             $typo3MajorVersion = 6;
+        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-11.rst')) {
+            $typo3MajorVersion = 11;
         } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-10.rst')) {
             $typo3MajorVersion = 10;
         } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-9.rst')) {

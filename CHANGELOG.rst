@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK] Add support for TYPO3 11.
+
 16.0.0
 ~~~~~~
 
