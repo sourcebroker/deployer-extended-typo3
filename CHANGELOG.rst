@@ -8,6 +8,7 @@ master
 1) [TASK] Add support for TYPO3 11.
 2) [TASK] Cleanup on clear_paths / add ``.php-cs-fixer.php``.
 3) [FEATURE] Add support for alternative way of reading database data (only TYPO3 10 and TYPO 11).
+4) [TASK] Add labels as shared for TYPO3 11.
 
 16.0.0
 ~~~~~~
