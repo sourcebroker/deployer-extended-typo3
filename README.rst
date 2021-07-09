@@ -161,7 +161,7 @@ The command for synchronizing media from live to local instance:
 
    dep media:pull live
 
-If you are logged to ssh of beta instance you can also run ``dep media:pull live`` to get database from ``live``
+If you are logged to ssh of beta instance you can also run ``dep media:pull live`` to get media from ``live``
 to ``beta``. But you can also synchronise ``live`` to ``beta`` from you local instance with following command:
 
 ::
@@ -214,7 +214,7 @@ This is example of working configuration for TYPO3 10. The aim of ``sourcebroker
   host('local')
       ->hostname('local')
       ->set('deploy_path', getcwd())
-      ->set('public_urls', ['https://t3base10.local.site']);
+      ->set('public_urls', ['https://t3base10.ddev.site']);
 
 
 
