@@ -57,23 +57,15 @@ set('db_default', [
 ]);
 
 // Look https://github.com/sourcebroker/deployer-extended-database for docs
-if (get('use_driver_typo3cms')) {
-    set('db_databases',
-        [
-            'database_default' => [
-                get('db_default'),
-                function () {
+set('db_databases',
+    [
+        'database_default' => [
+            get('db_default'),
+            function () {
+                if (get('use_driver_typo3cms')) {
                     return (new \SourceBroker\DeployerExtendedTypo3\Drivers\Typo3CmsDriver)->getDatabaseConfig();
-                },
-            ]
-        ]
-    );
-} else {
-    set('db_databases',
-        [
-            'database_default' => [
-                get('db_default'),
-                !empty($_ENV['IS_DDEV_PROJECT']) ? get('db_ddev_database_config') :
+                }
+                return !empty($_ENV['IS_DDEV_PROJECT']) ? get('db_ddev_database_config') :
                     (new \SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver)->getDatabaseConfig(
                         [
                             'host' => 'TYPO3__DB__Connections__Default__host',
@@ -82,8 +74,8 @@ if (get('use_driver_typo3cms')) {
                             'user' => 'TYPO3__DB__Connections__Default__user',
                             'password' => 'TYPO3__DB__Connections__Default__password',
                         ]
-                    ),
-            ]
+                    );
+            }
         ]
-    );
-}
+    ]
+);
