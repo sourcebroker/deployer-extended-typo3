@@ -6,8 +6,6 @@ set('branch_detect_to_deploy', false);
 
 set('allow_anonymous_stats', false);
 
-set('use_driver_typo3cms', false);
-
 set('shared_files', [
     '.env'
 ]);

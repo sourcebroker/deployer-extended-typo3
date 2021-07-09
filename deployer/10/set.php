@@ -62,7 +62,7 @@ set('db_databases',
         'database_default' => [
             get('db_default'),
             function () {
-                if (get('use_driver_typo3cms')) {
+                if (get('driver_typo3cms', false)) {
                     return (new \SourceBroker\DeployerExtendedTypo3\Drivers\Typo3CmsDriver)->getDatabaseConfig();
                 }
                 return !empty($_ENV['IS_DDEV_PROJECT']) ? get('db_ddev_database_config') :
