@@ -6,6 +6,7 @@ master
 ~~~~~~
 
 1) [TASK] Add support for TYPO3 11.
+2) [TASK] Cleanup on clear_paths / add ``.php-cs-fixer.php``.
 
 16.0.0
 ~~~~~~
