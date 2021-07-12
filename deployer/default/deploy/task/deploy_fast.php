@@ -52,6 +52,9 @@ task('deploy-fast', [
     // Update database schema for TYPO3. Task from typo3_console extension.
     'typo3cms:database:updateschema',
 
+    // Update language files of all activated extensions. Task from typo3_console.
+    'typo3cms:language:update',
+
     // Standard deployer task.
     'deploy:symlink',
 
