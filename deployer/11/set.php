@@ -10,7 +10,6 @@ set('shared_dirs', function () {
         get('web_path') . 'typo3temp/assets/images',
         !empty(get('web_path')) ? 'var/log' : 'typo3temp/var/log',
         !empty(get('web_path')) ? 'var/transient' : 'typo3temp/var/transient',
-        !empty(get('web_path')) ? 'var/labels' : 'typo3conf/l10n',
     ];
 });
 
