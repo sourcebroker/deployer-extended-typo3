@@ -58,6 +58,9 @@ task('deploy', [
     // Update database schema for TYPO3. Task from typo3_console extension.
     'typo3cms:database:updateschema',
 
+    // If activated, update language files of all activated extensions. Task from typo3_console.
+    'check_language_update',
+
     // Standard deployer task.
     'deploy:symlink',
 
