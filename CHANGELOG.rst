@@ -2,15 +2,16 @@
 Changelog
 ---------
 
-master
+16.1.0
 ~~~~~~
 
-1) [TASK] Cleanup on clear_paths and add ``.php-cs-fixer.php``.
-2) [FEATURE] Add support for alternative way of reading database access data from TYPO3 to be used in deployer. The new
+1) [TASK] Add support for TYPO3 11
+2) [TASK] Cleanup on clear_paths and add ``.php-cs-fixer.php``.
+3) [FEATURE] Add support for alternative way of reading database access data from TYPO3 to be used in deployer. The new
    Typo3CmsDriver driver is using command ``./vendor/bin/typo3cms configuration:showactive DB --json`` to read database d
    data so its independent on the way how you pass the database data for TYPO3. You need to activate it with
    ``set('driver_typo3cms', true);`` in your ``deploy.php`` file.
-3) [FEATURE] Add ``typo3cms:language:update`` task for those who update language files on each deploy.
+4) [FEATURE] Add ``typo3cms:language:update`` task for those who update language files on each deploy.
 
 16.0.0
 ~~~~~~
