@@ -71,17 +71,27 @@ Installation
       TYPO3_CONTEXT='Development/Staging/Live'
       INSTANCE='live'
 
-      TYPO3__DB__Connections__Default__dbname='t3base10_live'
+      TYPO3__DB__Connections__Default__dbname='t3base11_live'
       TYPO3__DB__Connections__Default__host='127.0.0.1'
       TYPO3__DB__Connections__Default__password='password'
       TYPO3__DB__Connections__Default__port='3306'
-      TYPO3__DB__Connections__Default__user='t3base10_live'
+      TYPO3__DB__Connections__Default__user='t3base11_live'
 
 
    If you use composer installation with ``public/`` folder (default) you need to set in your deploy.php:
    ::
 
       set('web_path', 'public/');
+
+   If you want to update language files on each deploy add task ``typo3cms:language:update`` before ``deploy_symlink``.
+   ::
+
+      before('deploy_symlink', 'typo3cms:language:update');
+
+   If you want that Deployer get database data from TYPO3 directly instead of reading from .env file then set:
+   ::
+
+      set('driver_typo3cms', true);
 
 Deployment
 ----------
@@ -95,7 +105,7 @@ Run:
 Shared dirs
 +++++++++++
 
-For TYPO3 10 the shared dirs are:
+For TYPO3 11 the shared dirs are:
 ::
 
   set('shared_dirs', function () {
@@ -112,7 +122,7 @@ For TYPO3 10 the shared dirs are:
 Shared files
 ++++++++++++
 
-The shared file for TYPO3 10 is:
+The shared file for TYPO3 11 is:
 ::
 
    set('shared_files', ['.env']);
@@ -180,7 +190,7 @@ on staging instances with no risk that they will be accidentally deleted!
 Example of working configuration
 --------------------------------
 
-This is example of working configuration for TYPO3 10. The aim of ``sourcebroker/deployer-extended-typo3`` is to have very slim
+This is example of working configuration for TYPO3 11. The aim of ``sourcebroker/deployer-extended-typo3`` is to have very slim
 ``deploy.php`` file in order to have nice possibility to upgrade to future versions of ``sourcebroker/deployer-extended-typo3``.
 
 ::
@@ -192,8 +202,8 @@ This is example of working configuration for TYPO3 10. The aim of ``sourcebroker
   require_once(__DIR__ . '/vendor/sourcebroker/deployer-loader/autoload.php');
   new \SourceBroker\DeployerExtendedTypo3\Loader();
 
-  set('repository', 'git@github.com:sourcebrokergit/t3base10.git');
-  set('bin/php', '/home/www/t3base10-public/.bin/php');
+  set('repository', 'git@github.com:sourcebrokergit/t3base11.git');
+  set('bin/php', '/home/www/t3base11-public/.bin/php');
   set('web_path', 'public/');
   set('composer_channel', 2);
 
@@ -201,20 +211,20 @@ This is example of working configuration for TYPO3 10. The aim of ``sourcebroker
       ->hostname('vm-dev.example.com')
       ->user('deploy')
       ->set('branch', 'master')
-      ->set('public_urls', ['https://live-t3base10.example.com'])
-      ->set('deploy_path', '/home/www/t3base10-public/live');
+      ->set('public_urls', ['https://live-t3base11.example.com'])
+      ->set('deploy_path', '/home/www/t3base11-public/live');
 
   host('beta')
       ->hostname('vm-dev.example.com')
       ->user('deploy')
       ->set('branch', 'master')
-      ->set('public_urls', ['https://beta-t3base10.example.com'])
-      ->set('deploy_path', '/home/www/t3base10-public/beta');
+      ->set('public_urls', ['https://beta-t3base11.example.com'])
+      ->set('deploy_path', '/home/www/t3base11-public/beta');
 
   host('local')
       ->hostname('local')
       ->set('deploy_path', getcwd())
-      ->set('public_urls', ['https://t3base10.ddev.site']);
+      ->set('public_urls', ['https://t3base11.ddev.site']);
 
 
 
