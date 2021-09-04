@@ -6,7 +6,10 @@ master
 ~~~~~~
 
 1) [TASK] Cleanup on clear_paths and add ``.php-cs-fixer.php``.
-
+2) [FEATURE] Add support for alternative way of reading database access data from TYPO3 to be used in deployer. The new
+   Typo3CmsDriver driver is using command ``./vendor/bin/typo3cms configuration:showactive DB --json`` to read database d
+   data so its independent on the way how you pass the database data for TYPO3. You need to activate it with
+   ``set('driver_typo3cms', true);`` in your ``deploy.php`` file.
 
 16.0.0
 ~~~~~~
