@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+17.0.0
+~~~~~~
+
+1) [TASK][BREAKING] Possible breaking change because extends ``typo3_console`` to 7.0.
+   Can break flows that depends on ``typo3cms install:generatepackagestates``.
+
 16.1.0
 ~~~~~~
 
