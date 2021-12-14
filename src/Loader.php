@@ -6,7 +6,10 @@ use SourceBroker\DeployerLoader\Load;
 
 class Loader
 {
-    public function __construct()
+    /**
+     * @param string $typo3Path optional path to typo3-source relative to project-root, default: 'public'
+     */
+    public function __construct($typo3Path = 'public')
     {
         /** @noinspection PhpIncludeInspection */
         require_once 'recipe/common.php';
@@ -18,7 +21,7 @@ class Loader
                 ['path' => 'vendor/sourcebroker/deployer-extended-typo3/deployer/default'],
                 [
                     'path' => 'vendor/sourcebroker/deployer-extended-typo3/deployer/' .
-                        $this->getTypo3MajorVersion($this->projectRootAbsolutePath())
+                        $this->getTypo3MajorVersion($this->projectRootAbsolutePath(), $typo3Path)
                 ]
             ]
         );
@@ -26,16 +29,17 @@ class Loader
 
     /**
      * @param $rootDir
+     * @param string $typo3Path path to typo3-source relative to project-root
      * @return int|null
      * @throws \Exception
      * @internal param $params
      */
-    public function getTypo3MajorVersion($rootDir)
+    public function getTypo3MajorVersion($rootDir, $typo3Path)
     {
         $typo3MajorVersion = null;
         $rootDir = rtrim($rootDir, '/');
         if(!file_exists($rootDir . '/typo3')) {
-            $rootDir = $rootDir . '/public';
+            $rootDir = $rootDir . '/' . $typo3Path;
         }
         if (file_exists($rootDir . '/typo3/backend.php')) {
             $typo3MajorVersion = 6;
