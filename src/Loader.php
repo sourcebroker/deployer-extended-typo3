@@ -34,30 +34,37 @@ class Loader
     {
         $typo3MajorVersion = null;
         $rootDir = rtrim($rootDir, '/');
-        if(!file_exists($rootDir . '/typo3')) {
-            $rootDir = $rootDir . '/public';
+
+        $changelogFilesRoot = glob($rootDir . '/typo3/sysext/core/Documentation/Changelog-*.rst');
+        $changelogFilesRootSubDirs = glob($rootDir . '/*/typo3/sysext/core/Documentation/Changelog-*.rst');
+        $changelogFiles = array_merge(
+            is_array($changelogFilesRoot) ? $changelogFilesRoot : [],
+            is_array($changelogFilesRootSubDirs) ? $changelogFilesRootSubDirs : []
+        );
+
+        $changelogFilesIntegers = array_map(function ($changelogFile) {
+            preg_match('/Changelog-(\\d+)\\.rst/', $changelogFile, $matches);
+            return $matches[1] ?? 0;
+        }, $changelogFiles);
+
+        if (!empty($changelogFilesIntegers)) {
+            asort($changelogFilesIntegers, SORT_NUMERIC);
+            $typo3MajorVersion = array_pop($changelogFilesIntegers);
         }
-        if (file_exists($rootDir . '/typo3/backend.php')) {
+
+        if ($typo3MajorVersion === null && file_exists($rootDir . '/typo3/backend.php')) {
             $typo3MajorVersion = 6;
-        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-11.rst')) {
-            $typo3MajorVersion = 11;
-        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-10.rst')) {
-            $typo3MajorVersion = 10;
-        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-9.rst')) {
-            $typo3MajorVersion = 9;
-        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-8.rst')) {
-            $typo3MajorVersion = 8;
-        } elseif (file_exists($rootDir . '/typo3/sysext/core/Documentation/Changelog-7.rst')) {
-            $typo3MajorVersion = 7;
         }
+
         if (null === $typo3MajorVersion) {
             throw new \Exception('Cannot figure out the TYPO3 major version.');
         }
+
         return $typo3MajorVersion;
     }
 
     /**
-     * Return absolute path to project root so we can add it to relative pathes.
+     * Return absolute path to project root, so we can add it to relative pathes.
      *
      * @return bool|string
      */

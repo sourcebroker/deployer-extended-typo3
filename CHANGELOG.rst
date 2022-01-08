@@ -2,6 +2,15 @@
 Changelog
 ---------
 
+18.0.0
+~~~~~~
+
+1) [TASK][BREAKING] Possible breaking because it changes the way it detects TYPO3 version.
+   Now its doing ``glob($rootDir . '/typo3/sysext/core/Documentation/Changelog-*.rst');`` and
+   ``glob($rootDir . '/*/typo3/sysext/core/Documentation/Changelog-*.rst');`` and choose the
+   highest number from the Changelogs files. The possible fail can be when you store second TYPO3
+   sources with different version in the same root.
+
 17.0.0
 ~~~~~~
 
