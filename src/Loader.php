@@ -37,9 +37,11 @@ class Loader
 
         $changelogFilesRoot = glob($rootDir . '/typo3/sysext/core/Documentation/Changelog-*.rst');
         $changelogFilesRootSubDirs = glob($rootDir . '/*/typo3/sysext/core/Documentation/Changelog-*.rst');
+        $changelogFilesVendor = glob('vendor/typo3/cms-core/Documentation/Changelog-*.rst');
         $changelogFiles = array_merge(
             is_array($changelogFilesRoot) ? $changelogFilesRoot : [],
-            is_array($changelogFilesRootSubDirs) ? $changelogFilesRootSubDirs : []
+            is_array($changelogFilesRootSubDirs) ? $changelogFilesRootSubDirs : [],
+            is_array($changelogFilesVendor) ? $changelogFilesVendor : []
         );
 
         $changelogFilesIntegers = array_map(function ($changelogFile) {
