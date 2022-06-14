@@ -68,10 +68,10 @@ class Loader
     /**
      * Return absolute path to project root, so we can add it to relative pathes.
      *
-     * @return bool|string
+     * @return string
      */
     protected function projectRootAbsolutePath()
     {
-        return realpath(__DIR__ . '/../../../..');
+        return dirname(__DIR__, 4);
     }
 }

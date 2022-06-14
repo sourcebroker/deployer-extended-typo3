@@ -8,6 +8,8 @@ Changelog
 1) [FEATURE] Add path ``vendor/typo3/cms-core/Documentation/Changelog-*.rst`` for TYPO3 version detection to
    have compatibility with ``typo3/cms-composer-installers`` 4+.
 
+2) [TASK] Optimise method projectRootAbsolutePath.
+
 18.0.0
 ~~~~~~
 
