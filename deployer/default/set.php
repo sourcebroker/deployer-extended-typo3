@@ -22,7 +22,9 @@ set('writable_dirs', function () {
 set('default_timeout', 900);
 
 set('clear_paths', [
+    '.idea',
     '.ddev',
+    '.editorconfig',
     '.envrc',
     '.git',
     '.gitattributes',
@@ -34,7 +36,11 @@ set('clear_paths', [
     'composer.json',
     'composer.lock',
     'composer.phar',
-    'phpstan.neon'
+    'phive.xml',
+    'phpstan-baseline.neon',
+    'phpstan.neon',
+    'rector.php',
+    'typoscript-lint.yml'
 ]);
 
 set('bin/typo3cms', './vendor/bin/typo3cms');
@@ -48,7 +54,7 @@ set('media_allow_pull_live', false);
 set('media', function () {
     return [
         'filter' => [
-            '+ /' . get('web_path') . '',
+            '+ /' . get('web_path'),
             '+ /' . get('web_path') . 'fileadmin/',
             '- /' . get('web_path') . 'fileadmin/_processed_/*',
             '+ /' . get('web_path') . 'fileadmin/**',
