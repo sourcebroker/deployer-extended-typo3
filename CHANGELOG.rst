@@ -7,6 +7,7 @@ master
 
 1) [TASK][BREAKING] Set ``set('web_path', 'public/');`` and ``set('composer_channel', 2);`` by default for TYPO3 10+.
 2) [TASK][BREAKING] Extend the ``clear_paths`` list.
+3) [TASK] Allow ``driver_typo3cms`` to be used with v9.
 
 18.1.0
 ~~~~~~
