@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-master
+19.0.0
 ~~~~~~
 
 1) [TASK][BREAKING] Set ``set('web_path', 'public/');`` and ``set('composer_channel', 2);`` by default for TYPO3 10+.
