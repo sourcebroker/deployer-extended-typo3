@@ -78,11 +78,6 @@ Installation
       TYPO3__DB__Connections__Default__user='t3base11_live'
 
 
-   If you use composer installation with ``public/`` folder (default) you need to set in your deploy.php:
-   ::
-
-      set('web_path', 'public/');
-
    If you want to update language files on each deploy add task ``typo3cms:language:update`` before ``deploy_symlink``.
    ::
 
@@ -133,8 +128,8 @@ Composer
 
 You can set proper version of composer with ``composer_channel`` (values: 1, 2, stable, prelive, snapshot) or with
 ``composer_version`` which takes exact tags as arguments (https://github.com/composer/composer/tags). For stability and
-security  its advised that you set ``composer_channel`` with value ``1`` or ``2`` so it will be automatically updated
-but will not install any new major version in future so your deploy will remain fairly stable.
+security it is advised that you set ``composer_channel`` with value ``1`` or ``2`` so it will be automatically updated
+but will not install any new major version in future so your deploy will remain fairly stable. The default value is ``2``.
 
 ::
 
@@ -178,9 +173,8 @@ to ``beta``. But you can also synchronise ``live`` to ``beta`` from you local in
 
    dep media:copy live --options=target:beta
 
-If the instances are on the same host you can use symlink for each file
-(equivalent of ``cp -rs source destination``). This way you can save space for media
-on staging instances with no risk that they will be accidentally deleted!
+If the instances are on the same host you can use symlink for each file (equivalent of ``cp -rs source destination``).
+This way you can save space for media on staging instances with no risk that they will be accidentally deleted!
 
 ::
 
@@ -190,8 +184,9 @@ on staging instances with no risk that they will be accidentally deleted!
 Example of working configuration
 --------------------------------
 
-This is example of working configuration for TYPO3 11. The aim of ``sourcebroker/deployer-extended-typo3`` is to have very slim
-``deploy.php`` file in order to have nice possibility to upgrade to future versions of ``sourcebroker/deployer-extended-typo3``.
+This is example of working configuration for TYPO3 11. The aim of ``sourcebroker/deployer-extended-typo3`` is to
+have very slim ``deploy.php`` file in order to have nice possibility to upgrade to future versions of
+``sourcebroker/deployer-extended-typo3``.
 
 ::
 
@@ -203,23 +198,22 @@ This is example of working configuration for TYPO3 11. The aim of ``sourcebroker
   new \SourceBroker\DeployerExtendedTypo3\Loader();
 
   set('repository', 'git@github.com:sourcebrokergit/t3base11.git');
-  set('bin/php', '/home/www/t3base11-public/.bin/php');
-  set('web_path', 'public/');
-  set('composer_channel', 2);
 
   host('live')
       ->hostname('vm-dev.example.com')
       ->user('deploy')
       ->set('branch', 'master')
+      ->set('bin/php', '/home/www/t3base11-public/live/.bin/php');
       ->set('public_urls', ['https://live-t3base11.example.com'])
-      ->set('deploy_path', '/home/www/t3base11-public/live');
+      ->set('deploy_path', '/home/www/t3base11/live');
 
   host('beta')
       ->hostname('vm-dev.example.com')
       ->user('deploy')
       ->set('branch', 'master')
+      ->set('bin/php', '/home/www/t3base11-public/beta/.bin/php');
       ->set('public_urls', ['https://beta-t3base11.example.com'])
-      ->set('deploy_path', '/home/www/t3base11-public/beta');
+      ->set('deploy_path', '/home/www/t3base11/beta');
 
   host('local')
       ->hostname('local')
