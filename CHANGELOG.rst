@@ -7,6 +7,9 @@ master
 
 1) [TASK][BREAKING] Refactor for Deployer 7 compatibility. see UPGRADE.rst for more info.
 
+2) [TASK][BREAKING] Drop support for TYPO3 6.2.
+
+
 19.0.0
 ~~~~~~
 
