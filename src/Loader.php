@@ -3,12 +3,12 @@
 namespace SourceBroker\DeployerExtendedTypo3;
 
 use SourceBroker\DeployerLoader\Load;
+use Deployer\Exception\GracefulShutdownException;
 
 class Loader
 {
     public function __construct()
     {
-        /** @noinspection PhpIncludeInspection */
         require_once 'recipe/common.php';
         new Load([
                 ['path' => 'vendor/sourcebroker/deployer-instance/deployer'],
@@ -18,8 +18,8 @@ class Loader
                 ['path' => 'vendor/sourcebroker/deployer-extended-typo3/deployer/default'],
                 [
                     'path' => 'vendor/sourcebroker/deployer-extended-typo3/deployer/' .
-                        $this->getTypo3MajorVersion($this->projectRootAbsolutePath())
-                ]
+                        $this->getTypo3MajorVersion($this->projectRootAbsolutePath()),
+                ],
             ]
         );
     }
@@ -27,10 +27,9 @@ class Loader
     /**
      * @param $rootDir
      * @return int|null
-     * @throws \Exception
-     * @internal param $params
+     * @throws GracefulShutdownException
      */
-    public function getTypo3MajorVersion($rootDir)
+    public function getTypo3MajorVersion($rootDir): ?int
     {
         $typo3MajorVersion = null;
         $rootDir = rtrim($rootDir, '/');
@@ -44,8 +43,9 @@ class Loader
             is_array($changelogFilesVendor) ? $changelogFilesVendor : []
         );
 
-        $changelogFilesIntegers = array_map(function ($changelogFile) {
+        $changelogFilesIntegers = array_map(static function ($changelogFile) {
             preg_match('/Changelog-(\\d+)\\.rst/', $changelogFile, $matches);
+
             return $matches[1] ?? 0;
         }, $changelogFiles);
 
@@ -59,19 +59,24 @@ class Loader
         }
 
         if (null === $typo3MajorVersion) {
-            throw new \Exception('Cannot figure out the TYPO3 major version.');
+            throw new GracefulShutdownException('Cannot figure out the TYPO3 major version.');
         }
 
         return $typo3MajorVersion;
     }
 
     /**
-     * Return absolute path to project root, so we can add it to relative pathes.
-     *
-     * @return string
+     * Gets the application root dir (path of the project's composer file) (based on symfony code)
      */
-    protected function projectRootAbsolutePath()
+    public function projectRootAbsolutePath(): string
     {
-        return dirname(__DIR__, 4);
+        $dir = __DIR__;
+        while (!is_file($dir . '/composer.json') || basename($dir) === 'deployer-extended-typo3') {
+            if ($dir === \dirname($dir)) {
+                break;
+            }
+            $dir = \dirname($dir);
+        }
+        return $dir;
     }
 }

@@ -8,8 +8,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class ConsoleUtility
- *
- * @package SourceBroker\DeployerExtendedTypo3\Utility
  */
 class ConsoleUtility
 {
@@ -18,7 +16,7 @@ class ConsoleUtility
      *
      * @return string
      */
-    public function getVerbosityAsParameter()
+    public function getVerbosityAsParameter(): string
     {
         switch (output()->getVerbosity()) {
             case OutputInterface::VERBOSITY_DEBUG:

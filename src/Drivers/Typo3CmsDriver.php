@@ -11,15 +11,13 @@ use Symfony\Component\Process\PhpExecutableFinder;
  */
 class Typo3CmsDriver
 {
-    /**
-     * @param string $databaseConfiguration
-     * @return array
-     */
     public function getDatabaseConfig(string $databaseConfiguration = 'Default'): array
     {
-        exec($this->getPhpExecCommand() . ' ./vendor/bin/typo3cms configuration:showactive DB --json', $output, $resultCode);
+        exec($this->getPhpExecCommand() . ' ./vendor/bin/typo3cms configuration:showactive DB --json', $output,
+            $resultCode);
         if ($resultCode === 0) {
-            return json_decode(implode("\n", $output), true)['Connections'][$databaseConfiguration];
+            return json_decode(implode("\n", $output), true, 512,
+                JSON_THROW_ON_ERROR)['Connections'][$databaseConfiguration];
         }
         throw new ConfigurationException('typo3cms configuration:showactive returned error code: "' . $resultCode . '"');
     }
@@ -27,7 +25,7 @@ class Typo3CmsDriver
     protected function getPhpExecCommand(): string
     {
         $finder = new PhpExecutableFinder();
-        $phpPath = $finder->find(true);
+        $phpPath = $finder->find();
         if (!$phpPath) {
             throw new RuntimeException('Failed to locate PHP binary to execute ' . $phpPath);
         }

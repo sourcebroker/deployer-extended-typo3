@@ -6,7 +6,6 @@ use SourceBroker\DeployerInstance\Env;
 
 /**
  * Class Typo3EnvDriver
- * @package SourceBroker\DeployerExtended\Drivers
  */
 class Typo3EnvDriver
 {
@@ -14,8 +13,6 @@ class Typo3EnvDriver
      * @param null $dbMappingFields
      * @param null $absolutePathWithConfig
      * @return array
-     * @throws \Exception
-     * @internal param null $params
      */
     public function getDatabaseConfig($dbMappingFields = null, $absolutePathWithConfig = null): array
     {

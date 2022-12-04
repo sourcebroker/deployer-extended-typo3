@@ -2,6 +2,11 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK][BREAKING] Refactor for Deployer 7 compatibility. see UPGRADE.rst for more info.
+
 19.0.0
 ~~~~~~
 

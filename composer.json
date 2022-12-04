@@ -20,11 +20,11 @@
     "helhum/typo3-console": "^1.1.9 || ^4.9.0 || ^5.5.0 || ^6.0.0 || ^7.0.0",
     "helhum/dotenv-connector": "^1.1.0 || ^2.3.0 || ^3.0.0",
     "symfony/dotenv": "^3.3.0 || ^4.0 || ^5.0",
-    "deployer/dist": "~6.8.0",
-    "sourcebroker/deployer-extended": "^16.0.0",
-    "sourcebroker/deployer-extended-media": "^9.0.0",
-    "sourcebroker/deployer-extended-database": "^14.0.0",
-    "sourcebroker/deployer-loader": "^3.0.0"
+    "deployer/deployer": "~7.0.0",
+    "sourcebroker/deployer-extended": "dev-master",
+    "sourcebroker/deployer-extended-media": "dev-master",
+    "sourcebroker/deployer-extended-database": "dev-master",
+    "sourcebroker/deployer-loader": "dev-master"
   },
   "autoload": {
     "psr-4": {

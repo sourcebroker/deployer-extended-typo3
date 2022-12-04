@@ -73,15 +73,15 @@ set('db_databases',
         'database_default' => [
             get('db_default'),
             !empty($_ENV['IS_DDEV_PROJECT']) ? get('db_ddev_database_config') :
-            (new \SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver)->getDatabaseConfig(
-                [
-                    'host' => 'TYPO3__DB__Connections__Default__host',
-                    'port' => 'TYPO3__DB__Connections__Default__port',
-                    'dbname' => 'TYPO3__DB__Connections__Default__dbname',
-                    'user' => 'TYPO3__DB__Connections__Default__user',
-                    'password' => 'TYPO3__DB__Connections__Default__password',
-                ]
-            ),
+                (new \SourceBroker\DeployerExtendedTypo3\Drivers\Typo3EnvDriver)->getDatabaseConfig(
+                    [
+                        'host' => 'TYPO3__DB__Connections__Default__host',
+                        'port' => 'TYPO3__DB__Connections__Default__port',
+                        'dbname' => 'TYPO3__DB__Connections__Default__dbname',
+                        'user' => 'TYPO3__DB__Connections__Default__user',
+                        'password' => 'TYPO3__DB__Connections__Default__password',
+                    ]
+                ),
         ]
     ]
 );

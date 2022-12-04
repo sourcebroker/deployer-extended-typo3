@@ -22,7 +22,10 @@ task('deploy-fast', [
     'deploy:check_branch',
 
     // Standard deployer task.
-    'deploy:prepare',
+    'deploy:check_remote',
+
+    // Standard deployer task.
+    'deploy:setup',
 
     // Standard deployer task.
     'deploy:lock',
@@ -67,13 +70,10 @@ task('deploy-fast', [
     'deploy:unlock',
 
     // Standard deployer task.
-    'cleanup',
-
-    // Read more on https://github.com/sourcebroker/deployer-extended#deploy-extend-log
-    'deploy:extend_log',
+    'deploy:cleanup',
 
     // Standard deployer task.
-    'success',
+    'deploy:success',
 
 ])->desc('Deploy your TYPO3');
 
