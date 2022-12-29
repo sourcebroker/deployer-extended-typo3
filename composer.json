@@ -17,14 +17,14 @@
     }
   ],
   "require": {
-    "helhum/typo3-console": "^4.9.0 || ^5.5.0 || ^6.0.0 || ^7.0.0",
-    "helhum/dotenv-connector": "^1.1.0 || ^2.3.0 || ^3.0.0",
-    "symfony/dotenv": "^3.3.0 || ^4.0 || ^5.0",
-    "deployer/deployer": "~7.0.0",
-    "sourcebroker/deployer-extended": "dev-master",
-    "sourcebroker/deployer-extended-media": "dev-master",
-    "sourcebroker/deployer-extended-database": "dev-master",
-    "sourcebroker/deployer-loader": "dev-master"
+    "helhum/typo3-console": "^4.9 || ^5.5 || ^6 || ^7",
+    "helhum/dotenv-connector": "^1.1 || ^2.3 || ^3",
+    "symfony/dotenv": "^3.3 || ^4 || ^5 || ^6",
+    "deployer/deployer": "~7.0",
+    "sourcebroker/deployer-extended": "^18",
+    "sourcebroker/deployer-extended-media": "^11",
+    "sourcebroker/deployer-extended-database": "^16",
+    "sourcebroker/deployer-loader": "^4"
   },
   "autoload": {
     "psr-4": {
@@ -35,6 +35,13 @@
     "typo3/cms": {
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": ".Build/Web"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "typo3/cms-composer-installers": true,
+      "typo3/class-alias-loader": true,
+      "helhum/dotenv-connector": true
     }
   }
 }
