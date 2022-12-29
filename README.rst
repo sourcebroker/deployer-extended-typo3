@@ -36,19 +36,9 @@ Installation
 
       composer require sourcebroker/deployer-extended-typo3
 
-   Note! Generally its not advisable to install deployer globally because each of your project can use
-   different version of deployer so the best is to have version of deployer dependent on project.
 
-   Its also not advisable to install deployer as direct dependency of your project as it can interfere dependencies
-   of your project.
-
-   The best is to install phar binary of deployer using composer - with `deployer/dist`_ package.
-
-   This is why ``deployer-extended-typo3`` depends on `deployer/dist`_. This package will install deployer phar
-   and symlink it in ``./vendor/bin/dep``. You should use ``./vendor/bin/dep`` binary to run deployer.
-
-   Its advisable that you put ``alias dep="php ./vendor/bin/dep"`` in your ``~/.profile`` to be able to run deployer
-   with regular ``dep`` command. Otherwise you will need to run deployer like this ``./vendor/bin/dep deploy live``
+   Its advisable that you put ``alias dep="vendor/bin/dep"`` in your ``~/.profile`` to be able to run deployer
+   with regular ``dep`` command. Otherwise you will need to run deployer like this ``./vendor/bin/dep ...``
 
 2) Put following lines on the beginning of your deploy.php:
    ::
@@ -68,7 +58,7 @@ Installation
 
    ::
 
-      TYPO3_CONTEXT='Development/Staging/Live'
+      TYPO3_CONTEXT='Production//Live'
       INSTANCE='live'
 
       TYPO3__DB__Connections__Default__dbname='t3base11_live'
@@ -79,6 +69,8 @@ Installation
 
 
    If you want to update language files on each deploy add task ``typo3cms:language:update`` before ``deploy_symlink``.
+   Read https://github.com/sourcebroker/deployer-extended-typo3/discussions/14 to see why updating language labels on
+   each deploy is very arguable and generally not advised.
    ::
 
       before('deploy_symlink', 'typo3cms:language:update');
@@ -94,7 +86,7 @@ Deployment
 Run:
 ::
 
-   dep deploy [host or stage]
+   dep deploy [host]
 
 
 Shared dirs
@@ -200,23 +192,22 @@ have very slim ``deploy.php`` file in order to have nice possibility to upgrade 
   set('repository', 'git@github.com:sourcebrokergit/t3base11.git');
 
   host('live')
-      ->hostname('vm-dev.example.com')
-      ->user('deploy')
+      ->setHostname('vm-dev.example.com')
+      ->setRemoteUser('deploy')
       ->set('branch', 'master')
       ->set('bin/php', '/home/www/t3base11-public/live/.bin/php');
       ->set('public_urls', ['https://live-t3base11.example.com'])
       ->set('deploy_path', '/home/www/t3base11/live');
 
   host('beta')
-      ->hostname('vm-dev.example.com')
-      ->user('deploy')
+      ->setHostname('vm-dev.example.com')
+      ->setRemoteUser('deploy')
       ->set('branch', 'master')
       ->set('bin/php', '/home/www/t3base11-public/beta/.bin/php');
       ->set('public_urls', ['https://beta-t3base11.example.com'])
       ->set('deploy_path', '/home/www/t3base11/beta');
 
   host('local')
-      ->hostname('local')
       ->set('deploy_path', getcwd())
       ->set('public_urls', ['https://t3base11.ddev.site']);
 
