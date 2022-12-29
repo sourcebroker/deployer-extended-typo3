@@ -65,18 +65,16 @@ class Loader
         return $typo3MajorVersion;
     }
 
-    /**
-     * Gets the application root dir (path of the project's composer file) (based on symfony code)
-     */
     public function projectRootAbsolutePath(): string
     {
         $dir = __DIR__;
-        while (!is_file($dir . '/composer.json') || basename($dir) === 'deployer-extended-typo3') {
+        while ((!is_file($dir . '/composer.json') && !is_file($dir . '/root_dir') && !is_file($dir . '/deploy.php')) || basename($dir) === 'deployer-extended-typo3') {
             if ($dir === \dirname($dir)) {
                 break;
             }
             $dir = \dirname($dir);
         }
+
         return $dir;
     }
 }
