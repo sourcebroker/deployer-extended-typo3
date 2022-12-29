@@ -21,6 +21,8 @@ set('writable_dirs', function () {
 
 set('default_timeout', 900);
 
+set('keep_releases', 5);
+
 set('clear_paths', [
     '.idea',
     '.ddev',

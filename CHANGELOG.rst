@@ -5,9 +5,11 @@ Changelog
 master
 ~~~~~~
 
-1) [TASK][BREAKING] Refactor for Deployer 7 compatibility. see UPGRADE.rst for more info.
+1) [TASK][BREAKING] Refactor for Deployer 7 compatibility. See UPGRADE.rst for more info.
 
 2) [TASK][BREAKING] Drop support for TYPO3 6.2.
+
+3) [TASK] Bring back 'keep_releases' set to 5 as it was in Deployer 6 (in Deployer 7 it is set to 10).
 
 
 19.0.0
