@@ -35,6 +35,7 @@ set('clear_paths', [
     '.php_cs',
     '.php-cs-fixer.php',
     'dynamicReturnTypeMeta.json',
+    'composer.json',
     'composer.lock',
     'composer.phar',
     'phive.xml',
