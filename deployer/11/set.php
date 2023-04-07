@@ -82,9 +82,7 @@ set('db_databases',
                             'ssl_ca' => 'TYPO3__DB__Connections__Default__ssl_ca',
                             'ssl_capath' => 'TYPO3__DB__Connections__Default__ssl_capath',
                             'ssl_cipher' => 'TYPO3__DB__Connections__Default__ssl_cipher',
-                            'driverOptions' => [
-                                'flags' => 'TYPO3__DB__Connections__Default__driverOptions__flags'
-                            ]
+                            'flags' => 'TYPO3__DB__Connections__Default__driverOptions__flags'
                         ]
                     );
             }
