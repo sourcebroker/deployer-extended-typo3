@@ -16,8 +16,13 @@ class Typo3CmsDriver
         exec($this->getPhpExecCommand() . ' ./vendor/bin/typo3cms configuration:showactive DB --json', $output,
             $resultCode);
         if ($resultCode === 0) {
-            return json_decode(implode("\n", $output), true, 512,
+            $config = json_decode(implode("\n", $output), true, 512,
                 JSON_THROW_ON_ERROR)['Connections'][$databaseConfiguration];
+            $flattenedConfig = [];
+            array_walk_recursive($config, function ($a, $b) use (&$flattenedConfig) {
+                $flattenedConfig[$b] = $a;
+            });
+            return $flattenedConfig;
         }
         throw new ConfigurationException('typo3cms configuration:showactive returned error code: "' . $resultCode . '"');
     }
