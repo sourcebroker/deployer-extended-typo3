@@ -13,8 +13,8 @@ class Typo3CmsDriver
 {
     public function getDatabaseConfig(string $databaseConfiguration = 'Default'): array
     {
-        exec($this->getPhpExecCommand() . ' ./vendor/bin/typo3cms configuration:showactive DB --json', $output,
-            $resultCode);
+        exec($this->getPhpExecCommand() . ' ' . $this->getTypo3ExecCommand() . ' configuration:showactive DB --json',
+            $output, $resultCode);
         if ($resultCode === 0) {
             return json_decode(implode("\n", $output), true, 512,
                 JSON_THROW_ON_ERROR)['Connections'][$databaseConfiguration];
@@ -30,5 +30,16 @@ class Typo3CmsDriver
             throw new RuntimeException('Failed to locate PHP binary to execute ' . $phpPath);
         }
         return $phpPath;
+    }
+
+    protected function getTypo3ExecCommand(): string
+    {
+        if (file_exists('./vendor/bin/typo3cms')) {
+            return './vendor/bin/typo3cms';
+        }
+        if (file_exists('./vendor/bin/typo3')) {
+            return './vendor/bin/typo3';
+        }
+        throw new RuntimeException('Could not find executable of TYPO3 console');
     }
 }
