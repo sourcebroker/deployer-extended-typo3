@@ -77,6 +77,12 @@ set('db_databases',
                             'dbname' => 'TYPO3__DB__Connections__Default__dbname',
                             'user' => 'TYPO3__DB__Connections__Default__user',
                             'password' => 'TYPO3__DB__Connections__Default__password',
+                            'ssl_key' => 'TYPO3__DB__Connections__Default__ssl_key',
+                            'ssl_cert' => 'TYPO3__DB__Connections__Default__ssl_cert',
+                            'ssl_ca' => 'TYPO3__DB__Connections__Default__ssl_ca',
+                            'ssl_capath' => 'TYPO3__DB__Connections__Default__ssl_capath',
+                            'ssl_cipher' => 'TYPO3__DB__Connections__Default__ssl_cipher',
+                            'flags' => 'TYPO3__DB__Connections__Default__driverOptions__flags'
                         ]
                     );
             }
