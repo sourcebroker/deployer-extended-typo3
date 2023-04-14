@@ -45,8 +45,9 @@ set('clear_paths', [
     'typoscript-lint.yml'
 ]);
 
-set('bin/typo3cms', './vendor/bin/typo3cms');
-set('local/bin/typo3cms', './vendor/bin/typo3cms');
+$consoleBinary = file_exists('./vendor/bin/typo3cms') ? 'typo3cms' : 'typo3';
+set('bin/typo3cms', './vendor/bin/' . $consoleBinary);
+set('local/bin/typo3cms', './vendor/bin/' . $consoleBinary);
 
 // Look https://github.com/sourcebroker/deployer-extended-media for docs
 set('media_allow_push_live', false);
