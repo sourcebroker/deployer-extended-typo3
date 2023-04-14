@@ -10,6 +10,7 @@ class Loader
     public function __construct()
     {
         require_once 'recipe/common.php';
+        $typo3MajorVersion = $this->getTypo3MajorVersion($this->projectRootAbsolutePath());
         new Load([
                 ['path' => 'vendor/sourcebroker/deployer-instance/deployer'],
                 ['path' => 'vendor/sourcebroker/deployer-extended/deployer'],
@@ -18,7 +19,7 @@ class Loader
                 ['path' => 'vendor/sourcebroker/deployer-extended-typo3/deployer/default'],
                 [
                     'path' => 'vendor/sourcebroker/deployer-extended-typo3/deployer/' .
-                        $this->getTypo3MajorVersion($this->projectRootAbsolutePath()),
+                        ($typo3MajorVersion >= 10 ? '10-12' : $typo3MajorVersion)
                 ],
             ]
         );

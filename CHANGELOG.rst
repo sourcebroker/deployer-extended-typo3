@@ -7,6 +7,7 @@ master
 
 1) [TASK][BREAKING] Drop support for TYPO3 7.
 2) [TASK] Make Typo3CmsDriver to use ``local/bin/php`` and ``local/bin/typo3cms`` vars.
+3) [TASK] Merge the same configs for TYPO3 10-12.
 
 
 20.0.0
