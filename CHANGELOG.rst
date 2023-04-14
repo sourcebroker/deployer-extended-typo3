@@ -5,6 +5,12 @@ Changelog
 master
 ~~~~~~
 
+1) [TASK][BREAKING] Drop support for TYPO3 7.
+
+
+20.0.0
+~~~~~~
+
 1) [TASK][BREAKING] Refactor for Deployer 7 compatibility. See UPGRADE.rst for more info.
 
 2) [TASK][BREAKING] Drop support for TYPO3 6.2.
