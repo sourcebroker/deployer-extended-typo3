@@ -8,7 +8,8 @@ master
 1) [TASK][BREAKING] Drop support for TYPO3 7.
 2) [TASK] Make Typo3CmsDriver to use ``local/bin/php`` and ``local/bin/typo3cms`` vars.
 3) [TASK] Merge the same configs for TYPO3 10-12.
-
+4) [BUGFIX] Fix typo3-console binary.
+5) [TASK] Drop support for helhum/dotenv-connector 1, helhum/typo3-console 4. Add dev-master for all for easier testing.
 
 20.0.0
 ~~~~~~

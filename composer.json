@@ -17,14 +17,14 @@
     }
   ],
   "require": {
-    "helhum/typo3-console": "^4.9 || ^5.5 || ^6 || ^7",
-    "helhum/dotenv-connector": "^1.1 || ^2.3 || ^3",
-    "symfony/dotenv": "^3.3 || ^4 || ^5 || ^6",
-    "deployer/deployer": "~7.0",
-    "sourcebroker/deployer-extended": "^18",
-    "sourcebroker/deployer-extended-media": "^11",
-    "sourcebroker/deployer-extended-database": "^16",
-    "sourcebroker/deployer-loader": "^4"
+    "helhum/typo3-console": "^5.5 || ^6 || ^7 || ^8 || dev-master",
+    "helhum/dotenv-connector": "^2.3 || ^3 || dev-master",
+    "symfony/dotenv": "^3.3 || ^4 || ^5 || ^6 || dev-master",
+    "deployer/deployer": "~7.0 || dev-master",
+    "sourcebroker/deployer-extended": "^18 || dev-master",
+    "sourcebroker/deployer-extended-media": "^11 || dev-master",
+    "sourcebroker/deployer-extended-database": "^16 || dev-master",
+    "sourcebroker/deployer-loader": "^4 || dev-master"
   },
   "autoload": {
     "psr-4": {
