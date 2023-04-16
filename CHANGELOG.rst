@@ -11,6 +11,7 @@ master
 4) [BUGFIX] Fix typo3-console binary.
 5) [TASK] Drop support for helhum/dotenv-connector 1, helhum/typo3-console 4. Add dev-master for all for easier testing.
 6) [TASK] Add "typo" alias "dpeloy" for "deploy".
+7) [TASK] Add "phpcs.xml" to "clear_paths".
 
 20.0.0
 ~~~~~~

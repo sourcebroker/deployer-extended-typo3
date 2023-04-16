@@ -39,6 +39,7 @@ set('clear_paths', [
     'composer.lock',
     'composer.phar',
     'phive.xml',
+    'phpcs.xml',
     'phpstan-baseline.neon',
     'phpstan.neon',
     'rector.php',
