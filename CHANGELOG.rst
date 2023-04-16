@@ -12,6 +12,7 @@ master
 5) [TASK] Drop support for helhum/dotenv-connector 1, helhum/typo3-console 4. Add dev-master for all for easier testing.
 6) [TASK] Add "typo" alias "dpeloy" for "deploy".
 7) [TASK] Add "phpcs.xml" to "clear_paths".
+8) [TASK] Update dpeloyer-extended-database to 17.
 
 20.0.0
 ~~~~~~
