@@ -10,6 +10,7 @@ master
 3) [TASK] Merge the same configs for TYPO3 10-12.
 4) [BUGFIX] Fix typo3-console binary.
 5) [TASK] Drop support for helhum/dotenv-connector 1, helhum/typo3-console 4. Add dev-master for all for easier testing.
+6) [TASK] Add "typo" alias "dpeloy" for "deploy".
 
 20.0.0
 ~~~~~~
