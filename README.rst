@@ -208,9 +208,7 @@ have very slim ``deploy.php`` file in order to have nice possibility to upgrade 
       ->set('deploy_path', '/home/www/t3base11/beta');
 
   host('local')
-      ->set('deploy_path', getcwd())
-      ->set('public_urls', ['https://t3base11.ddev.site']);
-
+      ->set('deploy_path', getcwd());
 
 
 Changelog
