@@ -14,6 +14,8 @@ master
 7) [TASK] Add "phpcs.xml" to "clear_paths".
 8) [TASK] Update deployer-extended-database to 17.
 9) [TASK] Update deployer-extended-media to 12.
+10) [TASK] For ``driver_typo3cms`` allows to get ``local/bin/php`` and ``local/bin/typo3cms`` from host config and not
+     only from global config.
 
 20.0.0
 ~~~~~~

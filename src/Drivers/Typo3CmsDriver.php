@@ -2,8 +2,8 @@
 
 namespace SourceBroker\DeployerExtendedTypo3\Drivers;
 
-use Deployer\Deployer;
 use Deployer\Exception\ConfigurationException;
+use SourceBroker\DeployerInstance\Configuration;
 
 /**
  * Use /vendor/bin/typo3cms configuration:showactive DB to get database data directly from TYPO3.
@@ -12,8 +12,9 @@ class Typo3CmsDriver
 {
     public function getDatabaseConfig(string $databaseConfiguration = 'Default'): array
     {
-        $command = Deployer::get()->config->get('local/bin/php') .
-            ' ' . Deployer::get()->config->get('local/bin/typo3cms')
+        $localHost = Configuration::getLocalHost();
+        $command =  $localHost->get('local/bin/php') .
+            ' ' . $localHost->get('local/bin/typo3cms')
             . ' configuration:showactive DB --json';
 
         exec($command, $output, $resultCode);
