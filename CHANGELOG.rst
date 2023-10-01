@@ -16,6 +16,8 @@ master
 9) [TASK] Update deployer-extended-media to 12.
 10) [TASK] For ``driver_typo3cms`` allows to get ``local/bin/php`` and ``local/bin/typo3cms`` from host config and not
      only from global config.
+11) [FEATURE] Update ``deployer-extended`` to 19 and add task ``deploy:check_composer_validate``
+    to ``deploy`` and ``deploy-fast``.
 
 20.0.0
 ~~~~~~
