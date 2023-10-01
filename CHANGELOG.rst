@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-master
+21.0.0
 ~~~~~~
 
 1) [TASK][BREAKING] Drop support for TYPO3 7.
