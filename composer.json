@@ -19,11 +19,11 @@
   "require": {
     "helhum/typo3-console": "^5.5 || ^6 || ^7 || ^8 || dev-master",
     "helhum/dotenv-connector": "^2.3 || ^3 || dev-master",
-    "symfony/dotenv": "^3.3 || ^4 || ^5 || ^6 || dev-master",
+    "symfony/dotenv": "^3.3 || ^4 || ^5 || ^6 || ^7 || dev-master",
     "deployer/deployer": "~7.0 || dev-master",
     "sourcebroker/deployer-extended": "^19 || dev-master",
     "sourcebroker/deployer-extended-media": "^12 || dev-master",
-    "sourcebroker/deployer-extended-database": "^17 || dev-master",
+    "sourcebroker/deployer-extended-database": "^18 || dev-master",
     "sourcebroker/deployer-loader": "^4 || dev-master"
   },
   "autoload": {

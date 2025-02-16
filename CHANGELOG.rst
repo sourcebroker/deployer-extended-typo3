@@ -2,6 +2,13 @@
 Changelog
 ---------
 
+22.0.0
+------
+
+1) [BREAKING] Update ``deployer-extended-database`` to 18.0.0. Fixes issue with ``MYSQL_PWD`` overwritten by ``.my.conf``.
+   https://github.com/sourcebroker/deployer-extended-database/issues/33
+2) [TASK] Increase dependency of ``symfony/dotenv`` to 7.
+
 21.0.0
 ~~~~~~
 
