@@ -17,21 +17,6 @@ set('shared_dirs', function () {
     ];
 });
 
-// Look on https://github.com/sourcebroker/deployer-extended#buffer-start for docs
-set('buffer_config', function () {
-    return [
-        'index.php' => [
-            'entrypoint_filename' => get('web_path') . 'index.php',
-        ],
-        'typo3/index.php' => [
-            'entrypoint_filename' => get('web_path') . 'typo3/index.php',
-        ],
-        'typo3/install.php' => [
-            'entrypoint_filename' => get('web_path') . 'typo3/install.php',
-        ]
-    ];
-});
-
 // Look https://github.com/sourcebroker/deployer-extended-database for docs
 set('db_default', [
     'truncate_tables' => [

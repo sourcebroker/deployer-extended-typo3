@@ -13,24 +13,6 @@ set('shared_dirs', function () {
     ];
 });
 
-// Look on https://github.com/sourcebroker/deployer-extended#buffer-start for docs
-set('buffer_config', function () {
-    return [
-        'index.php' => [
-            'entrypoint_filename' => get('web_path') . 'index.php',
-        ],
-        'typo3/index.php' => [
-            'entrypoint_filename' => get('web_path') . 'typo3/index.php',
-        ],
-        'typo3/install.php' => [
-            'entrypoint_filename' => get('web_path') . 'typo3/install.php',
-        ],
-        'typo3/cli_dispatch.phpsh' => [
-            'entrypoint_filename' => get('web_path') . 'typo3/cli_dispatch.phpsh',
-        ]
-    ];
-});
-
 set('db_default', [
     'truncate_tables' => [
         // Do not truncate caching tables "cf_cache_imagesizes" and "cf_cache_pages_tags" as the image settings are not

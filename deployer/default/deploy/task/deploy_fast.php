@@ -2,7 +2,7 @@
 
 namespace Deployer;
 
-// No db:backup, buffer:start, buffer:stop compared to default deploy.
+// No db:backup compared to default deploy.
 
 task('deploy-fast', [
 

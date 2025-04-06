@@ -2,6 +2,13 @@
 Changelog
 ---------
 
+23.0.0
+------
+
+1) [TASK][BREAKING] Update ``sourcebroker/deployer-instance``, ``sourcebroker/deployer-extended``, ``sourcebroker/deployer-extended-media``,
+    ``sourcebroker/deployer-extended-database``, ``sourcebroker/deployer-loader``. Remove buffer tasks from deploy as they were removed in
+    ``sourcebroker/deployer-extended`` 20.0.0. Last release for ``sourcebroker/deployer-extended-typo3`` in old flow.
+
 22.0.0
 ------
 

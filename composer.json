@@ -21,10 +21,10 @@
     "helhum/dotenv-connector": "^2.3 || ^3 || dev-master",
     "symfony/dotenv": "^3.3 || ^4 || ^5 || ^6 || ^7 || dev-master",
     "deployer/deployer": "~7.0 || dev-master",
-    "sourcebroker/deployer-extended": "^19 || dev-master",
-    "sourcebroker/deployer-extended-media": "^12 || dev-master",
-    "sourcebroker/deployer-extended-database": "^18 || dev-master",
-    "sourcebroker/deployer-loader": "^4 || dev-master"
+    "sourcebroker/deployer-extended": "^23 || dev-master",
+    "sourcebroker/deployer-extended-media": "^14 || dev-master",
+    "sourcebroker/deployer-extended-database": "^20 || dev-master",
+    "sourcebroker/deployer-loader": "^5 || dev-master"
   },
   "autoload": {
     "psr-4": {
