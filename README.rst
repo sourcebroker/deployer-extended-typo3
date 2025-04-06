@@ -81,13 +81,13 @@ This is config for deploy from local cli level.
         ['get' => 'sourcebroker/deployer-extended-typo3'],
     ]);
 
-    set('repository', 'git@gitlab2.inscript.at:inscript/t3base13.git');
+    set('repository', 'git@github.com:sourcebrokergit/t3base13.git');
 
     host('production')
       ->setHostname('vm-dev.example.com')
       ->setRemoteUser('deploy')
       ->set('branch', 'main')
-      ->set('public_urls', ['https://production-t3base13.example.com'])
+      ->set('public_urls', ['https://t3base13.example.com'])
       ->set('deploy_path', '~/t3base13/production');
 
     host('staging')
@@ -117,7 +117,7 @@ and here example for deploy from gitlab ci. Deploy is from CI level but database
     host('production')
       ->setHostname('vm-dev.example.com')
       ->setRemoteUser('deploy')
-      ->set('public_urls', ['https://production-t3base13.example.com'])
+      ->set('public_urls', ['https://t3base13.example.com'])
       ->set('deploy_path', '~/t3base13/production');
 
     host('staging')
