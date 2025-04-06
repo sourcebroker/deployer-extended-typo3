@@ -2,7 +2,7 @@
 
 return [
     [
-        // Add tasks for deploy checks and cache clear
+        // Load all from "deployer" folder of "sourcebroker/deployer-extended" package
         'package' => 'sourcebroker/deployer-extended',
     ],
     [
@@ -18,6 +18,7 @@ return [
         'path' => 'vendor/sourcebroker/deployer-extended/includes/tasks/releases.php',
     ],
     [
-        'package' => 'sourcebrokergit/deployer-typo3',
+        // Load all from "deployer" folder of "sourcebroker/deployer-extended-typo3" package
+        'package' => 'sourcebroker/deployer-extended-typo3',
     ],
 ];
