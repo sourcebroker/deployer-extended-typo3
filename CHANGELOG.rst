@@ -15,15 +15,15 @@ master
 8) [TASK][BREAKING] Exclude ``composer.json`` and ``composer.lock`` from ``clear_path``.
 9) [TASK][BREAKING] Drop task ``config:createadmin``.
 10) [TASK][BREAKING] Move base settings and base functionality specific to database sync, media sync and deploy to new packages
-   ``sourcebroker/deployer-typo3-deploy``, ``sourcebroker/deployer-typo3-deploy-ci``, ``sourcebroker/deployer-typo3-database``,
-   ``sourcebroker/deployer-typo3-media``. Require those packages as dependency.
+    ``sourcebroker/deployer-typo3-deploy``, ``sourcebroker/deployer-typo3-deploy-ci``, ``sourcebroker/deployer-typo3-database``,
+    ``sourcebroker/deployer-typo3-media``. Require those packages as dependency.
 
 23.0.0
 ------
 
 1) [TASK][BREAKING] Update ``sourcebroker/deployer-instance``, ``sourcebroker/deployer-extended``, ``sourcebroker/deployer-extended-media``,
-    ``sourcebroker/deployer-extended-database``, ``sourcebroker/deployer-loader``. Remove buffer tasks from deploy as they were removed in
-    ``sourcebroker/deployer-extended`` 20.0.0. Last release for ``sourcebroker/deployer-extended-typo3`` in old flow.
+   ``sourcebroker/deployer-extended-database``, ``sourcebroker/deployer-loader``. Remove buffer tasks from deploy as they were removed in
+   ``sourcebroker/deployer-extended`` 20.0.0. Last release for ``sourcebroker/deployer-extended-typo3`` in old flow.
 
 22.0.0
 ------
