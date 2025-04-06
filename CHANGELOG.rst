@@ -2,6 +2,22 @@
 Changelog
 ---------
 
+master
+~~~~~~
+
+1) [TASK][BREAKING] Drop support for TYPO3 8,9,10,11.
+2) [TASK][BREAKING] Remove dependency to ``helhum/dotenv-connector``, ``helhum/typo3-console``. Remove direct dependency to ``symfony/dotenv``.
+3) [TASK][BREAKING] Change ``deploy`` task flow.
+4) [TASK][BREAKING] Remove ``deploy-fast`` task (new flow is by default the same as was deploy-fast)
+5) [TASK][BREAKING] Change ``shared_dirs``, ``writable_dirs`` to reflect TYPO3 12+.
+6) [TASK][BREAKING] Force ``writable_mode`` to ``skip`` by default (assume ssh user is fully compatible with httpd user)
+7) [TASK][BREAKING] Rename ``bin/typo3cms`` to ``bin/typo3``.
+8) [TASK][BREAKING] Exclude ``composer.json`` and ``composer.lock`` from ``clear_path``.
+9) [TASK][BREAKING] Drop task ``config:createadmin``.
+10) [TASK][BREAKING] Move base settings and base functionality specific to database sync, media sync and deploy to new packages
+   ``sourcebroker/deployer-typo3-deploy``, ``sourcebroker/deployer-typo3-deploy-ci``, ``sourcebroker/deployer-typo3-database``,
+   ``sourcebroker/deployer-typo3-media``. Require those packages as dependency.
+
 23.0.0
 ------
 

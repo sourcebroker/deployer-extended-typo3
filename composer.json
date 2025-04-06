@@ -1,36 +1,24 @@
 {
   "name": "sourcebroker/deployer-extended-typo3",
-  "description": "Deployment tool for TYPO3.",
+  "description": "Customisation for `sourcebroker/deployer-typo3-*` stack",
   "license": "MIT",
   "keywords": [
     "TYPO3",
     "deployer"
   ],
+  "require": {
+    "sourcebroker/deployer-typo3-deploy": "^0.10.0 || dev-main",
+    "sourcebroker/deployer-typo3-deploy-ci": "^0.11.0 || dev-main",
+    "sourcebroker/deployer-typo3-database": "^0.0.8 || dev-main",
+    "sourcebroker/deployer-typo3-media": "^0.0.5 || dev-main",
+    "sourcebroker/deployer-extended": "^23 || dev-master"
+  },
   "authors": [
     {
       "name": "Krystian Szymukowicz",
       "email": "k.szymukowicz@gmail.com"
-    },
-    {
-      "name": "Krystian Liński",
-      "email": "krystian.linski@gmail.com"
     }
   ],
-  "require": {
-    "helhum/typo3-console": "^5.5 || ^6 || ^7 || ^8 || dev-master",
-    "helhum/dotenv-connector": "^2.3 || ^3 || dev-master",
-    "symfony/dotenv": "^3.3 || ^4 || ^5 || ^6 || ^7 || dev-master",
-    "deployer/deployer": "~7.0 || dev-master",
-    "sourcebroker/deployer-extended": "^23 || dev-master",
-    "sourcebroker/deployer-extended-media": "^14 || dev-master",
-    "sourcebroker/deployer-extended-database": "^20 || dev-master",
-    "sourcebroker/deployer-loader": "^5 || dev-master"
-  },
-  "autoload": {
-    "psr-4": {
-      "SourceBroker\\DeployerExtendedTypo3\\": "src/"
-    }
-  },
   "extra": {
     "typo3/cms": {
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
@@ -38,10 +26,7 @@
     }
   },
   "config": {
-    "allow-plugins": {
-      "typo3/cms-composer-installers": true,
-      "typo3/class-alias-loader": true,
-      "helhum/dotenv-connector": true
-    }
+    "sort-packages": true,
+    "vendor-dir": ".Build/vendor"
   }
 }

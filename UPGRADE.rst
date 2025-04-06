@@ -2,6 +2,33 @@
 Changelog
 ---------
 
+20.0.0 -> master
+~~~~~~~~~~~~~~~~
+
+The scope of changes to base code is big but for most cases you should only remove the old loader from ``deploy.php``:
+
+::
+
+    require_once(__DIR__ . '/vendor/sourcebroker/deployer-loader/autoload.php');
+    new \SourceBroker\DeployerExtendedTypo3\Loader();
+
+and replace it with new package loading.
+
+::
+
+    require_once('./vendor/autoload.php');
+
+    new \SourceBroker\DeployerLoader\Load([
+        ['get' => 'sourcebroker/deployer-typo3-media'],
+        ['get' => 'sourcebroker/deployer-typo3-database'],
+        ['get' => 'sourcebroker/deployer-typo3-deploy'],
+        ['get' => 'sourcebroker/deployer-extended-typo3'],
+    ]);
+
+For most cases you can also remove ``bin/php`` from your host definitions because it is now detected automatically
+based on PHP version in composer.json. There is however condition that ``phpXY`` or ``phpX.Y`` is available in PATH
+at host. Not all hosters deliver this unfortunately.
+
 19.0.0 -> 20.0.0
 ~~~~~~~~~~~~~~~~
 
