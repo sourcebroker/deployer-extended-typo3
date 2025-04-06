@@ -17,6 +17,7 @@ master
 10) [TASK][BREAKING] Move base settings and base functionality specific to database sync, media sync and deploy to new packages
     ``sourcebroker/deployer-typo3-deploy``, ``sourcebroker/deployer-typo3-deploy-ci``, ``sourcebroker/deployer-typo3-database``,
     ``sourcebroker/deployer-typo3-media``. Require those packages as dependency.
+11) [TASK] Update dependency to ``sourcebroker/deployer-extended``.
 
 23.0.0
 ------
