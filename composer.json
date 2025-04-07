@@ -7,11 +7,11 @@
     "deployer"
   ],
   "require": {
-    "sourcebroker/deployer-typo3-deploy": "^0.10.0 || dev-main",
-    "sourcebroker/deployer-typo3-deploy-ci": "^0.11.0 || dev-main",
-    "sourcebroker/deployer-typo3-database": "^0.0.8 || dev-main",
-    "sourcebroker/deployer-typo3-media": "^0.0.5 || dev-main",
-    "sourcebroker/deployer-extended": "^24 || dev-master"
+    "sourcebroker/deployer-typo3-deploy": "^1.0.0 || dev-main",
+    "sourcebroker/deployer-typo3-deploy-ci": "^1.0.0 || dev-main",
+    "sourcebroker/deployer-typo3-database": "^1.0.0 || dev-main",
+    "sourcebroker/deployer-typo3-media": "^1.0.0 || dev-main",
+    "sourcebroker/deployer-extended": "^24.0.0 || dev-master"
   },
   "authors": [
     {
