@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-20.0.0 -> master
+20.0.0 -> 24.0.0
 ~~~~~~~~~~~~~~~~
 
 The scope of changes to base code is big but for most cases you should only remove the old loader from ``deploy.php``:

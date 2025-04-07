@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-master
+24.0.0
 ~~~~~~
 
 1) [TASK][BREAKING] Drop support for TYPO3 8,9,10,11.
