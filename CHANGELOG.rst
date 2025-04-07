@@ -18,6 +18,7 @@ master
     ``sourcebroker/deployer-typo3-deploy``, ``sourcebroker/deployer-typo3-deploy-ci``, ``sourcebroker/deployer-typo3-database``,
     ``sourcebroker/deployer-typo3-media``. Require those packages as dependency.
 11) [TASK] Update dependency to ``sourcebroker/deployer-extended``.
+12) [TASK] Add ddev command to update dependencies.
 
 23.0.0
 ------

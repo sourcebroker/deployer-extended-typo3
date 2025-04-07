@@ -1,0 +1,98 @@
+#!/bin/bash
+
+## Description: Update the dependencies tags to latest versions.
+## Usage: dependencies-tags-update
+## Example: ddev dependencies-tags-update
+
+GREEN='\033[0;32m'
+MAGENTA='\033[0;35m'
+NC='\033[0m'
+
+echo "Latest Repository Tags:"
+echo "======================="
+
+cd /var/www/html
+
+GITHUB_TOKEN=${GITHUB_TOKEN:-""}
+
+PACKAGES=$(jq -r '.require | keys[] | select(startswith("sourcebroker/"))' composer.json)
+
+TEMP_FILE=$(mktemp)
+
+cp composer.json "$TEMP_FILE"
+
+for PACKAGE in $PACKAGES; do
+  echo -e "\n$PACKAGE:"
+
+  VENDOR=$(echo $PACKAGE | cut -d'/' -f1)
+  REPO=$(echo $PACKAGE | cut -d'/' -f2)
+
+  if [ -n "$GITHUB_TOKEN" ]; then
+    TAGS_JSON=$(curl -s -H "User-Agent: Tag-Checker-Script" -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$VENDOR/$REPO/tags")
+  else
+    TAGS_JSON=$(curl -s -H "User-Agent: Tag-Checker-Script" "https://api.github.com/repos/$VENDOR/$REPO/tags")
+  fi
+
+  if echo "$TAGS_JSON" | grep -q "API rate limit exceeded"; then
+    echo "  Error: GitHub API rate limit exceeded."
+    echo "  Set GITHUB_TOKEN environment variable to increase limit."
+    continue
+  fi
+
+  if echo "$TAGS_JSON" | grep -q "Not Found"; then
+    echo "  Error: Repository not found."
+    continue
+  fi
+
+  if command -v jq &> /dev/null; then
+    TAG_COUNT=$(echo "$TAGS_JSON" | jq '. | length')
+
+    if [ "$TAG_COUNT" -eq 0 ]; then
+      echo "  No tags found"
+      continue
+    fi
+
+    LATEST_TAG=$(echo "$TAGS_JSON" | jq -r '.[0].name')
+
+    LATEST_VERSION=${LATEST_TAG#v}
+
+    echo "  Latest: $LATEST_TAG"
+
+    CURRENT_VERSION_FULL=$(jq -r ".require[\"$PACKAGE\"]" composer.json)
+
+    DEV_VERSION=""
+    if [[ "$CURRENT_VERSION_FULL" =~ \|\|[[:space:]]*([^[:space:]]+) ]]; then
+      DEV_VERSION=" || ${BASH_REMATCH[1]}"
+    fi
+
+    CURRENT_VERSION=$(echo "$CURRENT_VERSION_FULL" | sed -E 's/ *\|{2} *(dev-[[:alnum:]]+)//' | sed 's/\^//')
+
+    if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
+      echo -e "  Current: ^$CURRENT_VERSION ${GREEN}(already up to date)${NC}"
+    else
+      echo -e "  Current: ^$CURRENT_VERSION ${MAGENTA}-> Updating to: ^$LATEST_VERSION${NC}"
+
+      if [[ -n "$DEV_VERSION" ]]; then
+        jq ".require[\"$PACKAGE\"] = \"^$LATEST_VERSION$DEV_VERSION\"" "$TEMP_FILE" > "$TEMP_FILE.new" && mv "$TEMP_FILE.new" "$TEMP_FILE"
+      else
+        jq ".require[\"$PACKAGE\"] = \"^$LATEST_VERSION\"" "$TEMP_FILE" > "$TEMP_FILE.new" && mv "$TEMP_FILE.new" "$TEMP_FILE"
+      fi
+    fi
+
+  else
+    echo "  Error: jq is required for this script to function properly"
+    rm "$TEMP_FILE"
+    exit 1
+  fi
+done
+
+if ! diff -q composer.json "$TEMP_FILE" > /dev/null; then
+  cp "$TEMP_FILE" composer.json
+  echo -e "\n${MAGENTA}Composer.json has been updated with the latest package versions.${NC}"
+else
+  echo -e "\n${GREEN}No updates needed, all packages are already on their latest versions.${NC}"
+fi
+
+rm "$TEMP_FILE"
+
+echo -e "\nNote: To increase GitHub API request limit, set the GITHUB_TOKEN environment variable."
