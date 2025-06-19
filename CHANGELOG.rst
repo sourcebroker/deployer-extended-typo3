@@ -6,6 +6,7 @@ master
 ~~~~~~
 
 1) [BUGFIX] Fix overwriting database `ignore_tables_out`.
+2) [TASK] Use LoadUtility::isLoaded to detect to change deploy flow when `sourcebroker/deployer-typo3-deploy` is loaded.
 
 24.0.0
 ~~~~~~
