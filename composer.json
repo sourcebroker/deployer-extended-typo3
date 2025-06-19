@@ -7,8 +7,8 @@
     "deployer"
   ],
   "require": {
-    "sourcebroker/deployer-typo3-deploy": "^1.0.0 || dev-main",
-    "sourcebroker/deployer-typo3-deploy-ci": "^1.0.0 || dev-main",
+    "sourcebroker/deployer-typo3-deploy": "^2.0.0 || dev-main",
+    "sourcebroker/deployer-typo3-deploy-ci": "^2.0.0 || dev-main",
     "sourcebroker/deployer-typo3-database": "^1.0.0 || dev-main",
     "sourcebroker/deployer-typo3-media": "^1.0.0 || dev-main",
     "sourcebroker/deployer-extended": "^24.0.0 || dev-master"
