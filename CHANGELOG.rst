@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-master
+25.0.0
 ~~~~~~
 
 1) [BUGFIX] Fix overwriting database `ignore_tables_out`.
