@@ -3,6 +3,7 @@
 namespace Deployer;
 
 // Extend "sourcebroker/deployer-typo3-deploy" and "sourcebroker/deployer-typo3-deploy-ci" deploy task
+
 if (\SourceBroker\DeployerLoader\Utility\LoadUtility::isLoaded(['package' => 'sourcebroker/deployer-typo3-deploy'])) {
 
     // sourcebroker/deployer-extended special task. Read more at https://github.com/sourcebroker/deployer-extended#deploy-check-lock

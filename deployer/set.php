@@ -3,6 +3,7 @@
 namespace Deployer;
 
 // We use custom bin/composer from https://github.com/sourcebroker/deployer-extended?tab=readme-ov-file#bin-composer
+// And because of that, can set the composer version.
 set('composer_channel', '2');
 
 // Add custom clear paths compared to base from sourcebroker/deployer-typo3-deploy*
@@ -12,17 +13,17 @@ add('clear_paths', [
     'README.md',
 ]);
 
-# Deployer standard is 300. This can be too little for db:media tasks.
+// Deployer standard is 300. This can be too little for db:media tasks.
 set('default_timeout', 900);
 
-# Deployer standard is 10 releases.
+// Deployer standard is 10 releases.
 set('keep_releases', 5);
 
-# For 100% hosters we used so far, the ssh username is the same as httpd user.
+// For 100% hosters we used so far, the ssh username is the same as httpd user.
 set('writable_mode', 'skip');
 
-# Force the branch to deploy to be explicitly set by `->set("branch", "main");` or by adding cli param `--branch=`
-# If branch is not set the task "deploy:check_branch_local" will stop deploy.
+// Force the branch to deploy to be explicitly set by `->set("branch", "main");` or by adding cli param `--branch=`
+// If branch is not set the task "deploy:check_branch_local" will stop deploy.
 set('branch', function () {
     return null;
 });
