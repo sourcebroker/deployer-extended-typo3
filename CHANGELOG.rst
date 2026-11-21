@@ -11,6 +11,10 @@ Changelog
    are added with ``db_databases_overwrite_global`` which is merged on use. Breaking because host level
    ``db_databases_overwrite`` (e.g. ``post_sql_in``) is executed again and because setting
    ``db_databases_overwrite_global`` in ``deploy.php`` with ``set()`` replaces tables added here. See UPGRADE.rst.
+2) [TASK][BREAKING] Set ``file_upload_build_rsync_options`` to ``['--no-perms', '--chmod=ugo=rwX,o-w']``, so files
+   uploaded by task ``file:upload_build`` get default permissions of the server instead of permissions from the build,
+   but never write permission for others. Requires ``sourcebroker/deployer-extended`` ``^24.3.0``. See UPGRADE.rst.
+
 
 25.0.0
 ~~~~~~

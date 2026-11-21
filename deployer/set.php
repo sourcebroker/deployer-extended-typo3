@@ -22,6 +22,10 @@ set('keep_releases', 5);
 // For 100% hosters we used so far, the ssh username is the same as httpd user.
 set('writable_mode', 'skip');
 
+// Files uploaded by "file:upload_build" (sourcebroker/deployer-extended) get default permissions of the server
+// (its umask) instead of permissions from the build, but never write permission for others.
+set('file_upload_build_rsync_options', ['--no-perms', '--chmod=ugo=rwX,o-w']);
+
 // Force the branch to deploy to be explicitly set by `->set("branch", "main");` or by adding cli param `--branch=`
 // If branch is not set the task "deploy:check_branch_local" will stop deploy.
 set('branch', function () {

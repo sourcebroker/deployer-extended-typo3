@@ -24,6 +24,14 @@ Changelog
    You can still add tables for one instance only with host level ``db_databases_overwrite``. It is merged on top
    and does not remove the tables added here.
 
+3) ``file_upload_build_rsync_options`` is set to ``['--no-perms', '--chmod=ugo=rwX,o-w']``, so files uploaded by
+   ``file:upload_build`` no longer keep permissions from the build. They get default permissions of the server
+   (its ``umask``, e.g. ``644``/``755`` for ``umask 0022``), but never write permission for others.
+   To keep source permissions as before set empty array:
+
+   ::
+
+       set('file_upload_build_rsync_options', []);
 
 20.0.0 -> 24.0.0
 ~~~~~~~~~~~~~~~~

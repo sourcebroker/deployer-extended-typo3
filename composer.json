@@ -11,7 +11,7 @@
     "sourcebroker/deployer-typo3-deploy-ci": "^2.0.0 || dev-main",
     "sourcebroker/deployer-typo3-database": "^1.0.0 || dev-main",
     "sourcebroker/deployer-typo3-media": "^1.0.0 || dev-main",
-    "sourcebroker/deployer-extended": "^24.0.0 || dev-master"
+    "sourcebroker/deployer-extended": "^24.3.0 || dev-master"
   },
   "authors": [
     {
