@@ -2,6 +2,29 @@
 Changelog
 ---------
 
+25.0.0 -> 26.0.0
+~~~~~~~~~~~~~~~~
+
+1) Host level ``db_databases_overwrite`` is applied again (it was ignored in 25.0.0). Check if ``post_sql_in``,
+   ``post_sql_in_markers`` or other settings you have there for hosts are still what you want to be executed
+   on ``db:pull``, ``db:copy``, ``db:import``.
+
+2) This package now adds its tables (``sys_history``, ``sys_log``, ``tx_powermail_domain_model_mail``,
+   ``tx_powermail_domain_model_answer``) to ``ignore_tables_out`` of ``database_default`` by setting
+   ``db_databases_overwrite_global`` (before it changed ``db_default``). If you set ``db_databases_overwrite_global``
+   in your ``deploy.php`` with ``set()`` you will replace those tables. Extend it instead. Do not use ``add()`` for it
+   as it fails on nested lists.
+
+   ::
+
+       $dbDatabasesOverwriteGlobal = get('db_databases_overwrite_global', []);
+       $dbDatabasesOverwriteGlobal['database_default'][0]['ignore_tables_out'][] = 'tx_my_table';
+       set('db_databases_overwrite_global', $dbDatabasesOverwriteGlobal);
+
+   You can still add tables for one instance only with host level ``db_databases_overwrite``. It is merged on top
+   and does not remove the tables added here.
+
+
 20.0.0 -> 24.0.0
 ~~~~~~~~~~~~~~~~
 

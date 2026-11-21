@@ -129,6 +129,42 @@ host('staging')
   ->set('deploy_path', '~/t3base13/staging');
 ```
 
+## Database: additional ignored tables and per instance SQL
+
+This package extends `ignore_tables_out` of `database_default` (from `sourcebroker/deployer-typo3-database`) with
+`sys_history`, `sys_log`, `tx_powermail_domain_model_mail` and `tx_powermail_domain_model_answer` by setting
+`db_databases_overwrite_global`. In your `deploy.php`:
+
+- To change something for **all instances** extend `db_databases_overwrite_global`. Do not `set()` it with a new
+  array, as this removes the tables added here. Do not use `add()`, it fails on nested lists.
+- To change something for **one instance** set `db_databases_overwrite` on its host. Typical use is `post_sql_in`,
+  executed after the database is imported into that instance (e.g. `dep db:pull live` run on it, or
+  `dep db:copy live --options=target:staging`).
+
+```php
+// all instances: add one more table to ignore_tables_out
+$dbDatabasesOverwriteGlobal = get('db_databases_overwrite_global', []);
+$dbDatabasesOverwriteGlobal['database_default'][0]['ignore_tables_out'][] = 'tx_my_table';
+set('db_databases_overwrite_global', $dbDatabasesOverwriteGlobal);
+
+// one instance: SQL executed after the database is imported into "staging"
+host('staging')
+    // ...
+    ->set('db_databases_overwrite', [
+        'database_default' => [
+            [
+                'post_sql_in' => '
+                    UPDATE tx_myext_table SET field = "value" WHERE uid = 1;
+                ',
+            ],
+        ],
+    ]);
+```
+
+Mind the inner array (`[ ... ]`) around the config. Lists like `ignore_tables_out` are extended (values can not be
+removed), strings like `post_sql_in` are replaced (host level wins). Full explanation in
+[deployer-extended-database](https://github.com/sourcebroker/deployer-extended-database#changing-db-databases-with-overwrites).
+
 ## Changelog
 
 See [CHANGELOG.rst](https://github.com/sourcebroker/deployer-extended-typo3/blob/master/CHANGELOG.rst)

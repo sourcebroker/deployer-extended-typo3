@@ -2,6 +2,16 @@
 Changelog
 ---------
 
+26.0.0
+~~~~~~
+
+1) [BUGFIX][BREAKING] Fix extending database ``ignore_tables_out``. In 25.0.0 ``db_databases_merged`` was read at load
+   time and set back as static value, so it was no longer computed per host and host level ``db_databases_overwrite``
+   (e.g. ``post_sql_in``) and project level ``db_databases_overwrite_global`` were ignored. Now additional tables
+   are added with ``db_databases_overwrite_global`` which is merged on use. Breaking because host level
+   ``db_databases_overwrite`` (e.g. ``post_sql_in``) is executed again and because setting
+   ``db_databases_overwrite_global`` in ``deploy.php`` with ``set()`` replaces tables added here. See UPGRADE.rst.
+
 25.0.0
 ~~~~~~
 

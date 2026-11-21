@@ -44,13 +44,17 @@ set('db_allow_copy_live', false);
 // Set custom database backup rotations
 set('db_dumpclean_keep', ['*' => 5, 'live' => 10]);
 
-// Extend ignore_tables_out defined in sourcebroker/deployer-typo3-database
-$dbDatabaseMerged = get('db_databases_merged');
-$dbDatabaseMerged['database_default']['ignore_tables_out'] = [
-    ...$dbDatabaseMerged['database_default']['ignore_tables_out'],
-    'sys_history',
-    'sys_log',
-    'tx_powermail_domain_model_mail',
-    'tx_powermail_domain_model_answer',
-];
-set('db_databases_merged', $dbDatabaseMerged);
+// Extend ignore_tables_out defined in sourcebroker/deployer-typo3-database. How to extend it in project deploy.php:
+// https://github.com/sourcebroker/deployer-extended-typo3#database-additional-ignored-tables-and-per-instance-sql
+set('db_databases_overwrite_global', [
+    'database_default' => [
+        [
+            'ignore_tables_out' => [
+                'sys_history',
+                'sys_log',
+                'tx_powermail_domain_model_mail',
+                'tx_powermail_domain_model_answer',
+            ],
+        ],
+    ],
+]);
