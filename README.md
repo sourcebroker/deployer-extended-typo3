@@ -163,8 +163,8 @@ host('staging')
 
 Mind the inner array (`[ ... ]`) around the config. Lists like `ignore_tables_out` are extended (values can not be
 removed), strings like `post_sql_in` are replaced (host level wins). Full explanation in
-[deployer-extended-database](https://github.com/sourcebroker/deployer-extended-database#changing-db-databases-with-overwrites).
+[deployer-extended-database](https://github.com/sourcebroker/deployer-extended-database#changing-db_databases-with-overwrites).
 
 ## Changelog
 
-See [CHANGELOG.rst](https://github.com/sourcebroker/deployer-extended-typo3/blob/master/CHANGELOG.rst)
+See [CHANGELOG.md](https://github.com/sourcebroker/deployer-extended-typo3/blob/master/CHANGELOG.md)
