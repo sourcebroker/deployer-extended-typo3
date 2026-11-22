@@ -2,6 +2,7 @@
 
 [![Packagist Version](http://img.shields.io/packagist/v/sourcebroker/deployer-extended-typo3.svg?style=flat)](https://packagist.org/packages/sourcebroker/deployer-extended-typo3)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://packagist.org/packages/sourcebroker/deployer-extended-typo3)
+[![Deployer 7 | 8](https://img.shields.io/badge/Deployer-7%20%7C%208-blue.svg?style=flat)](https://deployer.org)
 
 > [!NOTE]
 >
